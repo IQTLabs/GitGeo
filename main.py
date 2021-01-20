@@ -59,7 +59,7 @@ def get_github_repo(pkg):
 	# Add project url fields
 	for _, url in pypi_pkg["info"]["project_urls"].items():
 		potential_github_fields.append(url)
-	#TODO: Add a search of the text in PyPI for any GitHub mentions
+	# TODO: Add a search of the text in PyPI for any GitHub mentions
 	# Only do this for second revision
 	for field in potential_github_fields:
 		# Any field with github in it must be github link
@@ -103,6 +103,10 @@ def get_contributor_location(user):
 	Return:
 		str: a geographic location
 	"""
+	# TODO: What to do if location is not present? What to do
+	# if location is not listed in profile?
+	# https://stackoverflow.com/questions/26983017/detect-ip-address-of-github-commit
+	# https://gist.github.com/paulmillr/2657075
 	r = requests.get('https://api.github.com/users/' + user)
 	
 	user_location = ''
@@ -114,11 +118,12 @@ def get_contributor_location(user):
 
 
 if __name__ == "__main__":
-	# top_pkgs = get_top_python_packages()
-	# for pkg in top_pkgs:
+	#top_pkgs = get_top_python_packages()
+	#print(top_pkgs)
+	#for pkg in top_pkgs:
 	# 	print(pkg, ": ", get_github_repo(pkg))
-	# print(get_contributors("psf/requests"))
-	print(get_contributor_location('anarkiwi'))
+	print(get_contributors("psf/requests"))
+	# print(get_contributor_location('anarkiwi'))
 
 
 # For each committer, check if there is geographic location
