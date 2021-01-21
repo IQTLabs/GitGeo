@@ -25,7 +25,7 @@ def parse_arguments():
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("--package",
-						help="Specify Python (PyPI) package.")
+			    help="Specify Python (PyPI) package.")
 	
 	return parser.parse_args()
 
