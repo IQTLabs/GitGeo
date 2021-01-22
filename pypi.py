@@ -6,7 +6,7 @@ import sys
 import requests
 
 # todo: remove simplejson from code unless really needed
-import simplejson
+# import simplejson
 
 
 def get_top_python_packages(top_N=100):
@@ -54,7 +54,8 @@ def get_github_repo(pkg):
         pkg_url = "https://pypi.org/pypi/" + pkg + "/json"
         response = requests.get(pkg_url)
         pypi_pkg = response.json()
-    except simplejson.errors.JSONDecodeError:
+    # TODO: Fix bare except with non-simplejson JSON error type
+    except:
         print("ERROR: No such package on PyPI")
         sys.exit(1)
 
