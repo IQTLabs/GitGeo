@@ -49,6 +49,13 @@ def scan_single_package(pkg):
 		location = get_contributor_location(contributor)
 		print(contributor, "|", location)
 
+def scan_top_package(top_n=100):
+	"""Stub for scanning most downloaded python packages"""
+	pass
+
+def scan_dependencies(filename):
+	"""Stub for scanning a requirements.txt or similar dependencies file"""
+	pass
 
 if __name__ == "__main__":
 
