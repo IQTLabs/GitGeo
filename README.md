@@ -8,3 +8,6 @@ Identify geographic location of GitHub committers associated with python package
 
 Usage:
 ```python main.py --package [package_name]```
+
+Run tests:
+```pytest```
