@@ -2,6 +2,7 @@
 
 import pytest
 
+from github import get_contributors, get_contributor_location
 from pypi import get_top_python_packages, get_github_repo
 
 
@@ -39,6 +40,23 @@ class TestPypiFunctionality:
         with pytest.raises(Exception):
             get_github_repo("thispackageismalware")
 
-        # TODO: add tests for repos that don't have github link in normal section
-        # but are in package description. Need to add this functioality first.
+    @pytest.mark.xfail  # test should fail, until functionality implemented
+    def test_get_github_repo_with_link_in_description(self):
+        """Unit test for get_github_repo functionality that is not yet implemented"""
         # Could be a good hands-dirty task for Kinga
+        github_repo = get_github_repo("python-dateutil")
+        assert github_repo == "dateutil/dateutil"
+
+
+class TestGitHubFunctionality:
+    """Unit tests related to GitHub functionality"""
+
+    def test_get_contributors(self):
+        """Unit test for get_contributors()"""
+        contributors = get_contributors("jspeed-meyers/pcap2map")
+        assert contributors == ["jspeed-meyers"]
+
+    def test_get_contributor_location(self):
+        """Unit test for get_contributor_location()"""
+        location = get_contributor_location("anarkiwi")
+        assert location == "Wellington, New Zealand"
