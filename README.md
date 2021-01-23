@@ -58,5 +58,7 @@ pytest
 ## Roadmap
 
 - Add capability to specify a github repo directly, not just python package
+- Add GitHub actions
+- Add badges
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
 - Add scan of top X PyPI packages capability
