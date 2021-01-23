@@ -64,6 +64,7 @@ class TestGitHubFunctionality:
         location = get_contributor_location("anarkiwi")
         assert location == "Wellington, New Zealand"
 
+
 class TestCsvFunctionality:
     def test_create_csv(self):
         """Unit test for create_csv()"""
@@ -72,4 +73,4 @@ class TestCsvFunctionality:
 
     def test_add_committer_to_csv(self):
         add_committer_to_csv("googlemoogle", "eschmidt", "innovation-island")
-        os.remove("git-geo-results.csv") # remove file
+        os.remove("git-geo-results.csv")  # remove file
