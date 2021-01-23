@@ -34,35 +34,51 @@ def get_top_python_packages(top_N=100):
         return top_pkgs
 
 
-def get_github_repo(pkg):
-    """Return GitHub repo associated with a python package
-
-    NOTE: Only the repo owner and and repo name are returned.
-    Not the whole URL. e.g. psf/requrests.
+def get_pypi_data(pkg):
+    """Return data associated with a python package
 
     Args:
         pkg: the name of a python package found on PyPI
 
     Returns:
-        str: the owner and name of a github URL
+        dict: data related to a PyPI package
     """
     # Retrieve PyPI package JSON data
     try:
         pkg_url = "https://pypi.org/pypi/" + pkg + "/json"
         response = requests.get(pkg_url)
-        pypi_pkg = response.json()
+        pypi_pkg_json = response.json()
     # TODO: Fix bare except with non-simplejson JSON error type
     except:
         print("Exception: ", e)
         print("ERROR: No such package on PyPI")
         sys.exit(1)  # 1 indicates error
 
+    pypi_data = {}
+
+    pypi_data["github_owner_and_repo"] = get_github_URL_owner_and_repo(pypi_pkg_json)
+
+    return pypi_data
+
+
+def get_github_URL_owner_and_repo(pypi_pkg_json):
+    """Retrieve owner and repo associated with GitHub URL
+
+    e.g. psf/requests, NOT https://www.github.com/psf/requests
+
+    Args:
+        pypi_pkg_json: a json blob of pypi package data
+
+    Returns:
+
+        str: owner and repo name associated with GitHub URL
+    """
     github_page = ""
     # Check potential fields for a github link
-    potential_github_fields = [pypi_pkg["info"]["home_page"]]
+    potential_github_fields = [pypi_pkg_json["info"]["home_page"]]
     # Add project url fields if url fields present
-    if pypi_pkg["info"]["project_urls"]:
-        for _, url in pypi_pkg["info"]["project_urls"].items():
+    if pypi_pkg_json["info"]["project_urls"]:
+        for _, url in pypi_pkg_json["info"]["project_urls"].items():
             potential_github_fields.append(url)
     # TODO: Add a search of the text in PyPI for any GitHub mentions
 
@@ -77,3 +93,15 @@ def get_github_repo(pkg):
     github_owner_and_repo = ("/").join(github_page_elements)
 
     return github_owner_and_repo
+
+
+def get_pypi_maintainers(pypi_pkg_json):
+    """Extract list of PyPI maintainers, i.e. those with publish rights
+
+    Args:
+        pypi_pkg_json: a json blob of pypi package data
+
+    Returns:
+        list: one or more maintainer PyPI usernames
+    """
+    pass
