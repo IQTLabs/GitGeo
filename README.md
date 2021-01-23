@@ -12,6 +12,8 @@ Usage (requires internet connection):
 
 Advanced usage to increase number of GitHub API calls allowed per hour:
 
+Create [GitHub personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
+
 ```bash
 export GITHUB_USERNAME='[github_username]'
 ```
