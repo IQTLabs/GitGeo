@@ -7,7 +7,9 @@ Identify geographic location of GitHub committers associated with python package
 - IT security compliance
 - Research on open source software ecosystem
 
-Usage (requires internet connection):
+## Usage
+
+(requires internet connection)
 
 ```python main.py --package [package_name]```
 
