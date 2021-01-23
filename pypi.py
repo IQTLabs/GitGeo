@@ -56,17 +56,19 @@ def get_github_repo(pkg):
         pypi_pkg = response.json()
     # TODO: Fix bare except with non-simplejson JSON error type
     except:
+        print("Exception: ", e)
         print("ERROR: No such package on PyPI")
-        sys.exit(1)
+        sys.exit(1)  # 1 indicates error
 
     github_page = ""
     # Check potential fields for a github link
     potential_github_fields = [pypi_pkg["info"]["home_page"]]
-    # Add project url fields
-    for _, url in pypi_pkg["info"]["project_urls"].items():
-        potential_github_fields.append(url)
+    # Add project url fields if url fields present
+    if pypi_pkg["info"]["project_urls"]:
+        for _, url in pypi_pkg["info"]["project_urls"].items():
+            potential_github_fields.append(url)
     # TODO: Add a search of the text in PyPI for any GitHub mentions
-    # Only do this for second revision
+
     for field in potential_github_fields:
         # Any field with github in it must be github link
         if "github" in field:
