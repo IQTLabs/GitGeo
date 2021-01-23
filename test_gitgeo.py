@@ -1,7 +1,10 @@
 """Unit tests and integration tests for git-geo"""
 
+import os
+
 import pytest
 
+from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location
 from pypi import get_top_python_packages, get_github_repo
 
@@ -60,3 +63,13 @@ class TestGitHubFunctionality:
         """Unit test for get_contributor_location()"""
         location = get_contributor_location("anarkiwi")
         assert location == "Wellington, New Zealand"
+
+class TestCsvFunctionality:
+    def test_create_csv(self):
+        """Unit test for create_csv()"""
+        create_csv()
+        assert os.path.exists("git-geo-results.csv") == True
+
+    def test_add_committer_to_csv(self):
+        add_committer_to_csv("googlemoogle", "eschmidt", "innovation-island")
+        os.remove("git-geo-results.csv") # remove file
