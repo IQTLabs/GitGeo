@@ -3,7 +3,8 @@ Identify geographic location of GitHub committers associated with python package
 
 ## Why use git-geo?
 - Curiosity
-- IT Security Compliance
+- Open source software community managemenet
+- IT security compliance
 - Research on open source software ecosystem
 
 Usage (requires internet connection):
@@ -56,5 +57,6 @@ pytest
 
 ## Roadmap
 
+- Add capability to specify a github repo directly, not just python package
+- Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
 - Add scan of top X PyPI packages capability
-- Add country text extraction capability
