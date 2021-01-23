@@ -1,5 +1,7 @@
 """GitHub API-related functionality"""
 
+# TODO: Will GitHub call now work if user does NOT enter environment variables?
+
 import json
 import os
 
