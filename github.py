@@ -1,8 +1,14 @@
 """GitHub API-related functionality"""
 
 import json
+import os
 
 import requests
+
+# access secret token for GitHub API to increase rate limit
+GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
+
 
 # Identify up to top 100 committers associated with a Github repo
 def get_contributors(repo):
@@ -16,9 +22,9 @@ def get_contributors(repo):
     """
     # TODO: Consider looping thru pages 1-5. The github contributors API will return up
     # to 500 contributors
-    # TODO: Enable using GitHub token (need to create one and then store in secret file)
     response = requests.get(
-        "https://api.github.com/repos/" + repo + "/contributors?page=1&per_page=100"
+        "https://api.github.com/repos/" + repo + "/contributors?page=1&per_page=100",
+        auth=(GITHUB_USERNAME, GITHUB_TOKEN),
     )
 
     committers = []
@@ -43,13 +49,13 @@ def get_contributor_location(user):
     # if location is not listed in profile?
     # https://stackoverflow.com/questions/26983017/detect-ip-address-of-github-commit
     # https://gist.github.com/paulmillr/2657075
-    response = requests.get("https://api.github.com/users/" + user)
+    response = requests.get(
+        "https://api.github.com/users/" + user, auth=(GITHUB_USERNAME, GITHUB_TOKEN)
+    )
 
     user_location = ""
     if response.ok:
         user_info = json.loads(response.text or response.content)
         user_location = user_info["location"]
-
-    # TODO: consider returning "NA" when no value available
 
     return user_location
