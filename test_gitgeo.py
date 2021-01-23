@@ -54,6 +54,10 @@ class TestPypiFunctionality:
         pythondateutil_pypi_data = get_pypi_data("python-dateutil")
         assert pythondateutil_pypi_data["github_owner_and_repo"] == "dateutil/dateutil"
 
+    def test_get_pypi_maintainers(selfe):
+        """Unit test for get_pypi_maintainers()"""
+        requests_pypi_data = get_pypi_data("pcap2map")
+        assert requests_pypi_data["pypi_maintainers"] == ["jspeed-meyers"]
 
 class TestGitHubFunctionality:
     """Unit tests related to GitHub functionality"""
