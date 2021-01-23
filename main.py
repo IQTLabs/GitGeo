@@ -31,11 +31,15 @@ def scan_single_package(pkg):
     print("PACKAGE: {}".format(pkg))
     print("-----------------")
     print("CONTRIBUTOR, LOCATION")
+    print("* indicates PyPI maintainer")
     print("---------------------")
     for contributor in contributors:
         location = get_contributor_location(contributor)
         try:
-            print(contributor, "|", location)
+            if contributor in pypi_data["pypi_maintainers"]:
+                print(contributor, "*",  "|", location)
+            else:
+                print(contributor,  "|", location)
         except UnicodeEncodeError as error:
             print(contributor, "| error")
 
