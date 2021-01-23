@@ -59,6 +59,7 @@ class TestPypiFunctionality:
         requests_pypi_data = get_pypi_data("pcap2map")
         assert requests_pypi_data["pypi_maintainers"] == ["jspeed-meyers"]
 
+
 class TestGitHubFunctionality:
     """Unit tests related to GitHub functionality"""
 
