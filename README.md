@@ -6,7 +6,15 @@ Identify geographic location of GitHub committers associated with python package
 - IT Security Compliance
 - Research on open source software ecosystem
 
-Usage:
+Usage (requires internet connection):
+
+```python main.py --package [package_name]```
+
+Advanced usage to increase number of GitHub API calls allowed per hour:
+
+```{bash} export GITHUB_USERNAME='[github_username]' ```
+
+```{bash} export GITHUB_TOKEN='[github_token]' ```
 
 ```python main.py --package [package_name]```
 
