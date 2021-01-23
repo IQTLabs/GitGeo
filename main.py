@@ -1,8 +1,5 @@
 """Identify committer geographies associated with python package"""
 
-# todo: add github API token capability to increase allowable
-# rate of GitHub API usage
-
 import argparse
 
 from custom_csv import create_csv, add_committer_to_csv
