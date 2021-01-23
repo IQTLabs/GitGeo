@@ -7,9 +7,11 @@ Identify geographic location of GitHub committers associated with python package
 - Research on open source software ecosystem
 
 Usage:
+
 ```python main.py --package [package_name]```
 
 Run tests:
+
 ```pytest```
 
 ## Roadmap
