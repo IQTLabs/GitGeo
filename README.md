@@ -12,15 +12,23 @@ Usage (requires internet connection):
 
 Advanced usage to increase number of GitHub API calls allowed per hour:
 
-```{bash} export GITHUB_USERNAME='[github_username]' ```
+```bash
+export GITHUB_USERNAME='[github_username]'
+```
 
-```{bash} export GITHUB_TOKEN='[github_token]' ```
+```bash
+export GITHUB_TOKEN='[github_token]'
+```
 
-```python main.py --package [package_name]```
+```bash
+python main.py --package [package_name]
+```
 
 Run tests:
 
-```pytest```
+```bash
+pytest
+```
 
 ## Roadmap
 
