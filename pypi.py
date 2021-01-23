@@ -3,6 +3,7 @@
 import json
 import sys
 
+from bs4 import BeautifulSoup
 import requests
 
 
@@ -57,6 +58,7 @@ def get_pypi_data(pkg):
     pypi_data = {}
 
     pypi_data["github_owner_and_repo"] = get_github_URL_owner_and_repo(pypi_pkg_json)
+    pypi_data["pypi_maintainers"] = get_pypi_maintainers(pkg)
 
     return pypi_data
 
@@ -95,13 +97,28 @@ def get_github_URL_owner_and_repo(pypi_pkg_json):
     return github_owner_and_repo
 
 
-def get_pypi_maintainers(pypi_pkg_json):
+def get_pypi_maintainers(pkg):
     """Extract list of PyPI maintainers, i.e. those with publish rights
 
+    PyPI JSON endpoint does not contain the maintainers' data found in the
+    PyPI UI. IMO, this is an oversight. To retrieve PyPI maintainers date,
+    use web scraping. There will be a speed penalty, but this feature was
+    given a strong priority.
+
     Args:
-        pypi_pkg_json: a json blob of pypi package data
+        pkg: package name
 
     Returns:
         list: one or more maintainer PyPI usernames
     """
-    pass
+    # Scrape regular PyPI package site
+    url = "https://pypi.org/project/" + pkg
+    html = requests.get(url)
+    soup = BeautifulSoup(html.content, "html.parser")
+    elements = soup.findAll("span", {"class": "sidebar-section__user-gravatar-text"})
+    # Strip white space from all elements
+    maintainers_full_list = [elem.string.strip() for elem in elements]
+    # Remove duplicates via set, then sort a list of maintainers
+    maintainers_list = sorted(list(set(maintainers_full_list)))
+
+    return maintainers_list
