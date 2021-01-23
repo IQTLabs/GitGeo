@@ -32,5 +32,4 @@ pytest
 
 ## Roadmap
 
-- Identify those contributors with GitHub repo commit rights with asterisk
 - Identify those contributors with PyPI publish rights with separate asterisk type
