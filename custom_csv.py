@@ -12,11 +12,8 @@ def create_csv():
     """
     # delete csv if it already exists
     filename = "git-geo-results.csv"
-    try:
+    if os.path.exists(filename):
         os.remove(filename)
-    except OSError:
-        print("ERROR: File import error")
-        sys.exit(1)
 
     # Create new csv file with column names
     with open(filename, "w") as file:
