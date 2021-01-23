@@ -1,6 +1,6 @@
 """Identify committer geographies associated with python package"""
 
-# todo: add github API token capability to increate allowable
+# todo: add github API token capability to increase allowable
 # rate of GitHub API usage
 
 import argparse
