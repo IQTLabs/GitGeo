@@ -5,9 +5,6 @@ import sys
 
 import requests
 
-# todo: remove simplejson from code unless really needed
-# import simplejson
-
 
 def get_top_python_packages(top_N=100):
     """Generate list of most downloaded python packages
