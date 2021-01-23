@@ -32,4 +32,4 @@ pytest
 
 ## Roadmap
 
-- Identify those contributors with PyPI publish rights with separate asterisk type
+- Identify those contributors with PyPI publish rights with an asterisk
