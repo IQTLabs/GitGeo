@@ -6,7 +6,7 @@ import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location
-from pypi import get_top_python_packages, get_github_repo
+from pypi import get_top_python_packages, get_pypi_data, get_github_URL_owner_and_repo
 
 
 class TestPypiFunctionality:
@@ -23,32 +23,36 @@ class TestPypiFunctionality:
             "python-dateutil",
         ]
 
-    def test_get_github_repo(self):
-        """Unit test for get_github_repo()"""
+    def test_get_pypi_data(self):
+        """Unit test for get_pypi_data()"""
+        requests_pypi_data = get_pypi_data("requests")
+
+    def test_get_github_URL_owner_and_repo(self):
+        """Unit tests for get_github_URL_owner_and_repo()"""
         # tests for packages with standard location of GitHub link on PyPI page
-        github_repo_requests = get_github_repo("requests")
-        assert github_repo_requests == "psf/requests"
-        github_repo_networkml = get_github_repo("networkml")
-        assert github_repo_networkml == "IQTLabs/NetworkML"
+        requests_pypi_data = get_pypi_data("requests")
+        assert requests_pypi_data["github_owner_and_repo"] == "psf/requests"
+        networkml_pypi_data = get_pypi_data("networkml")
+        assert networkml_pypi_data["github_owner_and_repo"] == "IQTLabs/NetworkML"
 
         # tests for packages with no GitHub link on PyPI page
-        github_repo_reportlab = get_github_repo("reportlab")
-        assert github_repo_reportlab == ""
-        github_repo_bfengine = get_github_repo("bfengine")
-        assert github_repo_bfengine == ""
+        reportlab_pypi_data = get_pypi_data("reportlab")
+        assert reportlab_pypi_data["github_owner_and_repo"] == ""
+        bfengine_pypi_data = get_pypi_data("bfengine")
+        assert bfengine_pypi_data["github_owner_and_repo"] == ""
 
         # test for package names that are not on PyPI
         with pytest.raises(Exception):
-            get_github_repo("googlemooglegoogle")
+            get_pypi_data("googlemooglegoogle")
         with pytest.raises(Exception):
-            get_github_repo("thispackageismalware")
+            get_pypi_data("thispackageismalware")
 
     @pytest.mark.xfail  # test should fail, until functionality implemented
-    def test_get_github_repo_with_link_in_description(self):
-        """Unit test for get_github_repo functionality that is not yet implemented"""
+    def test_get_github_url_owner_and_repo_with_link_in_description(self):
+        """Unit test for get_github_URL_owner_and_repo functionality that is not yet implemented"""
         # Could be a good hands-dirty task for Kinga
-        github_repo = get_github_repo("python-dateutil")
-        assert github_repo == "dateutil/dateutil"
+        pythondateutil_pypi_data = get_pypi_data("python-dateutil")
+        assert pythondateutil_pypi_data["github_owner_and_repo"] == "dateutil/dateutil"
 
 
 class TestGitHubFunctionality:
@@ -66,11 +70,14 @@ class TestGitHubFunctionality:
 
 
 class TestCsvFunctionality:
+    """Unit tests related to CSV functionality"""
+
     def test_create_csv(self):
         """Unit test for create_csv()"""
         create_csv()
-        assert os.path.exists("git-geo-results.csv") == True
+        assert os.path.exists("git-geo-results.csv")
 
     def test_add_committer_to_csv(self):
+        """Unit test fpr add_committer_to_csv"""
         add_committer_to_csv("googlemoogle", "eschmidt", "innovation-island")
         os.remove("git-geo-results.csv")  # remove file
