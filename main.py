@@ -37,7 +37,10 @@ def scan_single_package(pkg):
     print("---------------------")
     for contributor in contributors:
         location = get_contributor_location(contributor)
-        print(contributor, "|", location)
+        try:
+            print(contributor, "|", location)
+        except UnicodeEncodeError as error:
+            print(contributor, "| error")
 
 
 def scan_top_package(top_n=100):
