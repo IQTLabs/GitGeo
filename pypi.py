@@ -50,7 +50,6 @@ def get_pypi_data(pkg):
         pkg_url = "https://pypi.org/pypi/" + pkg + "/json"
         response = requests.get(pkg_url)
         pypi_pkg_json = response.json()
-    # TODO: Fix bare except with non-simplejson JSON error type
     except urllib.error.HTTPError:
         print("ERROR: No such package on PyPI")
         sys.exit(1)  # 1 indicates error
