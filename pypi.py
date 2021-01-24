@@ -2,6 +2,7 @@
 
 import json
 import sys
+import urllib
 
 from bs4 import BeautifulSoup
 import requests
@@ -50,7 +51,7 @@ def get_pypi_data(pkg):
         response = requests.get(pkg_url)
         pypi_pkg_json = response.json()
     # TODO: Fix bare except with non-simplejson JSON error type
-    except:
+    except urllib.error.HTTPError:
         print("ERROR: No such package on PyPI")
         sys.exit(1)  # 1 indicates error
 
