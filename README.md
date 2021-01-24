@@ -59,7 +59,6 @@ pytest
 
 ## Roadmap
 
-- Add capability to specify a github repo directly, not just python package
 - Migrate to IQTLabs repo and rename GitGeo
 - Add GitHub actions
 - Add badges
