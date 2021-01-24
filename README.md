@@ -1,7 +1,7 @@
 # GitGeo
-Identify geographic location of GitHub committers associated with python packages
+Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
 
-## Why use git-geo?
+## Why use GitGeo?
 - Curiosity
 - Open source software community managemenet
 - IT security compliance
@@ -51,6 +51,10 @@ export GITHUB_TOKEN='[github_token]'
 python main.py --package [package_name]
 ```
 
+```bash
+python main.py --repo [github_repo_name]
+```
+
 Run tests:
 
 ```bash
@@ -59,7 +63,17 @@ pytest
 
 ## Roadmap
 
-- Add GitHub actions
+- Add GitHub actions and pass tests once
 - Add badges
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
+- Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
+  in typical PyPI package metadata location
 - Add scan of top X PyPI packages capability
+
+## Want to contribute?
+
+- Open a PR. We are glad to accept pull requests. We use black and pylint, though we
+  are glad to help if you haven't used those tools before.
+- Open an issue. Tell us your problem or a functionality you want.
+- Want to help build a community related to GitGeo and similar open source software
+  ecosystem exploration tools? Please send an email to jmeyers@iqt.org.
