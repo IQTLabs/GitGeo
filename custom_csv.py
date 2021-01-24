@@ -2,7 +2,6 @@
 
 import csv
 import os
-import sys
 
 
 def create_csv():
