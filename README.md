@@ -1,3 +1,5 @@
+![GitHub Actions Unit Tests](https://github.com/IQTLabs/GitGeo/workflows/Python%20package/badge.svg)
+
 # GitGeo
 Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
 
@@ -63,7 +65,6 @@ pytest
 
 ## Roadmap
 
-- Add GitHub actions and pass tests once
 - Add badges
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
 - Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
