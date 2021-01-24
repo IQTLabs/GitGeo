@@ -2,10 +2,10 @@
 
 import argparse
 
-
+# uncomment these imports when building top package scan functionality
 # from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location
-from pypi import get_pypi_data #, get_top_python_packages
+from pypi import get_pypi_data  # , get_top_python_packages
 
 
 def parse_arguments():
