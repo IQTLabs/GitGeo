@@ -6,7 +6,7 @@ import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location
-from pypi import get_top_python_packages, get_pypi_data, get_github_URL_owner_and_repo
+from pypi import get_top_python_packages, get_pypi_data
 
 
 class TestPypiFunctionality:
