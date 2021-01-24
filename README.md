@@ -59,7 +59,6 @@ pytest
 
 ## Roadmap
 
-- Migrate to IQTLabs repo and rename GitGeo
 - Add GitHub actions
 - Add badges
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
