@@ -90,7 +90,7 @@ def get_github_URL_owner_and_repo(pypi_pkg_json):
             break
 
     # Extract repo owner and repo name only
-    #TODO: put in ow function
+    #TODO: put in own function
     github_page_elements = github_page.split("/")[-2:]
     github_owner_and_repo = ("/").join(github_page_elements)
 
