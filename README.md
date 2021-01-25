@@ -88,6 +88,7 @@ pytest
 - Add scan of top X PyPI packages capability
 - Add visualization capability
 - Add codacy integration and badge
+- Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
 
 ## Known bugs
 
