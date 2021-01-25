@@ -6,7 +6,7 @@ import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location
-from pypi import get_top_python_packages, get_pypi_data
+from pypi import get_top_python_packages, get_pypi_data, extract_github_owner_and_repo
 
 
 class TestPypiFunctionality:
@@ -72,6 +72,11 @@ class TestGitHubFunctionality:
         """Unit test for get_contributor_location()"""
         location = get_contributor_location("anarkiwi")
         assert location == "Wellington, New Zealand"
+
+    def test_extract_github_owner_and_repo(self):
+        """Unit test for extract_github_owner_and_repo()"""
+        owner_and_repo = extract_github_owner_and_repo("www.github.com/psf/requests")
+        assert owner_and_repo == "psf/requests"
 
 
 class TestCsvFunctionality:
