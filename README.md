@@ -15,6 +15,13 @@ Discover the geography of open-source software. Explore the geographic locations
 - IT security compliance
 - Research on open source software ecosystem
 
+## Install
+
+```bash
+git clone https://github.com/IQTLabs/GitGeo
+cd GitGeo
+```
+
 ## Usage
 
 (requires internet connection)
@@ -54,6 +61,8 @@ export GITHUB_USERNAME='[github_username]'
 ```bash
 export GITHUB_TOKEN='[github_token]'
 ```
+
+- Second, run one of these commands.
 
 ```bash
 python main.py --package [package_name]
