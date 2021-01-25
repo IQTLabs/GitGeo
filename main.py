@@ -5,7 +5,7 @@ import argparse
 # uncomment these imports when building top package scan functionality
 # from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location
-from pypi import get_pypi_data  # , get_top_python_packages
+from pypi import get_pypi_data, extract_github_owner_and_repo  # , get_top_python_packages
 
 
 def parse_arguments():
@@ -31,6 +31,7 @@ def scan_single_package(pkg):
     contributors = get_contributors(pypi_data["github_owner_and_repo"])
     print("-----------------")
     print("PACKAGE: {}".format(pkg))
+    print("GITHUB REPO: {}".format(pypi_data["github_owner_and_repo"]))
     print("-----------------")
     print("CONTRIBUTOR, LOCATION")
     print("* indicates PyPI maintainer")
@@ -55,8 +56,7 @@ def scan_single_repo(repo):
     Returns:
         null
     """
-    repo_ending_list = repo.split("/")[-2:]
-    repo_ending_string = ("/").join(repo_ending_list)
+    repo_ending_string = extract_github_owner_and_repo(repo)
     contributors = get_contributors(repo_ending_string)
     print("-----------------")
     print("PACKAGE: {}".format(repo_ending_string))
