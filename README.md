@@ -1,5 +1,7 @@
 ![GitHub Actions Unit Tests](https://github.com/IQTLabs/GitGeo/workflows/Python%20package/badge.svg)
 ![Python Versions Supported](https://github.com/IQTLabs/GitGeo/blob/main/badges/python_versions_supported.svg)
+![CodeQL](https://github.com/IQTLabs/GitGeo/workflows/CodeQL/badge.svg)
+
 # GitGeo
 Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
 
