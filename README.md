@@ -86,7 +86,12 @@ pytest
 - Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
   in typical PyPI package metadata location
 - Add scan of top X PyPI packages capability
+- Add visualization capability
 - Add codacy integration and badge
+
+## Known bugs
+
+- Incorrectly parses GitHub URL's retrieved from PyPI that refer to pages other than the main landing page of a GitHub repo, for instance matplotlib
 
 ## Want to contribute?
 
