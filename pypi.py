@@ -90,6 +90,7 @@ def get_github_URL_owner_and_repo(pypi_pkg_json):
             break
 
     # Extract repo owner and repo name only
+    #TODO: put in ow function
     github_page_elements = github_page.split("/")[-2:]
     github_owner_and_repo = ("/").join(github_page_elements)
 
@@ -117,7 +118,7 @@ def get_pypi_maintainers(pkg):
     elements = soup.findAll("span", {"class": "sidebar-section__user-gravatar-text"})
     # Strip white space from all elements
     maintainers_full_list = [elem.string.strip() for elem in elements]
-    # Remove duplicates via set, then sort a list of maintainers
-    maintainers_list = sorted(list(set(maintainers_full_list)))
+    # Remove duplicates via set
+    maintainers_list = list(set(maintainers_full_list))
 
     return maintainers_list
