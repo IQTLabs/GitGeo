@@ -80,11 +80,11 @@ pytest
 
 ## Roadmap
 
-- Add badges
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
 - Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
   in typical PyPI package metadata location
 - Add scan of top X PyPI packages capability
+- Add codacy integration and badge
 
 ## Want to contribute?
 
