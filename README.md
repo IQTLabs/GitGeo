@@ -1,4 +1,5 @@
 ![GitHub Actions Unit Tests](https://github.com/IQTLabs/GitGeo/workflows/Python%20package/badge.svg)
+[![codecov](https://codecov.io/gh/IQTLabs/GitGeo/branch/main/graph/badge.svg?token=W5DVGL0VMN)](https://codecov.io/gh/IQTLabs/GitGeo)
 ![Python Versions Supported](https://github.com/IQTLabs/GitGeo/blob/main/badges/python_versions_supported.svg)
 ![CodeQL](https://github.com/IQTLabs/GitGeo/workflows/CodeQL/badge.svg)
 
