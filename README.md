@@ -1,6 +1,6 @@
 ![GitHub Actions Unit Tests](https://github.com/IQTLabs/GitGeo/workflows/Python%20package/badge.svg)
 [![codecov](https://codecov.io/gh/IQTLabs/GitGeo/branch/main/graph/badge.svg?token=W5DVGL0VMN)](https://codecov.io/gh/IQTLabs/GitGeo)
-![pylint Score](https://mperlet.github.io/pybadge/badges/8.34.svg)
+![pylint Score](https://mperlet.github.io/pybadge/badges/8.9.svg)
 ![Python Versions Supported](https://github.com/IQTLabs/GitGeo/blob/main/badges/python_versions_supported.svg)
 ![CodeQL](https://github.com/IQTLabs/GitGeo/workflows/CodeQL/badge.svg)
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
