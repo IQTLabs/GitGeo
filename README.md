@@ -3,6 +3,7 @@
 ![pylint Score](https://mperlet.github.io/pybadge/badges/7.37.svg)
 ![Python Versions Supported](https://github.com/IQTLabs/GitGeo/blob/main/badges/python_versions_supported.svg)
 ![CodeQL](https://github.com/IQTLabs/GitGeo/workflows/CodeQL/badge.svg)
+[![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
