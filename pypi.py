@@ -90,10 +90,24 @@ def get_github_URL_owner_and_repo(pypi_pkg_json):
             break
 
     # Extract repo owner and repo name only
-    # TODO: put in own function
+    github_owner_and_repo = extract_github_owner_and_repo(github_page)
+
+    return github_owner_and_repo
+
+
+def extract_github_owner_and_repo(github_page):
+    """Extract only owner and repo name from GitHub page
+
+    https://www.github.com/psf/requests -> psf/requests
+
+    Args:
+        github_page - a reference, e.g. a URL, to a GitHub repo
+
+    Returns:
+        str: owner and repo joined by a '/'
+    """
     github_page_elements = github_page.split("/")[-2:]
     github_owner_and_repo = ("/").join(github_page_elements)
-
     return github_owner_and_repo
 
 
