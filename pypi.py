@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def get_top_python_packages(top_N=100):
+def get_top_python_packages(top_n=100):
     """Generate list of most downloaded python packages
 
     Args:
@@ -28,7 +28,7 @@ def get_top_python_packages(top_N=100):
         cnt = 0
         for pkg in contents["rows"]:
             # only append TOP_N number of packages
-            if cnt == top_N:
+            if cnt == top_n:
                 break
             top_pkgs.append(pkg["project"])
             cnt += 1
@@ -56,13 +56,13 @@ def get_pypi_data(pkg):
 
     pypi_data = {}
 
-    pypi_data["github_owner_and_repo"] = get_github_URL_owner_and_repo(pypi_pkg_json)
+    pypi_data["github_owner_and_repo"] = get_github_url_owner_and_repo(pypi_pkg_json)
     pypi_data["pypi_maintainers"] = get_pypi_maintainers(pkg)
 
     return pypi_data
 
 
-def get_github_URL_owner_and_repo(pypi_pkg_json):
+def get_github_url_owner_and_repo(pypi_pkg_json):
     """Retrieve owner and repo associated with GitHub URL
 
     e.g. psf/requests, NOT https://www.github.com/psf/requests

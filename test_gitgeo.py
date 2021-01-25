@@ -14,7 +14,7 @@ class TestPypiFunctionality:
 
     def test_get_top_python_packages(self):
         """Unit test for get_top_python_packages()"""
-        top_python_packages = get_top_python_packages(top_N=5)
+        top_python_packages = get_top_python_packages(top_n=5)
         assert top_python_packages == [
             "urllib3",
             "six",
@@ -27,7 +27,7 @@ class TestPypiFunctionality:
         """Unit test for get_pypi_data()"""
         requests_pypi_data = get_pypi_data("requests")
 
-    def test_get_github_URL_owner_and_repo(self):
+    def test_get_github_url_owner_and_repo(self):
         """Unit tests for get_github_URL_owner_and_repo()"""
         # tests for packages with standard location of GitHub link on PyPI page
         requests_pypi_data = get_pypi_data("requests")
