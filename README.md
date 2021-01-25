@@ -15,11 +15,12 @@ Discover the geography of open-source software. Explore the geographic locations
 - IT security compliance
 - Research on open source software ecosystem
 
-## Install
+## Installation
 
 ```bash
 git clone https://github.com/IQTLabs/GitGeo
 cd GitGeo
+pip install -r requirements.txt
 ```
 
 ## Usage
