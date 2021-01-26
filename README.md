@@ -8,7 +8,7 @@
 
 
 # GitGeo
-Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
+Explore the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
 
 ## Why use GitGeo?
 - Curiosity
