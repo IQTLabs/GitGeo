@@ -41,13 +41,14 @@ def get_contributors(repo):
 
     return committers
 
+
 def get_country_from_location(location_string):
     """Return country (Hungary; United States, etc) from a text containing a city and/or state and/or country.
     Args:
         user: a text containing a city and/or state and/or country
 
     Return:
-        str: a country from the list of full country names from the package country_list, or "NONE" 
+        str: a country from the list of full country names from the package country_list, or "NONE"
         if it wasn't a valid location or None was provided
     """
     # TODO: do case agnostic check
@@ -55,18 +56,20 @@ def get_country_from_location(location_string):
     if location_string == None:
         return "NONE"
 
-    all_countries = dict(countries_for_language('en')).values()
+    all_countries = dict(countries_for_language("en")).values()
     query = ""
     pieces = location_string.split(" ")
 
-    # because the city/state could also be a country, and a country is also listed, try matching from right-to-left 
-    pieces.reverse() 
+    # because the city/state could also be a country, and a country is also listed, try matching from right-to-left
+    pieces.reverse()
 
-    for p in pieces: 
+    for p in pieces:
         p = p.strip()
         if p in all_countries:
             return p
-        query = urllib.parse.quote(p) + "+" + query # order matters for google search apparently
+        query = (
+            urllib.parse.quote(p) + "+" + query
+        )  # order matters for google search apparently
 
     # use regex to mine the results of a google query for the country
     regex_html = "(<span><h3 class.+><div class=.+>)([A-Za-z ]+)(</div></h3></span><span><div class=.+>Country in.+</div></span>)"
@@ -100,4 +103,6 @@ def get_contributor_location(user):
         user_info = json.loads(response.text or response.content)
         user_location = user_info["location"]
 
-    return get_country_from_location(user_location)
+    return user_location
+
+#get_country_from_location('Wellington, New Zealand')
