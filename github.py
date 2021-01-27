@@ -5,11 +5,11 @@
 
 import json
 import os
-
-import requests
-from country_list import countries_for_language
-import urllib.parse
 import re
+import requests
+import urllib.parse
+
+from country_list import countries_for_language
 
 # access secret token for GitHub API to increase rate limit
 GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
@@ -45,7 +45,7 @@ def get_contributors(repo):
 def get_country_from_location(location_string):
     """Return country (Hungary; United States, etc) from a text containing a city and/or state and/or country.
     Args:
-        user: a text containing a city and/or state and/or country
+        location_string: a text containing a city and/or state and/or country
 
     Return:
         str: a country from the list of full country names from the package country_list, or "NONE"
@@ -91,19 +91,6 @@ def get_country_from_location(location_string):
         return "United States"
 
     return "NONE"
-
-
-    """query = urllib.parse.quote(",".join(pieces))
-    print(query)
-    # use regex to mine the results of a google query for the country
-    regex_html = "(<span><h3 class.+><div class=.+>)([A-Za-z ]+)(</div></h3></span><span><div class=.+>Country in.+</div></span>)"
-    url = "https://www.google.com/search?q=what+%22country%22+is+" + query + "+in"
-    google_search = str(requests.get(url, allow_redirects=True).content)
-    print(google_search)
-    country_search = re.search(regex_html, google_search)
-    if country_search == None:
-        return "NONE"
-    return country_search.group(2)"""
 
 
 def get_contributor_location(user):
