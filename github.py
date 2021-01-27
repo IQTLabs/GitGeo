@@ -5,8 +5,11 @@
 
 import json
 import os
-
+import re
 import requests
+import urllib.parse
+
+from country_list import countries_for_language
 
 # access secret token for GitHub API to increase rate limit
 GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
@@ -39,6 +42,57 @@ def get_contributors(repo):
     return committers
 
 
+def get_country_from_location(location_string):
+    """Return country (Hungary; United States, etc) from a text containing a city and/or state and/or country.
+    Args:
+        location_string: a text containing a city and/or state and/or country
+
+    Return:
+        str: a country from the list of full country names from the package country_list, or "NONE"
+        if it wasn't a valid location or None was provided
+    """
+    # TODO: do case agnostic check
+    # TODO: do we want to have this static list of all cities mapped to countries from 
+    # https://gist.github.com/fiorix/4592774 or https://datahub.io/core/world-cities ?
+
+    if location_string == None:
+        return "NONE"
+
+    all_countries = dict(countries_for_language("en")).values()
+    state_names = ["Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", "California", "Colorado", 
+        "Connecticut", "District ", "of Columbia", "Delaware", "Florida", "Georgia", "Guam", "Hawaii", "Iowa", 
+        "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", "Maryland", "Maine", 
+        "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", 
+        "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", 
+        "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", 
+        "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
+
+    state_abbrev = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", 
+          "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", 
+          "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", 
+          "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", 
+          "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+
+
+    query = ""
+    pieces = location_string.split(",")
+
+    if "Georgia" == pieces[-1].strip():
+        if len(pieces) > 1:
+            return "United States"
+        else:
+            return "Georgia"
+
+    if pieces[-1].strip() in all_countries:
+        return pieces[-1].strip()
+    if pieces[-1].strip() in state_names:
+        return "United States"
+    if pieces[-1].strip() in state_abbrev:
+        return "United States"
+
+    return "NONE"
+
+
 def get_contributor_location(user):
     """Return geographic location, if present on github page, of user
 
@@ -62,3 +116,5 @@ def get_contributor_location(user):
         user_location = user_info["location"]
 
     return user_location
+
+get_country_from_location('Jordan, Minnesota')
