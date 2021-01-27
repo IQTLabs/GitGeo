@@ -77,6 +77,29 @@ class TestGitHubFunctionality:
         location = get_country_from_location("Wellington, New Zealand")
         assert location == "New Zealand"
 
+        location = get_country_from_location("Jordan, Minnesota")
+        assert location == "United States"
+
+        location = get_country_from_location("Jordan, MN")
+        assert location == "United States"
+
+        location = get_country_from_location("Atlanta, Georgia")
+        assert location == "United States"
+
+        location = get_country_from_location("Georgia")
+        assert location == "Georgia"
+
+    @pytest.mark.xfail  # test should fail, until functionality implemented
+    def test_get_contributor_country_nonstandard(self):
+        location = get_country_from_location("London")
+        assert location == "United Kingdom"
+
+        location = get_country_from_location("USA")
+        assert location == "United States"
+
+        location = get_country_from_location("Pecs")
+        assert location == "Hungary"
+
     def test_extract_github_owner_and_repo(self):
         """Unit test for extract_github_owner_and_repo()"""
         owner_and_repo = extract_github_owner_and_repo("www.github.com/psf/requests")

@@ -52,33 +52,58 @@ def get_country_from_location(location_string):
         if it wasn't a valid location or None was provided
     """
     # TODO: do case agnostic check
+    # TODO: do we want to have this static list of all cities mapped to countries from 
+    # https://gist.github.com/fiorix/4592774 or https://datahub.io/core/world-cities ?
 
     if location_string == None:
         return "NONE"
 
     all_countries = dict(countries_for_language("en")).values()
+    state_names = ["Alaska", "Alabama", "Arkansas", "American Samoa", "Arizona", "California", "Colorado", 
+        "Connecticut", "District ", "of Columbia", "Delaware", "Florida", "Georgia", "Guam", "Hawaii", "Iowa", 
+        "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", "Maryland", "Maine", 
+        "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", 
+        "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", 
+        "Pennsylvania", "Puerto Rico", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", 
+        "Utah", "Virginia", "Virgin Islands", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
+
+    state_abbrev = ["AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", 
+          "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", 
+          "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", 
+          "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", 
+          "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"]
+
+
     query = ""
-    pieces = location_string.split(" ")
+    pieces = location_string.split(",")
 
-    # because the city/state could also be a country, and a country is also listed, try matching from right-to-left
-    pieces.reverse()
+    if "Georgia" == pieces[-1].strip():
+        if len(pieces) > 1:
+            return "United States"
+        else:
+            return "Georgia"
 
-    for p in pieces:
-        p = p.strip()
-        if p in all_countries:
-            return p
-        query = (
-            urllib.parse.quote(p) + "+" + query
-        )  # order matters for google search apparently
+    if pieces[-1].strip() in all_countries:
+        return pieces[-1].strip()
+    if pieces[-1].strip() in state_names:
+        return "United States"
+    if pieces[-1].strip() in state_abbrev:
+        return "United States"
 
+    return "NONE"
+
+
+    """query = urllib.parse.quote(",".join(pieces))
+    print(query)
     # use regex to mine the results of a google query for the country
     regex_html = "(<span><h3 class.+><div class=.+>)([A-Za-z ]+)(</div></h3></span><span><div class=.+>Country in.+</div></span>)"
     url = "https://www.google.com/search?q=what+%22country%22+is+" + query + "+in"
     google_search = str(requests.get(url, allow_redirects=True).content)
+    print(google_search)
     country_search = re.search(regex_html, google_search)
     if country_search == None:
         return "NONE"
-    return country_search.group(2)
+    return country_search.group(2)"""
 
 
 def get_contributor_location(user):
@@ -105,4 +130,4 @@ def get_contributor_location(user):
 
     return user_location
 
-#get_country_from_location('Wellington, New Zealand')
+get_country_from_location('Jordan, Minnesota')
