@@ -90,6 +90,13 @@ pytest
 - Add codacy integration and badge
 - Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
 - Add capability of predicting location via a model given only timestamp from commit and from commit-related data.
+- Investigate capability to determine authenticity of location information
+- Investigate possibility of geographic diversity score for a repo or package
+- Investigate possibility of linking emails in commits to email breach lists.
+
+## Potential Research Questions
+
+-Are there places in the world with unrecognized pockets of software developers?
 
 ## Known bugs
 
