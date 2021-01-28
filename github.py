@@ -42,13 +42,15 @@ def get_contributors(repo):
 
 
 def get_country_from_location(location_string):
-    """Return country (Hungary; United States, etc) from a text containing a city and/or state and/or country.
+    """Return country (Hungary, United States, etc) from user location text
+
     Args:
         location_string: a text containing a city and/or state and/or country
 
     Return:
-        str: a country from the list of full country names from the package country_list, or "NONE"
-        if it wasn't a valid location or None was provided
+        str: a country from the list of full country names from the package
+             country_list, or "NONE" if it wasn't a valid location or None was
+             provided
     """
     # TODO: do case agnostic check
     # TODO: do we want to have this static list of all cities mapped to countries from 
