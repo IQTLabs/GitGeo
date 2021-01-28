@@ -4,7 +4,7 @@ import argparse
 
 # uncomment these imports when building top package scan functionality
 # from custom_csv import create_csv, add_committer_to_csv
-from github import get_contributors, get_contributor_location
+from github import get_contributors, get_contributor_location, get_country_from_location
 from pypi import (
     get_pypi_data,
     extract_github_owner_and_repo,
@@ -41,11 +41,12 @@ def scan_single_package(pkg):
     print("---------------------")
     for contributor in contributors:
         location = get_contributor_location(contributor)
+        country = get_country_from_location(location)
         try:
             if contributor in pypi_data["pypi_maintainers"]:
-                print(contributor, "*", "|", location)
+                print(contributor, "*", "|", location , "|", country)
             else:
-                print(contributor, "|", location)
+                print(contributor, "|", location, "|", country)
         except UnicodeEncodeError:
             print(contributor, "| error")
 
@@ -68,8 +69,9 @@ def scan_single_repo(repo):
     print("---------------------")
     for contributor in contributors:
         location = get_contributor_location(contributor)
+        country = get_country_from_location(location)
         try:
-            print(contributor, "|", location)
+            print(contributor, "|", location, "|", country)
         except UnicodeEncodeError:
             print(contributor, "| error")
 
