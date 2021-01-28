@@ -3,10 +3,10 @@
 import json
 import os
 import re
-import requests
 import urllib.parse
 
 from country_list import countries_for_language
+import requests
 
 # access secret token for GitHub API to increase rate limit
 GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
