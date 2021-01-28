@@ -53,7 +53,7 @@ def get_country_from_location(location_string):
              provided
     """
     # TODO: do case agnostic check
-    # TODO: do we want to have this static list of all cities mapped to countries from 
+    # TODO: do we want to have this static list of all cities mapped to countries from
     # https://gist.github.com/fiorix/4592774 or https://datahub.io/core/world-cities ?
     # TODO: Kinga, do you have an intuition about the pro's and con's of having multiple
     # return statements in one function? My spidey sense says to avoid this, but I
@@ -98,7 +98,7 @@ def get_contributor_location(user):
     response = requests.get(
         "https://api.github.com/users/" + user,
         # convert username and token to strings per requests's specifications
-        auth=(str(GITHUB_USERNAME), str(GITHUB_TOKEN))
+        auth=(str(GITHUB_USERNAME), str(GITHUB_TOKEN)),
     )
 
     user_location = ""
