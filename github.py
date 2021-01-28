@@ -116,5 +116,3 @@ def get_contributor_location(user):
         user_location = user_info["location"]
 
     return user_location
-
-get_country_from_location('Jordan, Minnesota')
