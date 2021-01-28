@@ -65,30 +65,19 @@ class TestGitHubFunctionality:
 
     def test_get_contributors(self):
         """Unit test for get_contributors()"""
-        contributors = get_contributors("jspeed-meyers/pcap2map")
-        assert contributors == ["jspeed-meyers"]
+        assert get_contributors("jspeed-meyers/pcap2map") == ["jspeed-meyers"]
 
     def test_get_contributor_location(self):
         """Unit test for get_contributor_location()"""
-        location = get_contributor_location("anarkiwi")
-        assert location == "Wellington, New Zealand"
+        assert get_contributor_location("anarkiwi") == "Wellington, New Zealand"
 
     def test_get_country_from_location_city_country_standard_order(self):
         """test get_country_from_location on standard city, country pairs"""
-        location = get_country_from_location("Wellington, New Zealand")
-        assert location == "New Zealand"
-
-        location = get_country_from_location("Jordan, Minnesota")
-        assert location == "United States"
-
-        location = get_country_from_location("Jordan, MN")
-        assert location == "United States"
-
-        location = get_country_from_location("Atlanta, Georgia")
-        assert location == "United States"
-
-        location = get_country_from_location("Georgia")
-        assert location == "Georgia"
+        assert get_country_from_location("Wellington, New Zealand") == "New Zealand"
+        assert get_country_from_location("Jordan, Minnesota") == "United States"
+        assert get_country_from_location("Jordan, MN") == "United States"
+        assert get_country_from_location("Atlanta, Georgia") == "United States"
+        assert get_country_from_location("Georgia") == "Georgia"
 
     def test_get_country_from_location_world_cities(self):
         """test get_country_from_location on world city names"""
@@ -99,6 +88,7 @@ class TestGitHubFunctionality:
 
     @pytest.mark.xfail  # test should fail, until functionality implemented
     def test_get_country_from_location_country_abbreviations(self):
+        """test get_country_from_location on country abbreviations"""
         assert get_country_from_location("USA") == "United States"
 
     def test_extract_github_owner_and_repo(self):
