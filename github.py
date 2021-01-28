@@ -1,8 +1,5 @@
 """GitHub API-related functionality"""
 
-# TODO: consider functionality that maps the free text of location
-# to one country. Consider using geopy. Or geograpy.
-
 import json
 import os
 import re
