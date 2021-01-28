@@ -7,7 +7,7 @@ import urllib.parse
 
 import requests
 
-from geographies_list import ALL_COUNTRIES, STATE_NAMES, STATE_ABBREV
+from geographies_list import ALL_COUNTRIES, CITY_COUNTRY_DICT, STATE_NAMES, STATE_ABBREV
 
 # access secret token for GitHub API to increase rate limit
 GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
@@ -53,8 +53,6 @@ def get_country_from_location(location_string):
              provided
     """
     # TODO: do case agnostic check
-    # TODO: do we want to have this static list of all cities mapped to countries from
-    # https://gist.github.com/fiorix/4592774 or https://datahub.io/core/world-cities ?
     # TODO: Kinga, do you have an intuition about the pro's and con's of having multiple
     # return statements in one function? My spidey sense says to avoid this, but I
     # am open to your more informed judgement and knowledge of software engineering
@@ -64,6 +62,8 @@ def get_country_from_location(location_string):
         return "NONE"
 
     pieces = location_string.split(",")
+    # todo: Kinga, why focus only on the end token? I kinda get it, but
+    # I'm hazy.
     end_token = pieces[-1].strip()
 
     if "Georgia" == end_token:
@@ -74,6 +74,8 @@ def get_country_from_location(location_string):
 
     if end_token in ALL_COUNTRIES:
         return end_token
+    if end_token in CITY_COUNTRY_DICT.keys():
+        return CITY_COUNTRY_DICT[end_token]
     if end_token in STATE_NAMES:
         return "United States"
     if end_token in STATE_ABBREV:
