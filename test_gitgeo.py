@@ -71,13 +71,27 @@ class TestGitHubFunctionality:
         """Unit test for get_contributor_location()"""
         assert get_contributor_location("anarkiwi") == "Wellington, New Zealand"
 
-    def test_get_country_from_location_city_country_standard_order(self):
-        """test get_country_from_location on standard city, country pairs"""
+    def test_get_country_from_location_standard_order_with_comma(self):
+        """test get_country_from_location on standard order pairs with comma"""
         assert get_country_from_location("Wellington, New Zealand") == "New Zealand"
         assert get_country_from_location("Jordan, Minnesota") == "United States"
         assert get_country_from_location("Jordan, MN") == "United States"
         assert get_country_from_location("Atlanta, Georgia") == "United States"
+        assert get_country_from_location("Atlanta, Ga") == "United States"
         assert get_country_from_location("Georgia") == "Georgia"
+        assert get_country_from_location("London, England") == "United Kingdom"
+        assert get_country_from_location("Prague, Czech Republic") == "Czech Republic"
+
+    @pytest.mark.xfail  # test should fail, until functionality implemented
+    def test_get_country_from_location_nonstandard_order(self):
+        """test get_country_from_location on non-standard order pairs"""
+        assert get_country_from_location("Russia, Moscow") == "Russia"
+        assert get_country_from_location("Russia, Nizhny Novgorod") == "Russia"
+
+    def test_get_country_from_location_standard_order_no_comma(self):
+        """test get_country_from_location on standard order pairs without comma"""
+        assert get_country_from_location("Menlo Park CA") == "United States"
+        assert get_country_from_location("Menlo Park CA") == "United States"
 
     def test_get_country_from_location_world_cities(self):
         """test get_country_from_location on world city names"""
@@ -85,11 +99,21 @@ class TestGitHubFunctionality:
         assert get_country_from_location("London") == "United Kingdom"
         assert get_country_from_location("Jakarta") == "Indonesia"
         assert get_country_from_location("Beijing") == "China"
+        assert get_country_from_location("Washington D.C.") == "United States"
+        assert get_country_from_location("Toronto, ON") == "Canada"
 
     @pytest.mark.xfail  # test should fail, until functionality implemented
     def test_get_country_from_location_country_abbreviations(self):
         """test get_country_from_location on country abbreviations"""
         assert get_country_from_location("USA") == "United States"
+        assert get_country_from_location("Cambridge, UK") == "United Kingdom"
+        assert get_country_from_location("UK") == "United Kingdom"
+
+    @pytest.mark.xfail  # test should fail, until functionality implemented
+    def test_get_country_from_location_corner_case_geographies(self):
+        """test get_country_from_location on unusual geographies"""
+        assert get_country_from_location("Palestine") == "Palestine"
+        assert get_country_from_location("San Francisco Bay Area") == "United States"
 
     def test_extract_github_owner_and_repo(self):
         """Unit test for extract_github_owner_and_repo()"""
