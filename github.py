@@ -61,27 +61,28 @@ def get_country_from_location(location_string):
     if location_string == None:
         return "NONE"
 
-    pieces = location_string.split(",")
-    # todo: Kinga, why focus only on the end token? I kinda get it, but
-    # I'm hazy.
-    end_token = pieces[-1].strip()
+    # Loop through different typical separators of city, country, etc.
+    for separator in [",", " "]:
+        # Check different positions of the token
+        for position in [-1, 0]:
 
-    if "Georgia" == end_token:
-        if len(pieces) > 1:
-            return "United States"
-        else:
-            return "Georgia"
+            pieces = location_string.split(separator)
+            token = pieces[position].strip()
 
-    if end_token in ALL_COUNTRIES:
-        return end_token
-    if end_token in CITY_COUNTRY_DICT.keys():
-        return CITY_COUNTRY_DICT[end_token]
-    if end_token in STATE_NAMES:
-        return "United States"
-    if end_token in STATE_ABBREV:
-        return "United States"
+            if "Georgia" == token:
+                if len(pieces) > 1:
+                    return "United States"
+                else:
+                    return "Georgia"
 
-    return "NONE"
+            if token in ALL_COUNTRIES:
+                return token
+            if token in CITY_COUNTRY_DICT.keys():
+                return CITY_COUNTRY_DICT[token]
+            if token in STATE_NAMES:
+                return "United States"
+            if token in STATE_ABBREV:
+                return "United States"
 
 
 def get_contributor_location(user):
