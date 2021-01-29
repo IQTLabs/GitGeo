@@ -94,6 +94,7 @@ pytest
 - Investigate capability to determine authenticity of location information
 - Investigate possibility of geographic diversity score for a repo or package
 - Investigate possibility of linking emails in commits to email breach lists.
+- Investigate possibility of determining whether a project is a "hobby" project (outside of working hours) or a "work" project (within working hours)?
 - Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
   This person is the "auth" person.
 
