@@ -83,6 +83,7 @@ pytest
 ## Roadmap
 
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
+- Add functionality to summarize contributor count by country
 - Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
   in typical PyPI package metadata location
 - Add scan of top X PyPI packages capability
@@ -93,6 +94,8 @@ pytest
 - Investigate capability to determine authenticity of location information
 - Investigate possibility of geographic diversity score for a repo or package
 - Investigate possibility of linking emails in commits to email breach lists.
+- Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
+  This person is the "auth" person.
 
 ## Potential Research Questions
 
