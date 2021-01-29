@@ -1,6 +1,7 @@
 """Identify committer geographies associated with python package"""
 
 import argparse
+from collections import Counter
 
 # uncomment these imports when building top package scan functionality
 # from custom_csv import create_csv, add_committer_to_csv
@@ -17,11 +18,17 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("--package", help="Specify Python (PyPI) package.")
     parser.add_argument("--repo", help="Specify GitHub repo.")
+    parser.add_argument(
+        "--summary",
+        dest="summary",
+        action="store_true",  # when summary is not called, default is false
+        help="Display results by country.",
+    )
 
     return parser.parse_args()
 
 
-def scan_single_package(pkg):
+def scan_single_package(pkg, summary):
     """Print location results for single package
 
     Args:
@@ -36,19 +43,39 @@ def scan_single_package(pkg):
     print("PACKAGE: {}".format(pkg))
     print("GITHUB REPO: {}".format(pypi_data["github_owner_and_repo"]))
     print("-----------------")
-    print("CONTRIBUTOR, LOCATION")
-    print("* indicates PyPI maintainer")
-    print("---------------------")
-    for contributor in contributors:
-        location = get_contributor_location(contributor)
-        country = get_country_from_location(location)
-        try:
-            if contributor in pypi_data["pypi_maintainers"]:
-                print(contributor, "*", "|", location, "|", country)
-            else:
-                print(contributor, "|", location, "|", country)
-        except UnicodeEncodeError:
-            print(contributor, "| error")
+
+    # print results by country
+    if summary:
+        print("COUNTRY | # OF CONTRIBUTORS")
+        print("---------------------------")
+        # todo: place this functionality in separate module
+        # todo: bug -- Why are there two different unique none values? Huh
+        country_list = []
+        for contributor in contributors:
+            location = get_contributor_location(contributor)
+            country = get_country_from_location(location)
+            country_list.append(country)
+
+        country_counter = Counter(country_list)
+        for country, count in country_counter.most_common():
+            print(country, count)
+
+    # print results contributor by contributor
+    else:
+        # todo: place this functionality in separate module
+        print("CONTRIBUTOR, LOCATION")
+        print("* indicates PyPI maintainer")
+        print("---------------------")
+        for contributor in contributors:
+            location = get_contributor_location(contributor)
+            country = get_country_from_location(location)
+            try:
+                if contributor in pypi_data["pypi_maintainers"]:
+                    print(contributor, "*", "|", location, "|", country)
+                else:
+                    print(contributor, "|", location, "|", country)
+            except UnicodeEncodeError:
+                print(contributor, "| error")
 
 
 def scan_single_repo(repo):
@@ -67,7 +94,9 @@ def scan_single_repo(repo):
     print("-----------------")
     print("CONTRIBUTOR, LOCATION")
     print("---------------------")
+    # todo: add summary logic
     for contributor in contributors:
+        # todo: use functionality that is place in separate module
         location = get_contributor_location(contributor)
         country = get_country_from_location(location)
         try:
@@ -91,7 +120,7 @@ if __name__ == "__main__":
     args = parse_arguments()
 
     if args.package:
-        scan_single_package(args.package)
+        scan_single_package(args.package, args.summary)
 
     if args.repo:
         scan_single_repo(args.repo)
