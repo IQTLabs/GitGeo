@@ -83,6 +83,7 @@ pytest
 ## Roadmap
 
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
+- Add functionality to summarize contributor count by country
 - Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
   in typical PyPI package metadata location
 - Add scan of top X PyPI packages capability
