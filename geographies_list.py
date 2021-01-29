@@ -14,6 +14,7 @@ with open("world_cities.csv", errors="ignore", newline="") as file:
     reader = csv.reader(file)
     city_country_list = list(reader)
     city_country_dict = {}
+    # TODO: If a city is in the list twice, the country should be ambiguous.
     for row in city_country_list:
         # key is city (row[0]), value is country (row[1])
         city_country_dict[row[0]] = row[1]
@@ -31,8 +32,8 @@ STATE_NAMES = [
     "California",
     "Colorado",
     "Connecticut",
-    "District ",
-    "of Columbia",
+    "District ",  # Kinga?
+    "of Columbia",  # Kinga?
     "Delaware",
     "Florida",
     "Georgia",
@@ -90,6 +91,7 @@ STATE_ABBREV = [
     "CO",
     "CT",
     "DC",
+    "D.C.",
     "DE",
     "FL",
     "GA",

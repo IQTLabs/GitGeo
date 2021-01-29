@@ -44,7 +44,7 @@ def scan_single_package(pkg):
         country = get_country_from_location(location)
         try:
             if contributor in pypi_data["pypi_maintainers"]:
-                print(contributor, "*", "|", location , "|", country)
+                print(contributor, "*", "|", location, "|", country)
             else:
                 print(contributor, "|", location, "|", country)
         except UnicodeEncodeError:
