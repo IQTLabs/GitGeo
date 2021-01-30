@@ -82,6 +82,9 @@ def get_country_from_location(location_string):
             if token in STATE_ABBREV:
                 return "United States"
 
+    # If no match is found, also return None as string
+    return "None"
+
 
 def get_contributor_location(user):
     """Return geographic location, if present on github page, of user
@@ -92,10 +95,8 @@ def get_contributor_location(user):
     Return:
         str: a geographic location
     """
-    # TODO: What to do if location is not present? What to do
-    # if location is not listed in profile?
-    # https://stackoverflow.com/questions/26983017/detect-ip-address-of-github-commit
-    # https://gist.github.com/paulmillr/2657075
+    # TODO: What to do if location is not listed in profile? Kinga has
+    # some predictive analytics ideas.
     response = requests.get(
         "https://api.github.com/users/" + user,
         # convert username and token to strings per requests's specifications
