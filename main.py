@@ -1,11 +1,11 @@
 """Identify committer geographies associated with python package"""
 
 import argparse
-from collections import Counter
 
 # uncomment these imports when building top package scan functionality
 # from custom_csv import create_csv, add_committer_to_csv
-from github import get_contributors, get_contributor_location, get_country_from_location
+from github import get_contributors
+from printers import print_by_country, print_by_contributor
 from pypi import (
     get_pypi_data,
     extract_github_owner_and_repo,
@@ -31,6 +31,8 @@ def parse_arguments():
 def scan_single_package(pkg, summary):
     """Print location results for single package
 
+    Printing can either be by contributor or by country
+
     Args:
         pkg - name of python package on PyPI
 
@@ -44,42 +46,16 @@ def scan_single_package(pkg, summary):
     print("GITHUB REPO: {}".format(pypi_data["github_owner_and_repo"]))
     print("-----------------")
 
-    # print results by country
     if summary:
-        print("COUNTRY | # OF CONTRIBUTORS")
-        print("---------------------------")
-        # todo: place this functionality in separate module
-        # todo: bug -- Why are there two different unique none values? Huh
-        country_list = []
-        for contributor in contributors:
-            location = get_contributor_location(contributor)
-            country = get_country_from_location(location)
-            country_list.append(country)
-
-        country_counter = Counter(country_list)
-        for country, count in country_counter.most_common():
-            print(country, count)
-
-    # print results contributor by contributor
+        print_by_country(contributors)
     else:
-        # todo: place this functionality in separate module
-        print("CONTRIBUTOR, LOCATION")
-        print("* indicates PyPI maintainer")
-        print("---------------------")
-        for contributor in contributors:
-            location = get_contributor_location(contributor)
-            country = get_country_from_location(location)
-            try:
-                if contributor in pypi_data["pypi_maintainers"]:
-                    print(contributor, "*", "|", location, "|", country)
-                else:
-                    print(contributor, "|", location, "|", country)
-            except UnicodeEncodeError:
-                print(contributor, "| error")
+        print_by_contributor(contributors, pypi_data)
 
 
-def scan_single_repo(repo):
+def scan_single_repo(repo, summary):
     """Print location results for single GitHub repository
+
+    Printing can either be by contributor or by country
 
     Args:
         repo - URL of repo on GitHub
@@ -92,22 +68,24 @@ def scan_single_repo(repo):
     print("-----------------")
     print("PACKAGE: {}".format(repo_ending_string))
     print("-----------------")
-    print("CONTRIBUTOR, LOCATION")
-    print("---------------------")
-    # todo: add summary logic
-    for contributor in contributors:
-        # todo: use functionality that is place in separate module
-        location = get_contributor_location(contributor)
-        country = get_country_from_location(location)
-        try:
-            print(contributor, "|", location, "|", country)
-        except UnicodeEncodeError:
-            print(contributor, "| error")
+
+    if summary:
+        print_by_country(contributors)
+    else:
+        print_by_contributor(contributors)
 
 
 # def scan_top_package(top_n=100):
 #    """Stub for scanning most downloaded python packages"""
-#    pass
+#   create_csv()
+    #   # Create list of packages
+    #   for pkg in TEST_PKG:
+    #       github_repo = get_github_repo(pkg)
+    #       contributors = get_contributors(github_repo)
+    #       for contributor in contributors:
+    #           location = get_contributor_location(contributor)
+    #           add_committer_to_csv(pkg, contributor, location)
+    #           print(pkg, contributor, location)
 
 
 # def scan_dependencies(filename):
@@ -123,15 +101,6 @@ if __name__ == "__main__":
         scan_single_package(args.package, args.summary)
 
     if args.repo:
-        scan_single_repo(args.repo)
+        scan_single_repo(args.repo, args.summary)
 
     # if args.top_packages:
-    # 	create_csv()
-    # 	# Create list of packages
-    # 	for pkg in TEST_PKG:
-    # 		github_repo = get_github_repo(pkg)
-    # 		contributors = get_contributors(github_repo)
-    # 		for contributor in contributors:
-    # 			location = get_contributor_location(contributor)
-    # 			add_committer_to_csv(pkg, contributor, location)
-    # 			print(pkg, contributor, location)
