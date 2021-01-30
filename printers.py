@@ -38,7 +38,7 @@ def print_by_contributor(contributors, pypi_data=None):
         null
     """
     print("CONTRIBUTOR, LOCATION")
-    if pypi_data != None:
+    if pypi_data is not None:
         print("* indicates PyPI maintainer")
     print("---------------------")
     for contributor in contributors:
@@ -46,7 +46,7 @@ def print_by_contributor(contributors, pypi_data=None):
         country = get_country_from_location(location)
         try:
             # Check if pypi_data is not None, indicating a PyPI package scan
-            if pypi_data != None and contributor in pypi_data["pypi_maintainers"]:
+            if pypi_data is not None and contributor in pypi_data["pypi_maintainers"]:
                 print(contributor, "*", "|", location, "|", country)
             else:
                 print(contributor, "|", location, "|", country)

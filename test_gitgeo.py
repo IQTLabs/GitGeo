@@ -158,7 +158,7 @@ def test_print_by_contributor_package(capsys):
     pkg = "networkml"
     pypi_data = get_pypi_data(pkg)
     contributors = get_contributors(pypi_data["github_owner_and_repo"])
-    print_by_contributor(contributors,  pypi_data)
+    print_by_contributor(contributors, pypi_data)
     captured = capsys.readouterr()  # capture outpt printed to date
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
