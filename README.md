@@ -46,7 +46,7 @@ Lukasa * | London, England
 sigmavirus24 | Madison, WI
 nateprewitt * | None
 slingamn | None
-BraulioVM | M▒laga & Granada, Spain
+BraulioVM | Malaga & Granada, Spain
 dpursehouse | Kawasaki
 jgorset | Oslo, Norway
 ...
@@ -56,18 +56,16 @@ Advanced usage to increase number of GitHub API calls allowed per hour:
 
 - First, create a [GitHub personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
+- Second, run these commands in the command line:
 ```bash
 export GITHUB_USERNAME='[github_username]'
-```
-
-```bash
 export GITHUB_TOKEN='[github_token]'
 ```
 
-- Second, run one of these commands.
+- Third, run one of these commands.
 
 ```bash
-python main.py --package [package_name]
+python main.py --package [python_package_name]
 ```
 
 ```bash
@@ -83,7 +81,6 @@ pytest
 ## Roadmap
 
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
-- Add functionality to summarize contributor count by country
 - Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
   in typical PyPI package metadata location
 - Add scan of top X PyPI packages capability
@@ -100,11 +97,16 @@ pytest
 
 ## Potential Research Questions
 
--Are there places in the world with unrecognized pockets of software developers?
+- Are there places in the world with unrecognized pockets of software developers?
+- What predicts the number of top python packages software developers by country?
+	- Total number of coders per country?
+	- Total number of python coders per country?
+	- GDP per capita per country?
 
 ## Known bugs
 
 - Incorrectly parses GitHub URL's retrieved from PyPI that refer to pages other than the main landing page of a GitHub repo, for instance matplotlib
+- Incorrectly generates too types of none for country predictions.
 
 ## Want to contribute?
 
