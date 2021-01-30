@@ -115,7 +115,7 @@ def get_pypi_maintainers(pkg):
     """Extract list of PyPI maintainers, i.e. those with publish rights
 
     PyPI JSON endpoint does not contain the maintainers' data found in the
-    PyPI UI. IMO, this is an oversight. To retrieve PyPI maintainers date,
+    PyPI UI. IMO, this is an oversight. To retrieve PyPI maintainers data,
     use web scraping. There will be a speed penalty, but this feature was
     given a strong priority.
 

@@ -50,7 +50,6 @@ class TestPypiFunctionality:
     @pytest.mark.xfail  # test should fail, until functionality implemented
     def test_get_github_url_owner_and_repo_with_link_in_description(self):
         """Unit test for get_github_URL_owner_and_repo functionality that is not yet implemented"""
-        # Could be a good hands-dirty task for Kinga
         pythondateutil_pypi_data = get_pypi_data("python-dateutil")
         assert pythondateutil_pypi_data["github_owner_and_repo"] == "dateutil/dateutil"
 
