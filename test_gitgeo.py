@@ -1,5 +1,7 @@
 """Unit tests and integration tests for git-geo"""
 
+# pylint: disable=no-self-use
+
 import os
 import textwrap
 
@@ -25,9 +27,6 @@ class TestPypiFunctionality:
             "python-dateutil",
         ]
 
-    def test_get_pypi_data(self):
-        """Unit test for get_pypi_data()"""
-        requests_pypi_data = get_pypi_data("requests")
 
     def test_get_github_url_owner_and_repo(self):
         """Unit tests for get_github_URL_owner_and_repo()"""
