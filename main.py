@@ -2,17 +2,15 @@
 
 import argparse
 
-# uncomment these imports when building top package scan functionality
-# from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors
 from printers import print_by_country, print_by_contributor
 from pypi import (
     get_pypi_data,
     extract_github_owner_and_repo,
-)  # , get_top_python_packages
+)
 
 
-def parse_arguments():
+def parse_arguments():  # pragma: no cover
     """Parse command line arguments"""
 
     parser = argparse.ArgumentParser()
@@ -78,14 +76,14 @@ def scan_single_repo(repo, summary):
 # def scan_top_package(top_n=100):
 #    """Stub for scanning most downloaded python packages"""
 #   create_csv()
-    #   # Create list of packages
-    #   for pkg in TEST_PKG:
-    #       github_repo = get_github_repo(pkg)
-    #       contributors = get_contributors(github_repo)
-    #       for contributor in contributors:
-    #           location = get_contributor_location(contributor)
-    #           add_committer_to_csv(pkg, contributor, location)
-    #           print(pkg, contributor, location)
+#   # Create list of packages
+#   for pkg in TEST_PKG:
+#       github_repo = get_github_repo(pkg)
+#       contributors = get_contributors(github_repo)
+#       for contributor in contributors:
+#           location = get_contributor_location(contributor)
+#           add_committer_to_csv(pkg, contributor, location)
+#           print(pkg, contributor, location)
 
 
 # def scan_dependencies(filename):
@@ -93,7 +91,7 @@ def scan_single_repo(repo, summary):
 #     pass
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
 
     args = parse_arguments()
 
@@ -102,5 +100,3 @@ if __name__ == "__main__":
 
     if args.repo:
         scan_single_repo(args.repo, args.summary)
-
-    # if args.top_packages:
