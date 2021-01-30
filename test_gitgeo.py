@@ -1,11 +1,13 @@
 """Unit tests and integration tests for git-geo"""
 
 import os
+import textwrap
 
 import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location, get_country_from_location
+from printers import print_by_contributor, print_by_country
 from pypi import get_top_python_packages, get_pypi_data, extract_github_owner_and_repo
 
 
@@ -133,3 +135,74 @@ class TestCsvFunctionality:
         """Unit test fpr add_committer_to_csv"""
         add_committer_to_csv("googlemoogle", "eschmidt", "innovation-island")
         os.remove("git-geo-results.csv")  # remove file
+
+
+def test_print_by_contributor_repo(capsys):
+    """Unit test for print by contributors for GitHub repo"""
+    repo = "jspeed-meyers/pcap2map"
+    contributors = get_contributors(repo)
+    print_by_contributor(contributors)
+    captured = capsys.readouterr()  # capture outpt printed to date
+    # dedent removes spacing, using the spacing width from the first line
+    output_text = textwrap.dedent(
+        """        CONTRIBUTOR, LOCATION
+        ---------------------
+        jspeed-meyers | None | None
+        """
+    )
+    assert captured.out == output_text
+
+
+def test_print_by_contributor_package(capsys):
+    """Unit test for print_by_contributor() for networml python package"""
+    pkg = "networkml"
+    pypi_data = get_pypi_data(pkg)
+    contributors = get_contributors(pypi_data["github_owner_and_repo"])
+    print_by_contributor(contributors,  pypi_data)
+    captured = capsys.readouterr()  # capture outpt printed to date
+    # dedent removes spacing, using the spacing width from the first line
+    output_text = textwrap.dedent(
+        """        CONTRIBUTOR, LOCATION
+        * indicates PyPI maintainer
+        ---------------------
+        cglewis * | USA | None
+        anarkiwi | Wellington, New Zealand | New Zealand
+        CStephenson970 | None | None
+        renovate-bot | None | None
+        lilchurro | None | None
+        jspeed-meyers * | None | None
+        pyup-bot | None | None
+        rashley-iqt | None | None
+        alshaboti | Wellington, New Zealand | New Zealand
+        jseparovic | Mountain View, CA | United States
+        squeeve | None | None
+        gregs5 | Washington DC | United States
+        krb1997 | None | None
+        toddstavish | None | None
+        sneakyoctopus12 | None | None
+        Hax7 | Palestine | None
+        paulgowdy | Menlo Park CA | United States
+        """
+    )
+    assert captured.out == output_text
+
+
+def test_print_by_country(capsys):
+    """Unit test for print_by_country() for networml python package"""
+    repo = "iqtlabs/networkml"
+    repo_ending_string = extract_github_owner_and_repo(repo)
+    contributors = get_contributors(repo_ending_string)
+    print_by_country(contributors)
+    captured = capsys.readouterr()  # capture outpt printed to date
+    # dedent removes spacing, using the spacing width from the first line
+    # todo: bug because of double printing by none will need to be removed
+    output_text = textwrap.dedent(
+        """        COUNTRY | # OF CONTRIBUTORS
+        ---------------------------
+        None 10
+        United States 3
+        None 2
+        New Zealand 2
+        """
+    )
+    assert captured.out == output_text
