@@ -2,8 +2,6 @@
 
 import json
 import os
-import re
-import urllib.parse
 
 import requests
 
@@ -58,7 +56,7 @@ def get_country_from_location(location_string):
     # am open to your more informed judgement and knowledge of software engineering
     # research and practice.
 
-    if location_string == None:
+    if location_string is None:
         return "None"
 
     # Loop through different typical separators of city, country, etc.
@@ -69,7 +67,7 @@ def get_country_from_location(location_string):
             pieces = location_string.split(separator)
             token = pieces[position].strip()
 
-            if "Georgia" == token:
+            if token == "Georgia":
                 if len(pieces) > 1:
                     return "United States"
                 else:
