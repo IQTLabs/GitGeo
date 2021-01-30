@@ -106,7 +106,6 @@ pytest
 ## Known bugs
 
 - Incorrectly parses GitHub URL's retrieved from PyPI that refer to pages other than the main landing page of a GitHub repo, for instance matplotlib
-- Incorrectly generates too types of none for country predictions.
 
 ## Want to contribute?
 
