@@ -27,7 +27,6 @@ class TestPypiFunctionality:
             "python-dateutil",
         ]
 
-
     def test_get_github_url_owner_and_repo(self):
         """Unit tests for get_github_URL_owner_and_repo()"""
         # tests for packages with standard location of GitHub link on PyPI page
