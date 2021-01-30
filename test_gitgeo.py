@@ -194,13 +194,11 @@ def test_print_by_country(capsys):
     print_by_country(contributors)
     captured = capsys.readouterr()  # capture outpt printed to date
     # dedent removes spacing, using the spacing width from the first line
-    # todo: bug because of double printing by none will need to be removed
     output_text = textwrap.dedent(
         """        COUNTRY | # OF CONTRIBUTORS
         ---------------------------
-        None 10
+        None 12
         United States 3
-        None 2
         New Zealand 2
         """
     )
