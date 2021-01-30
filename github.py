@@ -59,7 +59,7 @@ def get_country_from_location(location_string):
     # research and practice.
 
     if location_string == None:
-        return "NONE"
+        return "None"
 
     # Loop through different typical separators of city, country, etc.
     for separator in [",", " "]:
