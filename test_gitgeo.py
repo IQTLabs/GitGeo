@@ -1,6 +1,6 @@
 """Unit tests and integration tests for git-geo"""
 
-# pylint: disable=no-self-use
+# pylint: disable=no-self-use, too-many-locals
 
 import os
 import textwrap
