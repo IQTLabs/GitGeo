@@ -70,8 +70,7 @@ def get_country_from_location(location_string):
             if token == "Georgia":
                 if len(pieces) > 1:
                     return "United States"
-                else:
-                    return "Georgia"
+                return "Georgia"
 
             if token in ALL_COUNTRIES:
                 return token
