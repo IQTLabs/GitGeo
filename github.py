@@ -5,7 +5,13 @@ import os
 
 import requests
 
-from geographies_list import ALL_COUNTRIES, CITY_COUNTRY_DICT, STATE_NAMES, STATE_ABBREV
+from geographies_list import (
+    ALL_COUNTRIES,
+    CITY_COUNTRY_DICT,
+    STATE_NAMES,
+    STATE_ABBREV,
+    CODE_COUNTRY_DICT,
+)
 
 # access secret token for GitHub API to increase rate limit
 GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
@@ -76,6 +82,8 @@ def get_country_from_location(location_string):
                 return token
             if token in CITY_COUNTRY_DICT.keys():
                 return CITY_COUNTRY_DICT[token]
+            if token in CODE_COUNTRY_DICT.keys():
+                return CODE_COUNTRY_DICT[token]
             if token in STATE_NAMES:
                 return "United States"
             if token in STATE_ABBREV:
