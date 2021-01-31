@@ -95,7 +95,6 @@ def get_github_url_owner_and_repo(pypi_pkg_json):
     if potential_github_fields == [] and description:
         for token in description.split():
             if "github.com" in token:
-                print(token)
                 potential_github_fields.append(token)
 
     for field in potential_github_fields:
