@@ -83,8 +83,9 @@ pytest
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
 	- Add country acryonym matching. e.g. USA --> "United States"
 	- Assess using geolocation API's
-- Add scan of top X PyPI packages capability
 - Add visualization capability
+- Add scan of top X PyPI packages capability
+- Add readin packages or repos capability
 - Add codacy integration and badge
 - Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
 - Add capability of predicting location via a model given only timestamp from commit and from commit-related data.
