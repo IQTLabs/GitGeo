@@ -4,7 +4,7 @@ import argparse
 
 from github import get_contributors
 from printers import print_by_country, print_by_contributor
-from pypi import get_pypi_data, get_top_python_packages, get_github_url
+from pypi import get_pypi_data, get_top_python_packages, extract_github_owner_and_repo
 
 
 def parse_arguments():  # pragma: no cover
@@ -70,7 +70,7 @@ def scan_single_repo(repo, summary):
         print_by_contributor(contributors)
 
     # def scan_top_packages(top_n=100):
-    """Stub for scanning most downloaded python packages"""
+    # """Stub for scanning most downloaded python packages"""
     # create_csv()
     # Create list of packages
     # for pkg in get_top_python_packages():
