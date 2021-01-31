@@ -199,7 +199,7 @@ def test_print_by_contributor_package(capsys):
         """        CONTRIBUTOR, LOCATION
         * indicates PyPI maintainer
         ---------------------
-        cglewis * | USA | None
+        cglewis * | USA | United States
         anarkiwi | Wellington, New Zealand | New Zealand
         CStephenson970 | None | None
         renovate-bot | None | None
@@ -232,8 +232,8 @@ def test_print_by_country(capsys):
     output_text = textwrap.dedent(
         """        COUNTRY | # OF CONTRIBUTORS
         ---------------------------
-        None 12
-        United States 3
+        None 11
+        United States 4
         New Zealand 2
         """
     )
