@@ -16,7 +16,6 @@ def print_by_country(contributors):
     """
     print("COUNTRY | # OF CONTRIBUTORS")
     print("---------------------------")
-    # todo: bug -- Why are there two different unique none values? Huh
     country_list = []
     for contributor in contributors:
         location = get_contributor_location(contributor)
