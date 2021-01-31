@@ -4,10 +4,7 @@ import argparse
 
 from github import get_contributors
 from printers import print_by_country, print_by_contributor
-from pypi import (
-    get_pypi_data,
-    extract_github_owner_and_repo,
-)
+from pypi import get_pypi_data, get_top_python_packages, get_github_url
 
 
 def parse_arguments():  # pragma: no cover
@@ -73,17 +70,19 @@ def scan_single_repo(repo, summary):
         print_by_contributor(contributors)
 
 
-# def scan_top_package(top_n=100):
-#    """Stub for scanning most downloaded python packages"""
-#   create_csv()
-#   # Create list of packages
-#   for pkg in TEST_PKG:
-#       github_repo = get_github_repo(pkg)
-#       contributors = get_contributors(github_repo)
-#       for contributor in contributors:
-#           location = get_contributor_location(contributor)
-#           add_committer_to_csv(pkg, contributor, location)
-#           print(pkg, contributor, location)
+# def scan_top_packages(top_n=100):
+    """Stub for scanning most downloaded python packages"""
+    # create_csv()
+    # Create list of packages
+    # for pkg in get_top_python_packages():
+    #     pypi_data = get_pypi_data(pkg)
+    #     print("-----------------")
+    #     print("{} :{}".format(pkg, pypi_data["github_owner_and_repo"]))
+    #     contributors = get_contributors(github_repo)
+    #   for contributor in contributors:
+    #       location = get_contributor_location(contributor)
+    #       add_committer_to_csv(pkg, contributor, location)
+    #       print(pkg, contributor, location)
 
 
 # def scan_dependencies(filename):
@@ -94,6 +93,8 @@ def scan_single_repo(repo, summary):
 if __name__ == "__main__":  # pragma: no cover
 
     args = parse_arguments()
+
+    # scan_top_packages()
 
     if args.package:
         scan_single_package(args.package, args.summary)
