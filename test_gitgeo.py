@@ -49,7 +49,6 @@ class TestPypiFunctionality:
         with pytest.raises(Exception):
             get_pypi_data("thispackageismalware")
 
-    @pytest.mark.xfail  # test should fail, until functionality implemented
     def test_get_github_url_owner_and_repo_with_link_in_description(self):
         """Unit test for get_github_URL_owner_and_repo functionality that is not yet implemented"""
         pythondateutil_pypi_data = get_pypi_data("python-dateutil")
