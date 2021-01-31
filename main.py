@@ -69,8 +69,7 @@ def scan_single_repo(repo, summary):
     else:
         print_by_contributor(contributors)
 
-
-# def scan_top_packages(top_n=100):
+    # def scan_top_packages(top_n=100):
     """Stub for scanning most downloaded python packages"""
     # create_csv()
     # Create list of packages
