@@ -4,7 +4,7 @@ import argparse
 
 from github import get_contributors
 from printers import print_by_country, print_by_contributor
-from pypi import get_pypi_data, get_top_python_packages, extract_github_owner_and_repo
+from pypi import get_pypi_data, extract_github_owner_and_repo
 
 
 def parse_arguments():  # pragma: no cover
@@ -69,20 +69,10 @@ def scan_single_repo(repo, summary):
     else:
         print_by_contributor(contributors)
 
-    # def scan_top_packages(top_n=100):
-    # """Stub for scanning most downloaded python packages"""
-    # create_csv()
-    # Create list of packages
-    # for pkg in get_top_python_packages():
-    #     pypi_data = get_pypi_data(pkg)
-    #     print("-----------------")
-    #     print("{} :{}".format(pkg, pypi_data["github_owner_and_repo"]))
-    #     contributors = get_contributors(github_repo)
-    #   for contributor in contributors:
-    #       location = get_contributor_location(contributor)
-    #       add_committer_to_csv(pkg, contributor, location)
-    #       print(pkg, contributor, location)
 
+# def scan_top_packages(top_n=100):
+#    """Stub for scanning most downloaded python packages""
+#    pass
 
 # def scan_dependencies(filename):
 #    """Stub for scanning a requirements.txt or similar dependencies file"""
