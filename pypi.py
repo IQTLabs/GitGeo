@@ -12,7 +12,7 @@ def get_top_python_packages(top_n=100):
     """Generate list of most downloaded python packages
 
     Args:
-    TOP_N: the number of most downloaded packages to return
+        top_n: the number of most downloaded packages to return
 
     Returns:
         (list) Names of most downloaded packages
@@ -56,25 +56,23 @@ def get_pypi_data(pkg):
 
     pypi_data = {}
 
-    pypi_data["github_owner_and_repo"] = get_github_url_owner_and_repo(pypi_pkg_json)
+    github_url = get_github_url(pypi_pkg_json)
+    pypi_data["github_owner_and_repo"] = extract_github_owner_and_repo(github_url)
     pypi_data["pypi_maintainers"] = get_pypi_maintainers(pkg)
 
     return pypi_data
 
 
-def get_github_url_owner_and_repo(pypi_pkg_json):
-    """Retrieve owner and repo associated with GitHub URL
+def get_github_url(pypi_pkg_json):
+    """Retrieve GitHub URL associated with a Python package
 
-    Search for potential GitHub URLS and then return
-    in proper format. e.g. psf/requests,
-    NOT https://www.github.com/psf/requests
+    Search for potential GitHub URLS
 
     Args:
         pypi_pkg_json: a json blob of pypi package data
 
     Returns:
-
-        str: owner and repo name associated with GitHub URL
+        str: GitHub URL
     """
     github_page = ""
     potential_github_fields = []
@@ -103,10 +101,7 @@ def get_github_url_owner_and_repo(pypi_pkg_json):
             github_page = field
             break
 
-    # Extract repo owner and repo name only
-    github_owner_and_repo = extract_github_owner_and_repo(github_page)
-
-    return github_owner_and_repo
+    return github_page
 
 
 def extract_github_owner_and_repo(github_page):
@@ -123,20 +118,14 @@ def extract_github_owner_and_repo(github_page):
     if github_page == "":
         return ""
 
-    # remove slash if last character
-    if github_page[-1] == "/":
-        github_page = github_page[:-1]
+    # split on github.com
+    split_github_page = github_page.split("github.com")
 
-    github_page_elements = github_page.split("/")
+    # take portion of URL after github.com and split on slashes
+    github_url_elements = split_github_page[1].split("/")
 
-    # deal with "pandas"-type bug where url includes issues at the end
-    # bug: https://github.com/pandas-dev/pandas/issues -> pandas/issues
-    # correct: https://github.com/pandas-dev/pandas/issues -> pandas-dev/pandas
-    if github_page_elements[-1] == "issues":
-        github_page_elements.pop(-1)
-
-    # join last two element with a slash
-    github_owner_and_repo = ("/").join(github_page_elements[-2:])
+    # rejoin by slash owner and repo name
+    github_owner_and_repo = ("/").join(github_url_elements[1:3])
 
     return github_owner_and_repo
 
