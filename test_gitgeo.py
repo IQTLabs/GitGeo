@@ -34,6 +34,8 @@ class TestPypiFunctionality:
         assert requests_pypi_data["github_owner_and_repo"] == "psf/requests"
         networkml_pypi_data = get_pypi_data("networkml")
         assert networkml_pypi_data["github_owner_and_repo"] == "IQTLabs/NetworkML"
+        pandas_pypi_data = get_pypi_data("pandas")
+        assert pandas_pypi_data["github_owner_and_repo"] == "pandas-dev/pandas"
 
         # tests for packages with no GitHub link on PyPI page
         reportlab_pypi_data = get_pypi_data("reportlab")
@@ -81,7 +83,6 @@ class TestGitHubFunctionality:
         assert get_country_from_location("London, England") == "United Kingdom"
         assert get_country_from_location("Prague, Czech Republic") == "Czech Republic"
 
-    @pytest.mark.xfail  # test should fail, until functionality implemented
     def test_get_country_from_location_nonstandard_order(self):
         """test get_country_from_location on non-standard order pairs"""
         assert get_country_from_location("Russia, Moscow") == "Russia"
