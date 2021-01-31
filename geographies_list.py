@@ -15,6 +15,18 @@ with open("world_cities.csv", errors="ignore", newline="") as file:
         city_country_dict[row[0]] = row[1]
 
 CITY_COUNTRY_DICT = city_country_dict
+
+# list of country codes
+with open("country_codes.csv", errors="ignore", newline="") as file:
+    reader = csv.reader(file)
+    code_country_list = list(reader)
+    code_country_dict = {}
+    for row in code_country_list:
+        # key is city (row[0]), value is country (row[1])
+        city_country_dict[row[1]] = row[0]
+
+CODE_COUNTRY_DICT = city_country_dict
+
 # a list of all countries in the english language
 ALL_COUNTRIES = [
     "Afghanistan",
