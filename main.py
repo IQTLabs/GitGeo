@@ -83,8 +83,6 @@ if __name__ == "__main__":  # pragma: no cover
 
     args = parse_arguments()
 
-    # scan_top_packages()
-
     if args.package:
         scan_single_package(args.package, args.summary)
 
