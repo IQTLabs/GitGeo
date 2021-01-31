@@ -65,7 +65,9 @@ def get_pypi_data(pkg):
 def get_github_url_owner_and_repo(pypi_pkg_json):
     """Retrieve owner and repo associated with GitHub URL
 
-    e.g. psf/requests, NOT https://www.github.com/psf/requests
+    Search for potential GitHub URLS and then return
+    in proper format. e.g. psf/requests,
+    NOT https://www.github.com/psf/requests
 
     Args:
         pypi_pkg_json: a json blob of pypi package data
@@ -75,13 +77,26 @@ def get_github_url_owner_and_repo(pypi_pkg_json):
         str: owner and repo name associated with GitHub URL
     """
     github_page = ""
-    # Check potential fields for a github link
-    potential_github_fields = [pypi_pkg_json["info"]["home_page"]]
-    # Add project url fields if url fields present
+    potential_github_fields = []
+
+    # check home page url
+    if "github.com" in pypi_pkg_json["info"]["home_page"]:
+        potential_github_fields.append(pypi_pkg_json["info"]["home_page"])
+
+    # check project url fields if url fields present
     if pypi_pkg_json["info"]["project_urls"]:
         for _, url in pypi_pkg_json["info"]["project_urls"].items():
-            potential_github_fields.append(url)
-    # TODO: Add a search of the text in PyPI for any GitHub mentions
+            if "github.com" in url:
+                potential_github_fields.append(url)
+    
+    # check PyPI description text for any GitHub mentions, if url
+    # fields not present
+    description = pypi_pkg_json["info"]["description"]
+    if potential_github_fields == [] and description:
+        for token in description.split():
+            if "github.com" in token:
+                print(token)
+                potential_github_fields.append(token)
 
     for field in potential_github_fields:
         # Any field with github in it must be github link
