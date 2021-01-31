@@ -36,12 +36,36 @@ class TestPypiFunctionality:
         assert networkml_pypi_data["github_owner_and_repo"] == "IQTLabs/NetworkML"
         pandas_pypi_data = get_pypi_data("pandas")
         assert pandas_pypi_data["github_owner_and_repo"] == "pandas-dev/pandas"
+        awscli_pypi_data = get_pypi_data("awscli")
+        assert awscli_pypi_data["github_owner_and_repo"] == "aws/aws-cli"
+        protobuf_pypi_data = get_pypi_data("protobuf")
+        assert protobuf_pypi_data["github_owner_and_repo"] == "protocolbuffers/protobuf"
+        pillow_pypi_data = get_pypi_data("pillow")
+        assert pillow_pypi_data["github_owner_and_repo"] == "python-pillow/Pillow"
+        tornado_pypi_data = get_pypi_data("tornado")
+        assert tornado_pypi_data["github_owner_and_repo"] == "tornadoweb/tornado"
+        typingextensions_pypi_data = get_pypi_data("typing-extensions")
+        assert typingextensions_pypi_data["github_owner_and_repo"] == "python/typing"
+        tensorflow_pypi_data = get_pypi_data("tensorflow")
+        assert tensorflow_pypi_data["github_owner_and_repo"] == "tensorflow/tensorflow"
 
         # tests for packages with no GitHub link on PyPI page
         reportlab_pypi_data = get_pypi_data("reportlab")
         assert reportlab_pypi_data["github_owner_and_repo"] == ""
         bfengine_pypi_data = get_pypi_data("bfengine")
         assert bfengine_pypi_data["github_owner_and_repo"] == ""
+        docutils_pypi_data = get_pypi_data("docutils")
+        assert docutils_pypi_data["github_owner_and_repo"] == ""
+        cffi_pypi_data = get_pypi_data("cffi")
+        assert cffi_pypi_data["github_owner_and_repo"] == ""
+        pygments_pypi_data = get_pypi_data("pygments")
+        assert pygments_pypi_data["github_owner_and_repo"] == ""
+        pexpect_pypi_data = get_pypi_data("pexpect")
+        assert pexpect_pypi_data["github_owner_and_repo"] == ""
+        future_pypi_data = get_pypi_data("future")
+        assert future_pypi_data["github_owner_and_repo"] == ""
+        enum34_pypi_data = get_pypi_data("enum34")
+        assert enum34_pypi_data["github_owner_and_repo"] == ""
 
         # test for package names that are not on PyPI
         with pytest.raises(Exception):
@@ -50,9 +74,22 @@ class TestPypiFunctionality:
             get_pypi_data("thispackageismalware")
 
     def test_get_github_url_owner_and_repo_with_link_in_description(self):
-        """Unit test for get_github_URL_owner_and_repo functionality that is not yet implemented"""
+        """Unit test for get_github_URL_owner_and_repo functionality"""
         pythondateutil_pypi_data = get_pypi_data("python-dateutil")
         assert pythondateutil_pypi_data["github_owner_and_repo"] == "dateutil/dateutil"
+        rsa_pypi_data = get_pypi_data("rsa")
+        assert rsa_pypi_data["github_owner_and_repo"] == "sybrenstuvel/python-rsa"
+        py_pypi_data = get_pypi_data("py")
+        assert py_pypi_data["github_owner_and_repo"] == "pytest-dev/py"
+
+    @pytest.mark.xfail  # known bug, don't know how to fix without breaking other code
+    def test_get_github_url_owner_and_repo_with_link_in_description_hyperlinked(self):
+        """Unit test for get_github_URL_owner_and_repo functionality where URL is
+        embedded in hypertext"""
+        uritemplate_pypi_data = get_pypi_data("uritemplate")
+        assert (
+            uritemplate_pypi_data["github_owner_and_repo"] == "python-hyper/uritemplate"
+        )
 
     def test_get_pypi_maintainers(self):
         """Unit test for get_pypi_maintainers()"""
@@ -139,7 +176,7 @@ def test_print_by_contributor_repo(capsys):
     repo = "jspeed-meyers/pcap2map"
     contributors = get_contributors(repo)
     print_by_contributor(contributors)
-    captured = capsys.readouterr()  # capture outpt printed to date
+    captured = capsys.readouterr()  # capture output printed
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
         """        CONTRIBUTOR, LOCATION
@@ -156,7 +193,7 @@ def test_print_by_contributor_package(capsys):
     pypi_data = get_pypi_data(pkg)
     contributors = get_contributors(pypi_data["github_owner_and_repo"])
     print_by_contributor(contributors, pypi_data)
-    captured = capsys.readouterr()  # capture outpt printed to date
+    captured = capsys.readouterr()  # capture output
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
         """        CONTRIBUTOR, LOCATION
@@ -186,7 +223,7 @@ def test_print_by_contributor_package(capsys):
 
 def test_print_by_country(capsys):
     """Unit test for print_by_country() for networml python package"""
-    repo = "iqtlabs/networkml"
+    repo = "https://www.github.com/iqtlabs/networkml"
     repo_ending_string = extract_github_owner_and_repo(repo)
     contributors = get_contributors(repo_ending_string)
     print_by_country(contributors)
