@@ -81,6 +81,8 @@ pytest
 ## Roadmap
 
 - Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
+	- Add country acryonym matching. e.g. USA --> "United States"
+	- Assess using geolocation API's
 - Add scan of top X PyPI packages capability
 - Add visualization capability
 - Add codacy integration and badge
@@ -103,9 +105,6 @@ pytest
 	- GDP per capita per country?
 
 ## Known bugs
-
-- Add functionality to scan pypi description field for GitHub URLS if GitHub URLs not found
-  in typical PyPI package metadata location
 
 ## Want to contribute?
 
