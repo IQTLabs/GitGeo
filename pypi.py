@@ -88,7 +88,7 @@ def get_github_url_owner_and_repo(pypi_pkg_json):
         for _, url in pypi_pkg_json["info"]["project_urls"].items():
             if "github.com" in url:
                 potential_github_fields.append(url)
-    
+
     # check PyPI description text for any GitHub mentions, if url
     # fields not present
     description = pypi_pkg_json["info"]["description"]
