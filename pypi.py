@@ -106,8 +106,24 @@ def extract_github_owner_and_repo(github_page):
     Returns:
         str: owner and repo joined by a '/'
     """
-    github_page_elements = github_page.split("/")[-2:]
-    github_owner_and_repo = ("/").join(github_page_elements)
+    if github_page == "":
+        return ""
+
+    # remove slash if last character
+    if github_page[-1] == "/":
+        github_page = github_page[:-1]
+
+    github_page_elements = github_page.split("/")
+
+    # deal with "pandas"-type bug where url includes issues at the end
+    # bug: https://github.com/pandas-dev/pandas/issues -> pandas/issues
+    # correct: https://github.com/pandas-dev/pandas/issues -> pandas-dev/pandas
+    if github_page_elements[-1] == "issues":
+        github_page_elements.pop(-1)
+
+    # join last two element with a slash
+    github_owner_and_repo = ("/").join(github_page_elements[-2:])
+
     return github_owner_and_repo
 
 
