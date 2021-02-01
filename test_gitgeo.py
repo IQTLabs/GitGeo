@@ -169,8 +169,7 @@ def test_print_by_contributor_repo(capsys):
     output_text = textwrap.dedent(
         """        CONTRIBUTOR, LOCATION
         ---------------------
-        jspeed-meyers | None | None
-        """
+        jspeed-meyers | None | None\n"""
     )
     assert captured.out == output_text
 
@@ -203,8 +202,7 @@ def test_print_by_contributor_package(capsys):
         toddstavish | None | None
         sneakyoctopus12 | None | None
         Hax7 | Palestine | None
-        paulgowdy | Menlo Park CA | United States
-        """
+        paulgowdy | Menlo Park CA | United States\n"""
     )
     assert captured.out == output_text
 
@@ -222,8 +220,7 @@ def test_print_by_country(capsys):
         ---------------------------
         None 11
         United States 4
-        New Zealand 2
-        """
+        New Zealand 2\n"""
     )
     assert captured.out == output_text
 
@@ -242,8 +239,7 @@ def test_scan_single_package_no_summary(capsys):
         CONTRIBUTOR, LOCATION
         * indicates PyPI maintainer
         ---------------------
-        jspeed-meyers * | None | None
-        """
+        jspeed-meyers * | None | None\n"""
     )
     assert captured.out == output_text
 
@@ -263,8 +259,7 @@ def test_scan_single_package_with_summary(capsys):
         ---------------------------
         None 11
         United States 4
-        New Zealand 2
-        """
+        New Zealand 2\n"""
     )
     assert captured.out == output_text
 
@@ -281,8 +276,7 @@ def test_scan_single_repo_no_summary(capsys):
         -----------------
         CONTRIBUTOR, LOCATION
         ---------------------
-        jspeed-meyers | None | None
-        """
+        jspeed-meyers | None | None\n"""
     )
     assert captured.out == output_text
 
@@ -301,7 +295,6 @@ def test_scan_single_repo_with_summary(capsys):
         ---------------------------
         None 11
         United States 4
-        New Zealand 2
-        """
+        New Zealand 2\n"""
     )
     assert captured.out == output_text
