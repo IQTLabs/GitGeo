@@ -1,4 +1,5 @@
 ![GitHub Actions Unit Tests](https://github.com/IQTLabs/GitGeo/workflows/Python%20package/badge.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5eb7fb4f74b04e83b0ce967a75b460f5)](https://app.codacy.com/gh/IQTLabs/GitGeo?utm_source=github.com&utm_medium=referral&utm_content=IQTLabs/GitGeo&utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/IQTLabs/GitGeo/branch/main/graph/badge.svg?token=W5DVGL0VMN)](https://codecov.io/gh/IQTLabs/GitGeo)
 ![pylint Score](https://mperlet.github.io/pybadge/badges/10.svg)
 ![Python Versions Supported](https://github.com/IQTLabs/GitGeo/blob/main/badges/python_versions_supported.svg)
