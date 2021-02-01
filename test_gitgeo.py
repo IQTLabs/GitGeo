@@ -8,7 +8,8 @@ import textwrap
 import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
-from github import get_contributors, get_contributor_location, get_country_from_location
+from github import get_contributors, get_contributor_location
+from geolocation import get_country_from_location
 from printers import print_by_contributor, print_by_country
 from pypi import get_top_python_packages, get_pypi_data, extract_github_owner_and_repo
 

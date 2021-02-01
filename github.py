@@ -5,14 +5,6 @@ import os
 
 import requests
 
-from geographies_list import (
-    ALL_COUNTRIES,
-    CITY_COUNTRY_DICT,
-    STATE_NAMES,
-    STATE_ABBREV,
-    CODE_COUNTRY_DICT,
-)
-
 # access secret token for GitHub API to increase rate limit
 GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
@@ -45,41 +37,6 @@ def get_contributors(repo):
     return committers
 
 
-def get_country_from_location(location_string):
-    """Return country (Hungary, United States, etc) from user location text
-
-    Args:
-        location_string: a text containing user-supplied location
-
-    Return:
-        str: a country
-    """
-    country = "None"
-    if location_string is None:
-        country = "None"
-    else:
-        # Loop through different typical separators of city, country, etc.
-        for separator in [",", " "]:
-            # Check different positions of the token
-            for position in [-1, 0]:
-
-                pieces = location_string.split(separator)
-                token = pieces[position].strip()
-
-                # Use returns as a way of exiting double loop
-                if token in ALL_COUNTRIES:  # pylint: disable=no-else-return
-                    return token
-                elif token in CITY_COUNTRY_DICT.keys():
-                    return CITY_COUNTRY_DICT[token]
-                elif token in CODE_COUNTRY_DICT.keys():
-                    return CODE_COUNTRY_DICT[token]
-                elif token in STATE_NAMES or token in STATE_ABBREV:
-                    return "United States"
-
-    # if no matches are found, will return "none"
-    return country
-
-
 def get_contributor_location(user):
     """Return geographic location, if present on github page, of user
 
@@ -89,8 +46,6 @@ def get_contributor_location(user):
     Return:
         str: a geographic location
     """
-    # TODO: What to do if location is not listed in profile? Kinga has
-    # some predictive analytics ideas.
     response = requests.get(
         "https://api.github.com/users/" + user,
         # convert username and token to strings per requests's specifications

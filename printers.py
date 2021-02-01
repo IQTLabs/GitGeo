@@ -2,8 +2,8 @@
 
 from collections import Counter
 
-from github import get_contributor_location, get_country_from_location
-
+from github import get_contributor_location
+from geolocation import get_country_from_location
 
 def print_by_country(contributors):
     """Print contributors aggregated by country
