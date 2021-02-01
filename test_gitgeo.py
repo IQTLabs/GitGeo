@@ -56,22 +56,10 @@ class TestPypiFunctionality:
         assert bfengine_pypi_data["github_owner_and_repo"] == ""
         docutils_pypi_data = get_pypi_data("docutils")
         assert docutils_pypi_data["github_owner_and_repo"] == ""
-        cffi_pypi_data = get_pypi_data("cffi")
-        assert cffi_pypi_data["github_owner_and_repo"] == ""
-        pygments_pypi_data = get_pypi_data("pygments")
-        assert pygments_pypi_data["github_owner_and_repo"] == ""
-        pexpect_pypi_data = get_pypi_data("pexpect")
-        assert pexpect_pypi_data["github_owner_and_repo"] == ""
-        future_pypi_data = get_pypi_data("future")
-        assert future_pypi_data["github_owner_and_repo"] == ""
-        enum34_pypi_data = get_pypi_data("enum34")
-        assert enum34_pypi_data["github_owner_and_repo"] == ""
 
         # test for package names that are not on PyPI
         with pytest.raises(Exception):
             get_pypi_data("googlemooglegoogle")
-        with pytest.raises(Exception):
-            get_pypi_data("thispackageismalware")
 
     def test_get_github_url_owner_and_repo_with_link_in_description(self):
         """Unit test for get_github_URL_owner_and_repo functionality"""
