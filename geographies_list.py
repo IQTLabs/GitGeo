@@ -112,7 +112,6 @@ ALL_COUNTRIES = [
     "French Southern Territories",
     "Gabon",
     "Gambia",
-    "Georgia",
     "Germany",
     "Ghana",
     "Gibraltar",
