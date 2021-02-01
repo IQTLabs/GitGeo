@@ -61,7 +61,7 @@ def scan_single_repo(repo, summary):
     repo_ending_string = extract_github_owner_and_repo(repo)
     contributors = get_contributors(repo_ending_string)
     print("-----------------")
-    print("PACKAGE: {}".format(repo_ending_string))
+    print("GITHUB REPO: {}".format(repo_ending_string))
     print("-----------------")
 
     if summary:
