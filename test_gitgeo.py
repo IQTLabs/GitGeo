@@ -227,6 +227,7 @@ def test_print_by_country(capsys):
     )
     assert captured.out == output_text
 
+
 def test_scan_single_package_no_summary(capsys):
     """Integration test for scan_single_package with no summary"""
     pkg = "pcap2map"
@@ -245,6 +246,7 @@ def test_scan_single_package_no_summary(capsys):
         """
     )
     assert captured.out == output_text
+
 
 def test_scan_single_package_with_summary(capsys):
     """Integration test for scan_single_package with summary"""

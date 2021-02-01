@@ -5,7 +5,7 @@ from geographies_list import (
     CITY_COUNTRY_DICT,
     CODE_COUNTRY_DICT,
     STATE_ABBREV,
-    STATE_NAMES
+    STATE_NAMES,
 )
 
 
