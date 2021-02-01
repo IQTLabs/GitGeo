@@ -1,4 +1,4 @@
-"""Custom CSV-related functionality"""
+"""Custom CSV-related functionality."""
 
 import csv
 import os
@@ -8,6 +8,12 @@ def create_csv():
     """Create new csv to store git-geo result
 
     Delete any existing csv and the create new csv.
+
+    Args:
+        None
+
+    Returns:
+        None
     """
     # delete csv if it already exists
     filename = "git-geo-results.csv"
@@ -23,6 +29,8 @@ def create_csv():
 
 def add_committer_to_csv(pkg, username, location):
     """Write committer info to existing csv file
+
+    Use to create dataset of location data for analysis.
 
     Args:
         pkg - package name

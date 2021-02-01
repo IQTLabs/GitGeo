@@ -1,4 +1,4 @@
-"""Identify committer geographies associated with python package"""
+"""Identify committer geographies associated with python package."""
 
 import argparse
 
@@ -8,8 +8,7 @@ from pypi import get_pypi_data, extract_github_owner_and_repo
 
 
 def parse_arguments():  # pragma: no cover
-    """Parse command line arguments"""
-
+    """Parse command line arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--package", help="Specify Python (PyPI) package.")
     parser.add_argument("--repo", help="Specify GitHub repo.")
@@ -24,7 +23,7 @@ def parse_arguments():  # pragma: no cover
 
 
 def scan_single_package(pkg, summary):
-    """Print location results for single package
+    """Print location results for single package.
 
     Printing can either be by contributor or by country
 

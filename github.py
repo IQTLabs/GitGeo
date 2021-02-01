@@ -12,7 +12,8 @@ GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 
 # Identify up to top 100 committers associated with a Github repo
 def get_contributors(repo):
-    """Generate list of up to top 100 contributors on package
+    """
+    Generate list of up to top 100 contributors on package
 
     Args:
         repo: a github repo url
@@ -38,7 +39,8 @@ def get_contributors(repo):
 
 
 def get_contributor_location(user):
-    """Return geographic location, if present on github page, of user
+    """
+    Return geographic location, if present on github page, of user
 
     Args:
         user: the GitHub user name

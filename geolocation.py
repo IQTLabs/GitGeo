@@ -1,4 +1,4 @@
-"""geolocation functionality"""
+"""geolocation functionality."""
 
 from geographies_list import (
     ALL_COUNTRIES,
@@ -11,6 +11,8 @@ from geographies_list import (
 
 def get_country_from_location(location_string):
     """Return country (Hungary, United States, etc) from user location text
+
+    This function implements an admittedly imprecise text matching method.
 
     Args:
         location_string: a text containing user-supplied location

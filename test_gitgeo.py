@@ -1,4 +1,4 @@
-"""Unit tests and integration tests for git-geo"""
+"""Unit tests and integration tests for GitGeo."""
 
 # pylint: disable=no-self-use, too-many-locals
 
@@ -16,10 +16,10 @@ from pypi import get_top_python_packages, get_pypi_data, extract_github_owner_an
 
 
 class TestPypiFunctionality:
-    """Unit tests related to PyPI functionality"""
+    """Unit tests related to PyPI functionality."""
 
     def test_get_top_python_packages(self):
-        """Unit test for get_top_python_packages()"""
+        """Unit test for get_top_python_packages()."""
         top_python_packages = get_top_python_packages(top_n=5)
         assert top_python_packages == [
             "urllib3",
@@ -30,7 +30,7 @@ class TestPypiFunctionality:
         ]
 
     def test_get_github_url_owner_and_repo(self):
-        """Unit tests for get_github_URL_owner_and_repo()"""
+        """Unit tests for get_github_URL_owner_and_repo()."""
         # tests for packages with standard location of GitHub link on PyPI page
         requests_pypi_data = get_pypi_data("requests")
         assert requests_pypi_data["github_owner_and_repo"] == "psf/requests"
@@ -64,7 +64,7 @@ class TestPypiFunctionality:
             get_pypi_data("googlemooglegoogle")
 
     def test_get_github_url_owner_and_repo_with_link_in_description(self):
-        """Unit test for get_github_URL_owner_and_repo functionality"""
+        """Unit test for get_github_URL_owner_and_repo functionality."""
         pythondateutil_pypi_data = get_pypi_data("python-dateutil")
         assert pythondateutil_pypi_data["github_owner_and_repo"] == "dateutil/dateutil"
         rsa_pypi_data = get_pypi_data("rsa")
@@ -74,15 +74,17 @@ class TestPypiFunctionality:
 
     @pytest.mark.xfail  # known bug, don't know how to fix without breaking other code
     def test_get_github_url_owner_and_repo_with_link_in_description_hyperlinked(self):
-        """Unit test for get_github_URL_owner_and_repo functionality where URL is
-        embedded in hypertext"""
+        """
+        Unit test for get_github_URL_owner_and_repo functionality where URL is
+        embedded in hypertext
+        """
         uritemplate_pypi_data = get_pypi_data("uritemplate")
         assert (
             uritemplate_pypi_data["github_owner_and_repo"] == "python-hyper/uritemplate"
         )
 
     def test_get_pypi_maintainers(self):
-        """Unit test for get_pypi_maintainers()"""
+        """Unit test for get_pypi_maintainers()."""
         requests_pypi_data = get_pypi_data("pcap2map")
         assert requests_pypi_data["pypi_maintainers"] == ["jspeed-meyers"]
 
@@ -91,15 +93,15 @@ class TestGitHubFunctionality:
     """Unit tests related to GitHub functionality"""
 
     def test_get_contributors(self):
-        """Unit test for get_contributors()"""
+        """Unit test for get_contributors()."""
         assert get_contributors("jspeed-meyers/pcap2map") == ["jspeed-meyers"]
 
     def test_get_contributor_location(self):
-        """Unit test for get_contributor_location()"""
+        """Unit test for get_contributor_location()."""
         assert get_contributor_location("anarkiwi") == "Wellington, New Zealand"
 
     def test_get_country_from_location_standard_order_with_comma(self):
-        """test get_country_from_location on standard order pairs with comma"""
+        """test get_country_from_location on standard order pairs with comma."""
         assert get_country_from_location("Wellington, New Zealand") == "New Zealand"
         assert get_country_from_location("Jordan, Minnesota") == "United States"
         assert get_country_from_location("Jordan, MN") == "United States"
@@ -110,16 +112,16 @@ class TestGitHubFunctionality:
         assert get_country_from_location("Virginia, USA") == "United States"
 
     def test_get_country_from_location_nonstandard_order(self):
-        """test get_country_from_location on non-standard order pairs"""
+        """test get_country_from_location on non-standard order pairs."""
         assert get_country_from_location("Russia, Moscow") == "Russia"
         assert get_country_from_location("Russia, Nizhny Novgorod") == "Russia"
 
     def test_get_country_from_location_standard_order_no_comma(self):
-        """test get_country_from_location on standard order pairs without comma"""
+        """test get_country_from_location on standard order pairs without comma."""
         assert get_country_from_location("Menlo Park CA") == "United States"
 
     def test_get_country_from_location_world_cities(self):
-        """test get_country_from_location on world city names"""
+        """test get_country_from_location on world city names."""
         assert get_country_from_location("Tokyo") == "Japan"
         assert get_country_from_location("London") == "United Kingdom"
         assert get_country_from_location("Jakarta") == "Indonesia"
@@ -128,19 +130,19 @@ class TestGitHubFunctionality:
         assert get_country_from_location("Toronto, ON") == "Canada"
 
     def test_get_country_from_location_country_abbreviations(self):
-        """test get_country_from_location on country abbreviations"""
+        """test get_country_from_location on country abbreviations."""
         assert get_country_from_location("USA") == "United States"
         assert get_country_from_location("Cambridge, UK") == "United Kingdom"
         assert get_country_from_location("UK") == "United Kingdom"
 
     @pytest.mark.xfail  # test should fail, until functionality implemented
     def test_get_country_from_location_corner_case_geographies(self):
-        """test get_country_from_location on unusual geographies"""
+        """test get_country_from_location on unusual geographies."""
         assert get_country_from_location("Palestine") == "Palestine"
         assert get_country_from_location("San Francisco Bay Area") == "United States"
 
     def test_extract_github_owner_and_repo(self):
-        """Unit test for extract_github_owner_and_repo()"""
+        """Unit test for extract_github_owner_and_repo()."""
         owner_and_repo = extract_github_owner_and_repo("www.github.com/psf/requests")
         assert owner_and_repo == "psf/requests"
 
@@ -149,18 +151,18 @@ class TestCsvFunctionality:
     """Unit tests related to CSV functionality"""
 
     def test_create_csv(self):
-        """Unit test for create_csv()"""
+        """Unit test for create_csv()."""
         create_csv()
         assert os.path.exists("git-geo-results.csv")
 
     def test_add_committer_to_csv(self):
-        """Unit test fpr add_committer_to_csv"""
+        """Unit test fpr add_committer_to_csv."""
         add_committer_to_csv("googlemoogle", "eschmidt", "innovation-island")
         os.remove("git-geo-results.csv")  # remove file
 
 
 def test_print_by_contributor_repo(capsys):
-    """Unit test for print by contributors for GitHub repo"""
+    """Unit test for print by contributors for GitHub repo."""
     repo = "jspeed-meyers/pcap2map"
     contributors = get_contributors(repo)
     print_by_contributor(contributors)
@@ -175,7 +177,7 @@ def test_print_by_contributor_repo(capsys):
 
 
 def test_print_by_contributor_package(capsys):
-    """Unit test for print_by_contributor() for networml python package"""
+    """Unit test for print_by_contributor() for networml python package."""
     pkg = "networkml"
     pypi_data = get_pypi_data(pkg)
     contributors = get_contributors(pypi_data["github_owner_and_repo"])
@@ -208,7 +210,7 @@ def test_print_by_contributor_package(capsys):
 
 
 def test_print_by_country(capsys):
-    """Unit test for print_by_country() for networml python package"""
+    """Unit test for print_by_country() for networml python package."""
     repo = "https://www.github.com/iqtlabs/networkml"
     repo_ending_string = extract_github_owner_and_repo(repo)
     contributors = get_contributors(repo_ending_string)
@@ -226,7 +228,7 @@ def test_print_by_country(capsys):
 
 
 def test_scan_single_package_no_summary(capsys):
-    """Integration test for scan_single_package with no summary"""
+    """Integration test for scan_single_package with no summary."""
     pkg = "pcap2map"
     scan_single_package(pkg, False)  # False indicates no summary
     captured = capsys.readouterr()  # capture output printed
@@ -245,7 +247,7 @@ def test_scan_single_package_no_summary(capsys):
 
 
 def test_scan_single_package_with_summary(capsys):
-    """Integration test for scan_single_package with summary"""
+    """Integration test for scan_single_package with summary."""
     pkg = "networkml"
     scan_single_package(pkg, True)  # True indicates do summary
     captured = capsys.readouterr()  # capture output printed
@@ -266,7 +268,7 @@ def test_scan_single_package_with_summary(capsys):
 
 @pytest.mark.xfail  # known bug, likely with capsys and pytest, test fails in actions
 def test_scan_single_repo_no_summary(capsys):
-    """Integration test for scan_single_repo with no summary"""
+    """Integration test for scan_single_repo with no summary."""
     repo = "https://www.github.com/jspeed-meyers/pcap2map"
     scan_single_repo(repo, False)  # False indicates no summary
     captured = capsys.readouterr()  # capture output printed
@@ -284,7 +286,7 @@ def test_scan_single_repo_no_summary(capsys):
 
 @pytest.mark.xfail  # known bug, likely with capsys and pytest, test fails in actions
 def test_scan_single_repo_with_summary(capsys):
-    """Integration test for scan_single_repo with summary"""
+    """Integration test for scan_single_repo with summary."""
     repo = "https://www.github.com/IQTLabs/NetworkML"
     scan_single_repo(repo, True)  # True indicates summary
     captured = capsys.readouterr()  # capture output printed

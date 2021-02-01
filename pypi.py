@@ -1,4 +1,4 @@
-"""PyPI and python package-related functions"""
+"""PyPI and python package-related functions."""
 
 import json
 import sys
@@ -9,7 +9,8 @@ import requests
 
 
 def get_top_python_packages(top_n=100):
-    """Generate list of most downloaded python packages
+    """
+    Generate list of most downloaded python packages
 
     Args:
         top_n: the number of most downloaded packages to return
@@ -105,7 +106,8 @@ def get_github_url(pypi_pkg_json):
 
 
 def extract_github_owner_and_repo(github_page):
-    """Extract only owner and repo name from GitHub page
+    """
+    Extract only owner and repo name from GitHub page
 
     https://www.github.com/psf/requests -> psf/requests
 

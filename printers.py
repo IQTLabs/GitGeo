@@ -7,7 +7,8 @@ from geolocation import get_country_from_location
 
 
 def print_by_country(contributors):
-    """Print contributors aggregated by country
+    """
+    Print contributors aggregated by country
 
     Args:
         contributors: a list of contributors
@@ -29,7 +30,8 @@ def print_by_country(contributors):
 
 
 def print_by_contributor(contributors, pypi_data=None):
-    """Print location results by contributor
+    """
+    Print location results by contributor
 
     Args:
         contributors - a list of contributors
