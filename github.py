@@ -54,7 +54,6 @@ def get_country_from_location(location_string):
     Return:
         str: a country
     """
-    # TODO: do case agnostic check
     country = "None"
     if location_string is None:
         country = "None"
