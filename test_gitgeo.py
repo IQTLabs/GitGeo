@@ -10,6 +10,7 @@ import pytest
 from custom_csv import create_csv, add_committer_to_csv
 from github import get_contributors, get_contributor_location
 from geolocation import get_country_from_location
+from main import scan_single_package
 from printers import print_by_contributor, print_by_country
 from pypi import get_top_python_packages, get_pypi_data, extract_github_owner_and_repo
 
@@ -218,6 +219,45 @@ def test_print_by_country(capsys):
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
         """        COUNTRY | # OF CONTRIBUTORS
+        ---------------------------
+        None 11
+        United States 4
+        New Zealand 2
+        """
+    )
+    assert captured.out == output_text
+
+def test_scan_single_package_no_summary(capsys):
+    """Integration test for scan_single_package with no summary"""
+    pkg = "pcap2map"
+    scan_single_package(pkg, False)  # False indicates no summary
+    captured = capsys.readouterr()  # capture output printed
+    # dedent removes spacing, using the spacing width from the first line
+    output_text = textwrap.dedent(
+        """        -----------------
+        PACKAGE: pcap2map
+        GITHUB REPO: jspeed-meyers/pcap2map
+        -----------------
+        CONTRIBUTOR, LOCATION
+        * indicates PyPI maintainer
+        ---------------------
+        jspeed-meyers * | None | None
+        """
+    )
+    assert captured.out == output_text
+
+def test_scan_single_package_with_summary(capsys):
+    """Integration test for scan_single_package with summary"""
+    pkg = "networkml"
+    scan_single_package(pkg, True)  # True indicates do summary
+    captured = capsys.readouterr()  # capture output printed
+    # dedent removes spacing, using the spacing width from the first line
+    output_text = textwrap.dedent(
+        """        -----------------
+        PACKAGE: networkml
+        GITHUB REPO: IQTLabs/NetworkML
+        -----------------
+        COUNTRY | # OF CONTRIBUTORS
         ---------------------------
         None 11
         United States 4
