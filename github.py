@@ -49,48 +49,39 @@ def get_country_from_location(location_string):
     """Return country (Hungary, United States, etc) from user location text
 
     Args:
-        location_string: a text containing a city and/or state and/or country
+        location_string: a text containing user-supplied location
 
     Return:
-        str: a country from the list of full country names from the package
-             country_list, or "NONE" if it wasn't a valid location or None was
-             provided
+        str: a country
     """
     # TODO: do case agnostic check
-    # TODO: Kinga, do you have an intuition about the pro's and con's of having multiple
-    # return statements in one function? My spidey sense says to avoid this, but I
-    # am open to your more informed judgement and knowledge of software engineering
-    # research and practice.
-
+    country = "None"
     if location_string is None:
-        return "None"
+        country = "None"
+    else:
+        # Loop through different typical separators of city, country, etc.
+        for separator in [",", " "]:
+            # Check different positions of the token
+            for position in [-1, 0]:
 
-    # Loop through different typical separators of city, country, etc.
-    for separator in [",", " "]:
-        # Check different positions of the token
-        for position in [-1, 0]:
+                pieces = location_string.split(separator)
+                token = pieces[position].strip()
 
-            pieces = location_string.split(separator)
-            token = pieces[position].strip()
+                # todo: these break statements are probably not behaving like
+                # jsm expects
+                if token in ALL_COUNTRIES:
+                    country = token
+                    break
+                elif token in CITY_COUNTRY_DICT.keys():
+                    country = CITY_COUNTRY_DICT[token]
+                    break
+                elif token in CODE_COUNTRY_DICT.keys():
+                    country = CODE_COUNTRY_DICT[token]
+                    break
+                elif token in STATE_NAMES or token in STATE_ABBREV:
+                    country = "United States"
 
-            if token == "Georgia":
-                if len(pieces) > 1:
-                    return "United States"
-                return "Georgia"
-
-            if token in ALL_COUNTRIES:
-                return token
-            if token in CITY_COUNTRY_DICT.keys():
-                return CITY_COUNTRY_DICT[token]
-            if token in CODE_COUNTRY_DICT.keys():
-                return CODE_COUNTRY_DICT[token]
-            if token in STATE_NAMES:
-                return "United States"
-            if token in STATE_ABBREV:
-                return "United States"
-
-    # If no match is found, also return None as string
-    return "None"
+    return country
 
 
 def get_contributor_location(user):
