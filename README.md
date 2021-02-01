@@ -1,5 +1,6 @@
 ![GitHub Actions Unit Tests](https://github.com/IQTLabs/GitGeo/workflows/Python%20package/badge.svg)
 [![codecov](https://codecov.io/gh/IQTLabs/GitGeo/branch/main/graph/badge.svg?token=W5DVGL0VMN)](https://codecov.io/gh/IQTLabs/GitGeo)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5eb7fb4f74b04e83b0ce967a75b460f5)](https://app.codacy.com/gh/IQTLabs/GitGeo?utm_source=github.com&utm_medium=referral&utm_content=IQTLabs/GitGeo&utm_campaign=Badge_Grade)
 ![pylint Score](https://mperlet.github.io/pybadge/badges/10.svg)
 ![Python Versions Supported](https://github.com/IQTLabs/GitGeo/blob/main/badges/python_versions_supported.svg)
 ![CodeQL](https://github.com/IQTLabs/GitGeo/workflows/CodeQL/badge.svg)
@@ -84,8 +85,7 @@ pytest
 	- Assess using geolocation API's
 - Add visualization capability
 - Add scan of top X PyPI packages capability
-- Add readin packages or repos capability
-- Add codacy integration and badge
+- Add read-in packages or repos capability
 - Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
 - Add capability of predicting location via a model given only timestamp from commit and from commit-related data.
 - Investigate capability to determine authenticity of location information
