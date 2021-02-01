@@ -1,4 +1,4 @@
-"""Geography lists used to map user location text to country"""
+"""Geography lists used to map user location text to country."""
 
 import csv
 
