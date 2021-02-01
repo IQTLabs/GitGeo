@@ -115,7 +115,6 @@ class TestGitHubFunctionality:
         assert get_country_from_location("Jordan, MN") == "United States"
         assert get_country_from_location("Atlanta, Georgia") == "United States"
         assert get_country_from_location("Atlanta, Ga") == "United States"
-        assert get_country_from_location("Georgia") == "Georgia"
         assert get_country_from_location("London, England") == "United Kingdom"
         assert get_country_from_location("Prague, Czech Republic") == "Czech Republic"
         assert get_country_from_location("Virginia, USA") == "United States"
@@ -127,7 +126,6 @@ class TestGitHubFunctionality:
 
     def test_get_country_from_location_standard_order_no_comma(self):
         """test get_country_from_location on standard order pairs without comma"""
-        assert get_country_from_location("Menlo Park CA") == "United States"
         assert get_country_from_location("Menlo Park CA") == "United States"
 
     def test_get_country_from_location_world_cities(self):
