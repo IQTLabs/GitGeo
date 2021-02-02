@@ -110,6 +110,10 @@ class TestGitHubFunctionality:
         assert get_country_from_location("London, England") == "United Kingdom"
         assert get_country_from_location("Prague, Czech Republic") == "Czech Republic"
         assert get_country_from_location("Virginia, USA") == "United States"
+        assert get_country_from_location("Naperville, IL") == "United States"
+        assert get_country_from_location("Toronto, Ontario, Canada") == "Canada"
+        assert get_country_from_location("Berlin, DE") == "Germany"
+        assert get_country_from_location("CSU Sacramento") == "United States"
 
     def test_get_country_from_location_nonstandard_order(self):
         """test get_country_from_location on non-standard order pairs."""
@@ -135,7 +139,6 @@ class TestGitHubFunctionality:
         assert get_country_from_location("Cambridge, UK") == "United Kingdom"
         assert get_country_from_location("UK") == "United Kingdom"
 
-    @pytest.mark.xfail  # test should fail, until functionality implemented
     def test_get_country_from_location_corner_case_geographies(self):
         """test get_country_from_location on unusual geographies."""
         assert get_country_from_location("Palestine") == "Palestine"

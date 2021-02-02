@@ -5,6 +5,8 @@ import csv
 # static list of all cities mapped to countries
 # from https://datahub.io/core/world-cities\
 # ignore errors because of many unicode errors.
+# TODO: insert cities in to dict in reverse order by population so that
+#       most populous city overwrites its country in the dict
 with open("world_cities.csv", errors="ignore", newline="") as file:
     reader = csv.reader(file)
     city_country_list = list(reader)
@@ -279,8 +281,6 @@ ALL_COUNTRIES = [
     "Zimbabwe",
 ]
 
-# todo: Kinga, is the separation of "District of" and "of Columbia" into
-# two separate elements a bug? Why or why not?
 STATE_NAMES = [
     "Alaska",
     "Alabama",
@@ -290,8 +290,7 @@ STATE_NAMES = [
     "California",
     "Colorado",
     "Connecticut",
-    "District ",  # Kinga?
-    "of Columbia",  # Kinga?
+    "District of Columbia", 
     "Delaware",
     "Florida",
     "Georgia",
@@ -336,6 +335,8 @@ STATE_NAMES = [
     "Vermont",
     "Washington",
     "Wisconsin",
+    "Washington, DC",
+    "Washington, D.C.",
     "West Virginia",
     "Wyoming",
 ]
