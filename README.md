@@ -7,15 +7,14 @@
 [![security: bandit](https://img.shields.io/badge/security-bandit-yellow.svg)](https://github.com/PyCQA/bandit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-
 # GitGeo
 Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
 
 ## Why use GitGeo?
-- Curiosity
-- Open source software community managemenet
-- IT security compliance
-- Research on open source software ecosystem
+-  Curiosity
+-  Open source software community managemenet
+-  IT security compliance
+-  Research on open source software ecosystem
 
 ## Installation
 
@@ -81,20 +80,20 @@ pytest
 
 ## Roadmap
 
-- Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
-	- Assess using geolocation API's
-- Add visualization capability
-- Add scan of top X PyPI packages capability
-- Add read-in packages or repos capability
-- Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
-- Add capability of predicting location via a model given only timestamp from commit and from commit-related data.
-- Investigate capability to determine authenticity of location information
-- Investigate possibility of geographic diversity score for a repo or package
-- Investigate possibility of linking emails in commits to email breach lists.
-- Investigate possibility of determining whether a project is a "hobby" project (outside of working hours) or a "work" project (within working hours)?
-- Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
+-  Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
+-   Assess using geolocation API's
+-  Add visualization capability
+-  Add scan of top X PyPI packages capability
+-  Add read-in packages or repos capability
+-  Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
+-  Add capability of predicting location via a model given only timestamp from commit and from commit-related data.
+-  Investigate capability to determine authenticity of location information
+-  Investigate possibility of geographic diversity score for a repo or package
+-  Investigate possibility of linking emails in commits to email breach lists.
+-  Investigate possibility of determining whether a project is a "hobby" project (outside of working hours) or a "work" project (within working hours)?
+-  Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
   This person is the "auth" person.
-- Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
+-  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
 
 ## Potential Research Questions
 
