@@ -114,6 +114,7 @@ class TestGitHubFunctionality:
         assert get_country_from_location("Toronto, Ontario, Canada") == "Canada"
         assert get_country_from_location("Berlin, DE") == "Germany"
         assert get_country_from_location("CSU Sacramento") == "United States"
+        assert get_country_from_location("Philadelphia, PA") == "United States"
 
     def test_get_country_from_location_nonstandard_order(self):
         """test get_country_from_location on non-standard order pairs."""
@@ -206,7 +207,7 @@ def test_print_by_contributor_package(capsys):
         krb1997 | None | None
         toddstavish | None | None
         sneakyoctopus12 | None | None
-        Hax7 | Palestine | None
+        Hax7 | Palestine | Palestine
         paulgowdy | Menlo Park CA | United States\n"""
     )
     assert captured.out == output_text
@@ -223,9 +224,10 @@ def test_print_by_country(capsys):
     output_text = textwrap.dedent(
         """        COUNTRY | # OF CONTRIBUTORS
         ---------------------------
-        None 11
+        None 10
         United States 4
-        New Zealand 2\n"""
+        New Zealand 2
+        Palestine 1\n"""
     )
     assert captured.out == output_text
 
@@ -262,9 +264,10 @@ def test_scan_single_package_with_summary(capsys):
         -----------------
         COUNTRY | # OF CONTRIBUTORS
         ---------------------------
-        None 11
+        None 10
         United States 4
-        New Zealand 2\n"""
+        New Zealand 2
+        Palestine 1\n"""
     )
     assert captured.out == output_text
 

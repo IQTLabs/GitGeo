@@ -5,8 +5,6 @@ import csv
 # static list of all cities mapped to countries
 # from https://datahub.io/core/world-cities\
 # ignore errors because of many unicode errors.
-# TODO: insert cities in to dict in reverse order by population so that
-#       most populous city overwrites its country in the dict
 with open("world_cities.csv", errors="ignore", newline="") as file:
     reader = csv.reader(file)
     city_country_list = list(reader)
@@ -23,11 +21,15 @@ with open("country_codes.csv", errors="ignore", newline="") as file:
     reader = csv.reader(file)
     code_country_list = list(reader)
     code_country_dict = {}
+    country_code_dict = {}
     for row in code_country_list:
-        # key is city (row[0]), value is country (row[1])
-        city_country_dict[row[1]] = row[0]
+        # key is country code (row[1]), value is country (row[0])
+        code_country_dict[row[1]] = row[0]
+        # key is country (row[0]), value is country code (row[1])
+        country_code_dict[row[0]] = row[1]
 
-CODE_COUNTRY_DICT = city_country_dict
+CODE_COUNTRY_DICT = code_country_dict
+COUNTRY_CODE_DICT = country_code_dict
 
 # a list of all countries in the english language
 ALL_COUNTRIES = [
@@ -395,3 +397,24 @@ STATE_ABBREV = [
     "WI",
     "WY",
 ]
+
+# mashes together the common cities and countries in a stable format, so it's easier for us to try this match first
+CITY_COUNTRY_STRINGS = {}
+with open("world_cities.csv") as file:
+    data = file.readlines()
+    for line in csv.reader(data, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
+        city = line[0]
+        country = line[1]
+        location = (city+country).replace(",", "").replace(" ", "")
+        CITY_COUNTRY_STRINGS[location] = country
+        if country in COUNTRY_CODE_DICT.keys():
+            CITY_COUNTRY_STRINGS[(city+COUNTRY_CODE_DICT[country]).replace(",", "").replace(" ", "")] = country
+
+
+
+
+
+
+
+
+
