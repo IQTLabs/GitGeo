@@ -20,6 +20,7 @@ def get_country_from_location(location_string):
     Return:
         str: a country
     """
+    #TODO: insert edit distance matching to cities in case special characters not recognized
     country = "None"
     if location_string is None:
         country = "None"
