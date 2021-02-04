@@ -11,6 +11,7 @@ from geographies_list import (
 
 def levenshteinDistance(s1, s2):
     """Calculated Levenstein edit distance between two arbitary strings
+    from https://stackoverflow.com/questions/2460177/edit-distance-in-python
 
     Args:
         s1: an arbitrary string
@@ -44,11 +45,11 @@ def edit_distance_to_world(location):
         str: a country
     """
     # special cities and countries
-    special = ["US", "USA", "U.S.A", "U.S.", 'San Francisco']
-    if location in special:
+    special_locations = ["US", "USA", "U.S.A", "U.S.", 'San Francisco']
+    if location in special_locations:
         return "United States"
-    for s in special:
-        if s in location:
+    for locale in special_locations:
+        if locale in location:
             return 'United States'
 
     all_countries = set(CITY_COUNTRY_STRINGS.values())
@@ -77,7 +78,7 @@ def get_country_from_location(location_string):
         return "None"
 
     # check if city,country is recognized (global and USA) as major city
-    stripped_location = location_string.replace(",", "").replace(" ", "")
+    stripped_location = location_string.replace(",", "").replace(" ", "") # remove both commas and spaces
     if stripped_location in CITY_COUNTRY_STRINGS.keys():
         return CITY_COUNTRY_STRINGS[stripped_location]
 
