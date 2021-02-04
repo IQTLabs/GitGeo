@@ -83,8 +83,10 @@ pytest
 -  Add visualization capability
 -  Add scan of top X PyPI packages capability
 -  Add read-in packages or repos capability
+-  Add create_csv feature
+-  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data.
+-  Investigate GitHub API for examining merges and who has merge rights.
 -  Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
--  Add capability of predicting location via a model given only timestamp from commit and from commit-related data.
 -  Investigate capability to determine authenticity of location information
 -  Investigate possibility of geographic diversity score for a repo or package
 -  Investigate possibility of linking emails in commits to email breach lists.
