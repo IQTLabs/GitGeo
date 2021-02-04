@@ -93,6 +93,7 @@ pytest
 -  Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
   This person is the "auth" person.
 -  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
+- Investigate People Data Labs API to enrich data on users, especially ones without location.
 
 ## Potential Research Questions
 
