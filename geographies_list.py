@@ -21,11 +21,17 @@ with open("country_codes.csv", errors="ignore", newline="") as file:
     reader = csv.reader(file)
     code_country_list = list(reader)
     code_country_dict = {}
+    country_code_dict = {}
     for row in code_country_list:
-        # key is city (row[0]), value is country (row[1])
-        city_country_dict[row[1]] = row[0]
+        # key is country code (row[1]), value is country (row[0])
+        code_country_dict[row[1]] = row[0]
+        # key is country (row[0]), value is country code (row[1])
+        country_code_dict[row[0]] = row[1]
 
-CODE_COUNTRY_DICT = city_country_dict
+CODE_COUNTRY_DICT = code_country_dict
+# we create the "inverse" of the other dict to use below to create pre-processed potentials mashups
+# of city,country and city,country_code to make matching stronger against user inputs
+COUNTRY_CODE_DICT = country_code_dict 
 
 # a list of all countries in the english language
 ALL_COUNTRIES = [
@@ -279,8 +285,6 @@ ALL_COUNTRIES = [
     "Zimbabwe",
 ]
 
-# todo: Kinga, is the separation of "District of" and "of Columbia" into
-# two separate elements a bug? Why or why not?
 STATE_NAMES = [
     "Alaska",
     "Alabama",
@@ -290,8 +294,7 @@ STATE_NAMES = [
     "California",
     "Colorado",
     "Connecticut",
-    "District ",  # Kinga?
-    "of Columbia",  # Kinga?
+    "District of Columbia", 
     "Delaware",
     "Florida",
     "Georgia",
@@ -336,6 +339,8 @@ STATE_NAMES = [
     "Vermont",
     "Washington",
     "Wisconsin",
+    "Washington, DC",
+    "Washington, D.C.",
     "West Virginia",
     "Wyoming",
 ]
@@ -394,3 +399,27 @@ STATE_ABBREV = [
     "WI",
     "WY",
 ]
+
+# mashes together the common cities and countries/codes in a stable format, so it's easier for us to try this match first
+CITY_COUNTRY_STRINGS = {}
+with open("world_cities.csv") as file:
+    data = file.readlines()
+    for line in csv.reader(data, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
+        city = line[0]
+        country = line[1]
+        location = (city+country).replace(",", "").replace(" ", "")
+        CITY_COUNTRY_STRINGS[location] = country
+
+        # in addition to generating city,country->country entries above, let's also generate 
+        # city,country_code->country entries in another dict below
+        if country in COUNTRY_CODE_DICT.keys():
+            CITY_COUNTRY_STRINGS[(city+COUNTRY_CODE_DICT[country]).replace(",", "").replace(" ", "")] = country
+
+
+
+
+
+
+
+
+
