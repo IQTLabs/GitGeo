@@ -80,7 +80,6 @@ pytest
 
 ## Roadmap
 
--  Add country text extraction capability - e.g. "Virginia, USA" --> "USA"
 -  Add visualization capability
 -  Add scan of top X PyPI packages capability
 -  Add read-in packages or repos capability
