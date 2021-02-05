@@ -95,7 +95,7 @@ def get_country_from_location(location_string):
         # Check different positions of the token
         for position in [-1, 0]:
             pieces = location_string.split(separator)
-            token = pieces[position].strip()                
+            token = pieces[position].strip()
 
             # Use returns as a way of exiting double loop
             if token in CITY_COUNTRY_DICT.keys() and token != 'San': # Mali has a city named San, which messes this up

@@ -31,7 +31,7 @@ with open("country_codes.csv", errors="ignore", newline="") as file:
 CODE_COUNTRY_DICT = code_country_dict
 # we create the "inverse" of the other dict to use below to create pre-processed potentials mashups
 # of city,country and city,country_code to make matching stronger against user inputs
-COUNTRY_CODE_DICT = country_code_dict 
+COUNTRY_CODE_DICT = country_code_dict
 
 # a list of all countries in the english language
 ALL_COUNTRIES = [
@@ -294,7 +294,7 @@ STATE_NAMES = [
     "California",
     "Colorado",
     "Connecticut",
-    "District of Columbia", 
+    "District of Columbia",
     "Delaware",
     "Florida",
     "Georgia",
@@ -410,7 +410,7 @@ with open("world_cities.csv") as file:
         location = (city+country).replace(",", "").replace(" ", "")
         CITY_COUNTRY_STRINGS[location] = country
 
-        # in addition to generating city,country->country entries above, let's also generate 
+        # in addition to generating city,country->country entries above, let's also generate
         # city,country_code->country entries in another dict below
         if country in COUNTRY_CODE_DICT.keys():
             CITY_COUNTRY_STRINGS[(city+COUNTRY_CODE_DICT[country]).replace(",", "").replace(" ", "")] = country
