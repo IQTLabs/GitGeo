@@ -80,10 +80,10 @@ pytest
 
 ## Roadmap
 
+-  Add create_csv feature for single package and single repo - user, repo, user_supplied_location, git_geo_predicted_country
+-  Add create_csv for feature many packages or many repos - user, repo, user_supplied_location, git_geo_predicted_country
+-  Remove top X PyPI packages capability
 -  Add visualization capability
--  Add scan of top X PyPI packages capability
--  Add read-in packages or repos capability
--  Add create_csv feature
 -  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data.
 -  Investigate GitHub API for examining merges and who has merge rights.
 -  Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
