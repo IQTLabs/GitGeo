@@ -9,6 +9,7 @@ from geographies_list import (
     CITY_COUNTRY_STRINGS,
 )
 
+
 def levenshteinDistance(s1, s2):
     """Calculated Levenstein edit distance between two arbitary strings
     from https://stackoverflow.com/questions/2460177/edit-distance-in-python
@@ -26,14 +27,17 @@ def levenshteinDistance(s1, s2):
 
     distances = range(len(s1) + 1)
     for i2, c2 in enumerate(s2):
-        distances_ = [i2+1]
+        distances_ = [i2 + 1]
         for i1, c1 in enumerate(s1):
             if c1 == c2:
                 distances_.append(distances[i1])
             else:
-                distances_.append(1 + min((distances[i1], distances[i1 + 1], distances_[-1])))
+                distances_.append(
+                    1 + min((distances[i1], distances[i1 + 1], distances_[-1]))
+                )
         distances = distances_
     return distances[-1]
+
 
 def edit_distance_to_world(location):
     """Uses Levenstein distance to try to approximate a match to city+country strings
@@ -45,12 +49,12 @@ def edit_distance_to_world(location):
         str: a country
     """
     # special cities and countries
-    special_locations = ["US", "USA", "U.S.A", "U.S.", 'San Francisco']
+    special_locations = ["US", "USA", "U.S.A", "U.S.", "San Francisco"]
     if location in special_locations:
         return "United States"
     for locale in special_locations:
         if locale in location:
-            return 'United States'
+            return "United States"
 
     all_countries = set(CITY_COUNTRY_STRINGS.values())
     minDist = 1000
@@ -61,6 +65,7 @@ def edit_distance_to_world(location):
             minDist = dist
             minCountry = country
     return minCountry
+
 
 def get_country_from_location(location_string):
     """Return country (Hungary, United States, etc) from user location text
@@ -78,7 +83,9 @@ def get_country_from_location(location_string):
         return "None"
 
     # check if city,country is recognized (global and USA) as major city
-    stripped_location = location_string.replace(",", "").replace(" ", "") # remove both commas and spaces
+    stripped_location = location_string.replace(",", "").replace(
+        " ", ""
+    )  # remove both commas and spaces
     if stripped_location in CITY_COUNTRY_STRINGS.keys():
         return CITY_COUNTRY_STRINGS[stripped_location]
 
@@ -98,9 +105,11 @@ def get_country_from_location(location_string):
             token = pieces[position].strip()
 
             # Use returns as a way of exiting double loop
-            if token in CITY_COUNTRY_DICT.keys() and token != 'San': # Mali has a city named San, which messes this up
+            if (
+                token in CITY_COUNTRY_DICT.keys() and token != "San"
+            ):  # Mali has a city named San, which messes this up
                 return CITY_COUNTRY_DICT[token]
-            elif token in ALL_COUNTRIES: # pylint: disable=no-else-return
+            elif token in ALL_COUNTRIES:  # pylint: disable=no-else-return
                 return token
             elif token in CODE_COUNTRY_DICT.keys():
                 return CODE_COUNTRY_DICT[token]

@@ -404,22 +404,17 @@ STATE_ABBREV = [
 CITY_COUNTRY_STRINGS = {}
 with open("world_cities.csv") as file:
     data = file.readlines()
-    for line in csv.reader(data, quotechar='"', delimiter=',', quoting=csv.QUOTE_ALL, skipinitialspace=True):
+    for line in csv.reader(
+        data, quotechar='"', delimiter=",", quoting=csv.QUOTE_ALL, skipinitialspace=True
+    ):
         city = line[0]
         country = line[1]
-        location = (city+country).replace(",", "").replace(" ", "")
+        location = (city + country).replace(",", "").replace(" ", "")
         CITY_COUNTRY_STRINGS[location] = country
 
         # in addition to generating city,country->country entries above, let's also generate
         # city,country_code->country entries in another dict below
         if country in COUNTRY_CODE_DICT.keys():
-            CITY_COUNTRY_STRINGS[(city+COUNTRY_CODE_DICT[country]).replace(",", "").replace(" ", "")] = country
-
-
-
-
-
-
-
-
-
+            CITY_COUNTRY_STRINGS[
+                (city + COUNTRY_CODE_DICT[country]).replace(",", "").replace(" ", "")
+            ] = country
