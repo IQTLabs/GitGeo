@@ -400,9 +400,11 @@ STATE_ABBREV = [
     "WY",
 ]
 
-# mashes together the common cities and countries/codes in a stable format, so it's easier for us to try this match first
+# mashes together the common cities and countries/codes in a stable format,
+# so it's easier for us to try this match first
 CITY_COUNTRY_STRINGS = {}
-with open("world_cities.csv") as file:
+# Add ignore errors to deal with strange characters on windows machine
+with open("world_cities.csv", errors='ignore') as file:
     data = file.readlines()
     for line in csv.reader(
         data, quotechar='"', delimiter=",", quoting=csv.QUOTE_ALL, skipinitialspace=True
