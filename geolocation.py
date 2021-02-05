@@ -11,6 +11,7 @@ from geographies_list import (
 
 
 def levenshteinDistance(s1, s2):
+    # pylint: disable=invalid-name
     """Calculated Levenstein edit distance between two arbitary strings
     from https://stackoverflow.com/questions/2460177/edit-distance-in-python
 
@@ -57,17 +58,18 @@ def edit_distance_to_world(location):
             return "United States"
 
     all_countries = set(CITY_COUNTRY_STRINGS.values())
-    minDist = 1000
-    minCountry = None
+    MIN_DIST = 1000
+    min_country = None
     for country in all_countries:
         dist = levenshteinDistance(location, country)
-        if dist < minDist:
-            minDist = dist
-            minCountry = country
-    return minCountry
+        if dist < MIN_DIST:
+            MIN_DIST = dist
+            min_country = country
+    return min_country
 
 
 def get_country_from_location(location_string):
+    # pylint: disable=too-many-return-statements
     """Return country (Hungary, United States, etc) from user location text
 
     This function implements an admittedly imprecise text matching method.
@@ -105,9 +107,10 @@ def get_country_from_location(location_string):
             token = pieces[position].strip()
 
             # Use returns as a way of exiting double loop
+            # Mali has a city named San, which messes this up
             if (
                 token in CITY_COUNTRY_DICT.keys() and token != "San"
-            ):  # Mali has a city named San, which messes this up
+            ):  # pylint: disable=no-else-return
                 return CITY_COUNTRY_DICT[token]
             elif token in ALL_COUNTRIES:  # pylint: disable=no-else-return
                 return token
