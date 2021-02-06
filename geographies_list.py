@@ -404,7 +404,7 @@ STATE_ABBREV = [
 # so it's easier for us to try this match first
 CITY_COUNTRY_STRINGS = {}
 # Add ignore errors to deal with strange characters on windows machine
-with open("world_cities.csv", errors='ignore') as file:
+with open("world_cities.csv", errors="ignore") as file:
     data = file.readlines()
     for line in csv.reader(
         data, quotechar='"', delimiter=",", quoting=csv.QUOTE_ALL, skipinitialspace=True
