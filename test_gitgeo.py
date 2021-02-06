@@ -156,20 +156,23 @@ class TestCsvFunctionality:
 
     def test_create_csv(self):
         """Unit test for create_csv()."""
-        create_csv()
-        assert os.path.exists("git-geo-results.csv")
+
+        create_csv("contributors", "test", "1")
+        assert os.path.exists(os.path.join("results", "test_contributors_1.csv"))
 
     def test_add_committer_to_csv(self):
         """Unit test fpr add_committer_to_csv."""
-        add_committer_to_csv("googlemoogle", "eschmidt", "innovation-island")
-        os.remove("git-geo-results.csv")  # remove file
+        add_committer_to_csv(
+            "contributors", "test", "1", "googlemoogle", "eschmidt", "innovation-island"
+        )
+        os.remove(os.path.join("results", "test_contributors_1.csv"))  # remove file
 
 
 def test_print_by_contributor_repo(capsys):
     """Unit test for print by contributors for GitHub repo."""
     repo = "jspeed-meyers/pcap2map"
     contributors = get_contributors(repo)
-    print_by_contributor(contributors)
+    print_by_contributor(repo, contributors)
     captured = capsys.readouterr()  # capture output printed
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
@@ -185,7 +188,7 @@ def test_print_by_contributor_package(capsys):
     pkg = "networkml"
     pypi_data = get_pypi_data(pkg)
     contributors = get_contributors(pypi_data["github_owner_and_repo"])
-    print_by_contributor(contributors, pypi_data)
+    print_by_contributor(pkg, contributors, pypi_data=pypi_data)
     captured = capsys.readouterr()  # capture output
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(

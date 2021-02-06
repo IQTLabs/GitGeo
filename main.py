@@ -18,7 +18,12 @@ def parse_arguments():  # pragma: no cover
         action="store_true",  # when summary is not called, default is false
         help="Display results by country.",
     )
-
+    parser.add_argument(
+        "--output_csv",
+        dest="output_csv",
+        action="store_true",  # when summary is not called, default is false
+        help="Output results in csv.",
+    )
     return parser.parse_args()
 
 
@@ -43,16 +48,19 @@ def scan_single_package(pkg, summary):
     if summary:
         print_by_country(contributors)
     else:
-        print_by_contributor(contributors, pypi_data)
+        print_by_contributor(pkg, contributors, pypi_data=pypi_data)
 
 
-def scan_single_repo(repo, summary):
+def scan_single_repo(repo, summary, output_csv):
     """Print location results for single GitHub repository
 
-    Printing can either be by contributor or by country
+    Printing can either be by contributor or by country.
+    Output can optionally be stored as a csv.
 
     Args:
-        repo - URL of repo on GitHub
+        repo - URL of repo
+        summary - whether to print results by country, i.e. summary.
+        output_csv - whether to store output in csv (default: false)
 
     Returns:
         null
@@ -66,7 +74,7 @@ def scan_single_repo(repo, summary):
     if summary:
         print_by_country(contributors)
     else:
-        print_by_contributor(contributors)
+        print_by_contributor(repo_ending_string, contributors, output_csv)
 
 
 # def scan_top_packages(top_n=100):
@@ -86,4 +94,4 @@ if __name__ == "__main__":  # pragma: no cover
         scan_single_package(args.package, args.summary)
 
     if args.repo:
-        scan_single_repo(args.repo, args.summary)
+        scan_single_repo(args.repo, args.summary, args.output_csv)
