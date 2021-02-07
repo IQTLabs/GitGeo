@@ -298,7 +298,7 @@ def test_scan_single_package_with_summary(capsys):
 def test_scan_single_repo_no_summary(capsys):
     """Integration test for scan_single_repo with no summary."""
     repo = "https://www.github.com/jspeed-meyers/pcap2map"
-    scan_single_repo(repo, False)  # False indicates no summary
+    scan_single_repo(repo, summary=False, output_csv=False)
     captured = capsys.readouterr()  # capture output printed
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
@@ -316,7 +316,7 @@ def test_scan_single_repo_no_summary(capsys):
 def test_scan_single_repo_with_summary(capsys):
     """Integration test for scan_single_repo with summary."""
     repo = "https://www.github.com/IQTLabs/NetworkML"
-    scan_single_repo(repo, True)  # True indicates summary
+    scan_single_repo(repo, summary=True, output_csv=False)
     captured = capsys.readouterr()  # capture output printed
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
