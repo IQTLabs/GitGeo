@@ -169,23 +169,35 @@ class TestCsvFunctionality:
         )
         os.remove(os.path.join("results", "contributors_1.csv"))  # remove file
 
+
 class TestMultiRepoScan:
     def test_multi_repo_scan(self):
         """Unit test for scan_multiple_repos()."""
         scan_multiple_repos("test_repos.txt")
         # identify file created for test
-        files = glob.glob('results/*.csv')
+        files = glob.glob("results/*.csv")
         test_file = max(files, key=os.path.getctime)
         # check that csv rows are as expected
-        with open(test_file, newline='') as test_output:
+        with open(test_file, newline="") as test_output:
             for index, row in enumerate(csv.reader(test_output)):
                 if index == 0:
-                    assert row == ['software_name', 'username', 'location', 'country']
+                    assert row == ["software_name", "username", "location", "country"]
                 elif index == 1:
-                    assert row == ['jspeed-meyers_pcap2map', 'jspeed-meyers', '', 'None']
+                    assert row == [
+                        "jspeed-meyers_pcap2map",
+                        "jspeed-meyers",
+                        "",
+                        "None",
+                    ]
                 elif index == 4:
-                    assert row == ['iqtlabs_portunus', 'anarkiwi', 'Wellington, New Zealand', 'New Zealand']
+                    assert row == [
+                        "iqtlabs_portunus",
+                        "anarkiwi",
+                        "Wellington, New Zealand",
+                        "New Zealand",
+                    ]
         os.remove(test_file)
+
 
 def test_print_by_contributor_repo(capsys):
     """Unit test for print by contributors for GitHub repo."""
