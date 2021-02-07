@@ -2,15 +2,18 @@
 
 # pylint: disable=no-self-use, too-many-locals
 
+import csv
+import glob
 import os
 import textwrap
 
 import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
-from github import get_contributors, get_contributor_location
 from geolocation import get_country_from_location
+from github import get_contributors, get_contributor_location
 from main import scan_single_package, scan_single_repo
+from multi_repo_scan import scan_multiple_repos
 from printers import print_by_contributor, print_by_country
 from pypi import get_top_python_packages, get_pypi_data, extract_github_owner_and_repo
 
@@ -156,17 +159,33 @@ class TestCsvFunctionality:
 
     def test_create_csv(self):
         """Unit test for create_csv()."""
-
-        create_csv("contributors", "test", "1")
-        assert os.path.exists(os.path.join("results", "test_contributors_1.csv"))
+        create_csv("contributors", "1")
+        assert os.path.exists(os.path.join("results", "contributors_1.csv"))
 
     def test_add_committer_to_csv(self):
         """Unit test fpr add_committer_to_csv."""
         add_committer_to_csv(
             "contributors", "test", "1", "googlemoogle", "eschmidt", "innovation-island"
         )
-        os.remove(os.path.join("results", "test_contributors_1.csv"))  # remove file
+        os.remove(os.path.join("results", "contributors_1.csv"))  # remove file
 
+class TestMultiRepoScan:
+    def test_multi_repo_scan(self):
+        """Unit test for scan_multiple_repos()."""
+        scan_multiple_repos("test_repos.txt")
+        # identify file created for test
+        files = glob.glob('results/*.csv')
+        test_file = max(files, key=os.path.getctime)
+        # check that csv rows are as expected
+        with open(test_file, newline='') as test_output:
+            for index, row in enumerate(csv.reader(test_output)):
+                if index == 0:
+                    assert row == ['software_name', 'username', 'location', 'country']
+                elif index == 1:
+                    assert row == ['jspeed-meyers_pcap2map', 'jspeed-meyers', '', 'None']
+                elif index == 4:
+                    assert row == ['iqtlabs_portunus', 'anarkiwi', 'Wellington, New Zealand', 'New Zealand']
+        os.remove(test_file)
 
 def test_print_by_contributor_repo(capsys):
     """Unit test for print by contributors for GitHub repo."""
