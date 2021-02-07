@@ -3,6 +3,7 @@
 import argparse
 
 from github import get_contributors
+from multi_repo_scan import scan_multiple_repos
 from printers import print_by_country, print_by_contributor
 from pypi import get_pypi_data, extract_github_owner_and_repo
 
@@ -12,6 +13,12 @@ def parse_arguments():  # pragma: no cover
     parser = argparse.ArgumentParser()
     parser.add_argument("--package", help="Specify Python (PyPI) package.")
     parser.add_argument("--repo", help="Specify GitHub repo.")
+    parser.add_argument(
+        "--multirepo",
+        dest="multirepo",
+        action="store_true",
+        help="Scan multiple repos from input file.",
+    )
     parser.add_argument(
         "--summary",
         dest="summary",
@@ -52,7 +59,7 @@ def scan_single_package(pkg, summary):
 
 
 def scan_single_repo(repo, summary, output_csv):
-    """Print location results for single GitHub repository
+    """Print location results for single GitHub repository.
 
     Printing can either be by contributor or by country.
     Output can optionally be stored as a csv.
@@ -77,15 +84,6 @@ def scan_single_repo(repo, summary, output_csv):
         print_by_contributor(repo_ending_string, contributors, output_csv)
 
 
-# def scan_top_packages(top_n=100):
-#    """Stub for scanning most downloaded python packages""
-#    pass
-
-# def scan_dependencies(filename):
-#    """Stub for scanning a requirements.txt or similar dependencies file"""
-#     pass
-
-
 if __name__ == "__main__":  # pragma: no cover
 
     args = parse_arguments()
@@ -95,3 +93,6 @@ if __name__ == "__main__":  # pragma: no cover
 
     if args.repo:
         scan_single_repo(args.repo, args.summary, args.output_csv)
+
+    if args.multirepo:
+        scan_multiple_repos()
