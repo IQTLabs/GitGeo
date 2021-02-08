@@ -6,24 +6,18 @@ import csv
 import os
 
 
-def create_csv(results_type, software_name, timestamp):
-    """Create new csv to store GitGeo results
+def create_csv(results_type, timestamp):
+    """Create new csv to store GitGeo results.
 
     Delete any existing csv and the create new csv.
 
     Args:
         results_type - a string indicating by contributor or by country
-        software_name - name of the package or repo
         timestamp - datetime to create unique file name
     Returns:
         None
     """
-    # Create unique filename to store csv results
-    # replace slashes to avoid incorrect creation of directories
-    software_name = software_name.replace("/", "_")
-    filename = os.path.join(
-        "results", software_name + "_" + results_type + "_" + timestamp + ".csv"
-    )
+    filename = os.path.join("results", results_type + "_" + timestamp + ".csv")
 
     # Create new csv file with column names
     with open(filename, "w", encoding="utf-8", newline="") as file:
@@ -52,9 +46,7 @@ def add_committer_to_csv(
     """
     # replace slashes to avoid incorrect creation of directories
     software_name = software_name.replace("/", "_")
-    filename = os.path.join(
-        "results", software_name + "_" + results_type + "_" + timestamp + ".csv"
-    )
+    filename = os.path.join("results", results_type + "_" + timestamp + ".csv")
     # newline='' prevents spaces in between entries. Setting encoding to utf-8
     # ensures that most (all?) characters can be read. "a" is for append.
     with open(filename, "a", encoding="utf-8", newline="") as file:

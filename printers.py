@@ -1,4 +1,4 @@
-"""Functions for printing contributor location results"""
+"""Functions for printing contributor location results."""
 
 from collections import Counter
 import time
@@ -51,7 +51,7 @@ def print_by_contributor(software_name, contributors, output_csv=False, pypi_dat
     if output_csv:
         # unique current time timestamp to create unique filename
         timestamp = time.strftime("%Y%m%d-%H%M%S")
-        create_csv("contributor", software_name, timestamp)
+        create_csv("contributor", timestamp)
 
     print("CONTRIBUTOR, LOCATION")
     if pypi_data is not None:
