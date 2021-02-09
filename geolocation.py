@@ -11,8 +11,8 @@ from geographies_list import (
 
 
 def levenshteinDistance(s1, s2):
-    # pylint: disable=invalid-name
-    """Calculated Levenstein edit distance between two arbitary strings
+    """Calculate Levenstein edit distance between two arbitary strings.
+
     from https://stackoverflow.com/questions/2460177/edit-distance-in-python
 
     Args:
@@ -22,6 +22,8 @@ def levenshteinDistance(s1, s2):
     Return:
         str: an integer value of how distant the two strings are
     """
+    # pylint: disable=invalid-name
+
     # special cities and countries
     if len(s1) > len(s2):
         s1, s2 = s2, s1
@@ -41,7 +43,7 @@ def levenshteinDistance(s1, s2):
 
 
 def edit_distance_to_world(location):
-    """Uses Levenstein distance to try to approximate a match to city+country strings
+    """Use Levenstein distance to approximate match to city+country strings.
 
     Args:
         location_string: a text containing user-supplied location
@@ -49,7 +51,6 @@ def edit_distance_to_world(location):
     Return:
         str: a country
     """
-
     # pylint: disable=invalid-name
 
     # special cities and countries
@@ -72,8 +73,7 @@ def edit_distance_to_world(location):
 
 
 def get_country_from_location(location_string):
-    # pylint: disable=too-many-return-statements
-    """Return country (Hungary, United States, etc) from user location text
+    """Return country (Hungary, United States, etc) from user location text.
 
     This function implements an admittedly imprecise text matching method.
 
@@ -83,8 +83,7 @@ def get_country_from_location(location_string):
     Return:
         str: a country
     """
-
-    # pylint: disable=no-else-return, bad-continuation
+    # pylint: disable=too-many-return-statements,no-else-return,bad-continuation
 
     # TODO: make all checks lowercase
     if location_string is None:
