@@ -12,9 +12,9 @@ Discover the geography of open-source software. Explore the geographic locations
 
 ## Why use GitGeo?
 -  Curiosity
--  Open source software community managemenet
--  IT security compliance
+-  Open source software community management
 -  Research on open source software ecosystem
+-  IT security compliance
 
 ## Installation
 
@@ -29,10 +29,11 @@ pip install -r requirements.txt
 (requires internet connection)
 
 ```python main.py --package [package_name]```
+```python main.py --repo [github_repo_url]```
 
 For example:
 
-```python main.py --package requests```
+```>>> python main.py --package requests```
 
 ```
 -----------------
@@ -52,7 +53,48 @@ jgorset | Oslo, Norway
 ...
 ```
 
-Advanced usage to increase number of GitHub API calls allowed per hour:
+Or:
+
+```>>> python main.py --repo www.github.com/psf/requests```
+
+```
+-----------------
+GITHUB REPO: psf/requests
+-----------------
+CONTRIBUTOR, LOCATION
+---------------------
+kennethreitz42 | Virginia, USA | United States
+Lukasa | London, England | United Kingdom
+sigmavirus24 | Madison, WI | United States
+nateprewitt | None | None
+...
+```
+
+There are other command line options too:
+
+Add ```--summary``` to get the results summarized by country. e.g.
+
+```>>> python main.py --package requests --summary```
+
+```
+-----------------
+PACKAGE: requests
+GITHUB REPO: psf/requests
+-----------------
+COUNTRY | # OF CONTRIBUTORS
+---------------------------
+United States 37
+None 23
+United Kingdom 4
+Canada 4
+Germany 4
+Switzerland 4
+Spain 2
+Russia 2
+```
+
+
+### Advanced usage to increase number of GitHub API calls allowed per hour:
 
 - First, create a [GitHub personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
@@ -72,7 +114,7 @@ python main.py --package [python_package_name]
 python main.py --repo [github_repo_name]
 ```
 
-Run tests:
+### Run tests:
 
 ```bash
 pytest
@@ -96,6 +138,7 @@ pytest
 ## Potential Research Questions
 
 - Are there places in the world with unrecognized pockets of software developers?
+- Where are maintainers associated with the most critical python packages?
 - What predicts the number of top python packages software developers by country?
 	- Total number of coders per country?
 	- Total number of python coders per country?
