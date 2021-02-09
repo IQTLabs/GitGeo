@@ -49,6 +49,9 @@ def edit_distance_to_world(location):
     Return:
         str: a country
     """
+
+    # pylint: disable=invalid-name
+
     # special cities and countries
     special_locations = ["US", "USA", "U.S.A", "U.S.", "San Francisco"]
     if location in special_locations:
@@ -80,6 +83,9 @@ def get_country_from_location(location_string):
     Return:
         str: a country
     """
+
+    # pylint: disable=no-else-return, bad-continuation
+
     # TODO: make all checks lowercase
     if location_string is None:
         return "None"
@@ -108,9 +114,7 @@ def get_country_from_location(location_string):
 
             # Use returns as a way of exiting double loop
             # Mali has a city named San, which messes this up
-            if (
-                token in CITY_COUNTRY_DICT.keys() and token != "San"
-            ):  # pylint: disable=no-else-return
+            if token in CITY_COUNTRY_DICT.keys() and token != "San":
                 return CITY_COUNTRY_DICT[token]
             elif token in ALL_COUNTRIES:  # pylint: disable=no-else-return
                 return token

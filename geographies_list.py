@@ -405,6 +405,7 @@ STATE_ABBREV = [
 CITY_COUNTRY_STRINGS = {}
 # Add ignore errors to deal with strange characters on windows machine
 with open("world_cities.csv", errors="ignore") as file:
+    # pylint: disable=bad-continuation
     data = file.readlines()
     for line in csv.reader(
         data, quotechar='"', delimiter=",", quoting=csv.QUOTE_ALL, skipinitialspace=True
