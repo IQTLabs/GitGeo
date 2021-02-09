@@ -80,7 +80,6 @@ pytest
 
 ## Roadmap
 
--  Remove top X PyPI packages capability
 -  Add visualization capability
 -  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data.
 -  Investigate GitHub API for examining merges and who has merge rights.

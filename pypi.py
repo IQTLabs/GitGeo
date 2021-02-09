@@ -1,6 +1,5 @@
 """PyPI and python package-related functions."""
 
-import json
 import sys
 import urllib
 
@@ -8,37 +7,8 @@ from bs4 import BeautifulSoup
 import requests
 
 
-def get_top_python_packages(top_n=100):
-    """
-    Generate list of most downloaded python packages
-
-    Args:
-        top_n: the number of most downloaded packages to return
-
-    Returns:
-        (list) Names of most downloaded packages
-    """
-    # JSON file containing top 4000 packages
-    # found here: https://hugovk.github.io/top-pypi-packages/
-    top_python_pkgs = "top_python_pkg_downloads.json"
-    with open(top_python_pkgs, "r") as j:
-        contents = json.loads(j.read())
-
-        # store names of top packges
-        top_pkgs = []
-        cnt = 0
-        for pkg in contents["rows"]:
-            # only append TOP_N number of packages
-            if cnt == top_n:
-                break
-            top_pkgs.append(pkg["project"])
-            cnt += 1
-
-        return top_pkgs
-
-
 def get_pypi_data(pkg):
-    """Return data associated with a python package
+    """Return data associated with a python package.
 
     Args:
         pkg: the name of a python package found on PyPI
@@ -65,7 +35,7 @@ def get_pypi_data(pkg):
 
 
 def get_github_url(pypi_pkg_json):
-    """Retrieve GitHub URL associated with a Python package
+    """Retrieve GitHub URL associated with a Python package.
 
     Search for potential GitHub URLS
 
@@ -107,7 +77,7 @@ def get_github_url(pypi_pkg_json):
 
 def extract_github_owner_and_repo(github_page):
     """
-    Extract only owner and repo name from GitHub page
+    Extract only owner and repo name from GitHub page.
 
     https://www.github.com/psf/requests -> psf/requests
 
@@ -133,7 +103,7 @@ def extract_github_owner_and_repo(github_page):
 
 
 def get_pypi_maintainers(pkg):
-    """Extract list of PyPI maintainers, i.e. those with publish rights
+    """Extract list of PyPI maintainers, i.e. those with publish rights.
 
     PyPI JSON endpoint does not contain the maintainers' data found in the
     PyPI UI. IMO, this is an oversight. To retrieve PyPI maintainers data,

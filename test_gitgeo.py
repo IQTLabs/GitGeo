@@ -15,22 +15,11 @@ from github import get_contributors, get_contributor_location
 from main import scan_single_package, scan_single_repo
 from multi_repo_scan import scan_multiple_repos
 from printers import print_by_contributor, print_by_country
-from pypi import get_top_python_packages, get_pypi_data, extract_github_owner_and_repo
+from pypi import get_pypi_data, extract_github_owner_and_repo
 
 
 class TestPypiFunctionality:
     """Unit tests related to PyPI functionality."""
-
-    def test_get_top_python_packages(self):
-        """Unit test for get_top_python_packages()."""
-        top_python_packages = get_top_python_packages(top_n=5)
-        assert top_python_packages == [
-            "urllib3",
-            "six",
-            "botocore",
-            "requests",
-            "python-dateutil",
-        ]
 
     def test_get_github_url_owner_and_repo(self):
         """Unit tests for get_github_URL_owner_and_repo()."""
@@ -171,6 +160,10 @@ class TestCsvFunctionality:
 
 
 class TestMultiRepoScan:
+    """Tests related to multi-repo scanning capability."""
+
+    # pylint: disable=too-few-public-methods
+
     def test_multi_repo_scan(self):
         """Unit test for scan_multiple_repos()."""
         scan_multiple_repos("test_repos.txt")
@@ -283,6 +276,7 @@ def test_scan_single_package_no_summary(capsys):
         jspeed-meyers * | None | None\n"""
     )
     assert captured.out == output_text
+
 
 @pytest.mark.xfail  # known bug, unknown origin
 def test_scan_single_package_with_summary(capsys):
