@@ -80,8 +80,6 @@ pytest
 
 ## Roadmap
 
--  Add create_csv feature for single package and single repo - user, repo, user_supplied_location, git_geo_predicted_country
--  Add create_csv for feature many packages or many repos - user, repo, user_supplied_location, git_geo_predicted_country
 -  Remove top X PyPI packages capability
 -  Add visualization capability
 -  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data.
