@@ -11,7 +11,7 @@ from pypi import extract_github_owner_and_repo
 def scan_multiple_repos(input_file="repos.txt"):
     """Create csv of data for multiple repos.
 
-    Scan through repo's provided in repos.txt and create a single csv that
+    Scan through repos provided in repos.txt and create a single csv that
     stores all contributor-related data for each contributor in each repo.
 
     Args:
