@@ -127,6 +127,7 @@ pytest
 -  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data.
 -  Investigate GitHub API for examining merges and who has merge rights.
 -  Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
+-  Investigate capability of bringing linkedin and other info from GitHub profile URL
 -  Investigate capability to determine authenticity of location information
 -  Investigate possibility of geographic diversity score for a repo or package
 -  Investigate possibility of linking emails in commits to email breach lists.
@@ -134,7 +135,7 @@ pytest
 -  Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
   This person is the "auth" person.
 -  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
-- Investigate People Data Labs API to enrich data on users, especially ones without location.
+- Investigate People Data Labs API and Diffbot API to enrich data on users, especially ones without location.
 
 ## Potential Research Questions
 
