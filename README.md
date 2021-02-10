@@ -134,8 +134,9 @@ pytest
 -  Investigate possibility of determining whether a project is a "hobby" project (outside of working hours) or a "work" project (within working hours)?
 -  Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
   This person is the "auth" person.
+-  Investigate over time commit analysis visualization
 -  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
-- Investigate People Data Labs API and Diffbot API to enrich data on users, especially ones without location.
+-  Investigate People Data Labs API and Diffbot API to enrich data on users, especially ones without location.
 
 ## Potential Research Questions
 
