@@ -142,6 +142,7 @@ pytest
 - Are there places in the world with unrecognized pockets of software developers?
 - Where are maintainers associated with the most critical python packages?
 	- Who are the maintainers that are associated with multiple critical python packages?
+	- What about contribution-related weighting?
 - What predicts the number of top python packages software developers by country?
 	- Total number of coders per country?
 	- Total number of python coders per country?
