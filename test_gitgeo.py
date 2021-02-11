@@ -7,12 +7,14 @@ import glob
 import os
 import textwrap
 
+import pandas as pd
 import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
 from geolocation import get_country_from_location
 from github import get_contributors, get_contributor_location
 from main import scan_single_package, scan_single_repo
+from mapping import get_dataframe_from_repo, add_contributor_count_to_json, make_map
 from multi_repo_scan import scan_multiple_repos
 from printers import print_by_contributor, print_by_country
 from pypi import get_pypi_data, extract_github_owner_and_repo
@@ -192,6 +194,36 @@ class TestMultiRepoScan:
         os.remove(test_file)
 
 
+class TestMapping:
+    """Tests related to mapping capability."""
+
+    # pylint: disable=invalid-name
+
+    def test_get_dataframe_from_repo(self):
+        """Unit test for get_dataframe_from_repo()."""
+        output = get_dataframe_from_repo("www.github.com/iqtlabs/gitgeo")
+        expected_ouput = pd.DataFrame(
+            {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
+        )
+        assert output.equals(expected_ouput)
+
+    def test_add_contributor_count_to_json(self):
+        """Unit test for add_contributor_count_to_json()."""
+        df = pd.DataFrame(
+            {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
+        )
+        output = add_contributor_count_to_json(df)
+        assert isinstance(output, str)
+
+    def test_make_map(self):
+        """Unit test for make_map()."""
+        make_map("www.github.com/iqtlabs/gitgeo")
+        # identify and delete map file created for test
+        files = glob.glob("results/*.html")
+        test_file = max(files, key=os.path.getctime)
+        os.remove(test_file)
+
+
 def test_print_by_contributor_repo(capsys):
     """Unit test for print by contributors for GitHub repo."""
     repo = "jspeed-meyers/pcap2map"
@@ -246,7 +278,7 @@ def test_print_by_country(capsys):
     repo_ending_string = extract_github_owner_and_repo(repo)
     contributors = get_contributors(repo_ending_string)
     print_by_country(contributors)
-    captured = capsys.readouterr()  # capture outpt printed to date
+    captured = capsys.readouterr()  # capture output printed to date
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
         """        COUNTRY | # OF CONTRIBUTORS
