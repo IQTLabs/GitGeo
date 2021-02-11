@@ -3,6 +3,7 @@
 import argparse
 
 from github import get_contributors
+from mapping import make_map
 from multi_repo_scan import scan_multiple_repos
 from printers import print_by_country, print_by_contributor
 from pypi import get_pypi_data, extract_github_owner_and_repo
@@ -30,6 +31,12 @@ def parse_arguments():  # pragma: no cover
         dest="output_csv",
         action="store_true",  # when summary is not called, default is false
         help="Output results in csv.",
+    )
+    parser.add_argument(
+        "--map",
+        dest="map",
+        action="store_true",  # when summary is not called, default is false
+        help="Display country by country results in map.",
     )
     return parser.parse_args()
 
@@ -90,9 +97,10 @@ if __name__ == "__main__":  # pragma: no cover
 
     if args.package:
         scan_single_package(args.package, args.summary)
-
-    if args.repo:
-        scan_single_repo(args.repo, args.summary, args.output_csv)
-
-    if args.multirepo:
+    elif args.repo:
+        if args.map:
+            make_map(args.repo)
+        else:
+            scan_single_repo(args.repo, args.summary, args.output_csv)
+    elif args.multirepo:
         scan_multiple_repos()
