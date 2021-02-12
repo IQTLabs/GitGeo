@@ -137,6 +137,9 @@ pytest
 -  Investigate over time commit analysis visualization
 -  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
 -  Investigate People Data Labs API and Diffbot API to enrich data on users, especially ones without location.
+- Investigate diff to tweet capability. Reveal major contributor changes in critical projects to an open feed.
+- Investigate switching ownership data. Would be interesting to alert users to this.
+- Investigate by user capability. Determine all repo's a user has contributed to. Do a quick git blame for a user.
 
 ## Potential Research Questions
 
@@ -148,6 +151,7 @@ pytest
 	- Total number of coders per country?
 	- Total number of python coders per country?
 	- GDP per capita per country?
+- Is it possible to "verify" user information?
 
 ## Known bugs
 
