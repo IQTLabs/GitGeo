@@ -30,6 +30,7 @@ def make_map(repo):
     Returns:
         null
     """
+    # pylint: disable=bad-continuation
     # generate pandas dataframe of countries and contributor count
     df = get_dataframe_from_repo(repo)
 
@@ -55,6 +56,14 @@ def make_map(repo):
         highlight=True,  # highlight country borders on mouseover
         attr="Mapping via Folium. Data from GitGeo.",
     ).add_to(m)
+
+    # add title to map
+    title_html = """
+             <h3 align="center" style="font-size:16px"><b>{}</b></h3>
+             """.format(
+        "Top Contributors to {}".format(repo)
+    )
+    m.get_root().html.add_child(folium.Element(title_html))
 
     # tooltip to display data country by country
     chloropleth.geojson.add_child(
