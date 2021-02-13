@@ -118,15 +118,6 @@ export GITHUB_USERNAME='[github_username]'
 export GITHUB_TOKEN='[github_token]'
 ```
 
-- Third, run one of these commands.
-
-```bash
-python main.py --package [python_package_name]
-```
-
-```bash
-python main.py --repo [github_repo_name]
-```
 
 ### Run tests:
 
