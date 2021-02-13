@@ -40,8 +40,6 @@ def make_map(repo):
     m = folium.Map(location=[0, 0], zoom_start=1.5)
 
     # this is the heart of the folium chloropleth mapping functionality
-    # todo: work on legend binning for easier reading, especially when one country
-    # has many more contributors than the others (e.g. USA for psf/requests)
     chloropleth = folium.Choropleth(
         geo_data=world_json,
         name="choropleth",
@@ -54,6 +52,7 @@ def make_map(repo):
         nan_fill_color="white",  # set countries with no data to white background
         legend_name="Contributor Count",
         highlight=True,  # highlight country borders on mouseover
+        bins=[1, 5, 10, 100],  # legend bins
         attr="Mapping via Folium. Data from GitGeo.",
     ).add_to(m)
 
