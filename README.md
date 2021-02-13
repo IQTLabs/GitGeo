@@ -98,6 +98,15 @@ Russia 2
 ...
 ```
 
+Add ```--map``` when using the ```--repo``` option to create an html map
+saved in the results folder. See image above for static example. Real map
+includes zooming and tooltip capability.
+
+Add ```--ouput_csv``` to output csv of results to results folder.
+
+To create a csv of contributors from many repositories, enter repositories
+on separate lines in the repos.txt file. Then use the ```--multirepo``` flag.
+
 
 ### Advanced usage to increase number of GitHub API calls allowed per hour:
 
