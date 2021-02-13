@@ -112,7 +112,7 @@ on separate lines in the repos.txt file. Then use the ```--multirepo``` flag.
 
 - First, create a [GitHub personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
-- Second, run these commands in the command line:
+- Second, run these commands in the command line to set environmental variables:
 ```bash
 export GITHUB_USERNAME='[github_username]'
 export GITHUB_TOKEN='[github_token]'
@@ -147,7 +147,7 @@ pytest
 
 ## Rainy Day Options
 
--  Access commercial API's to enrich data on GitHub usernames or, if included in GitHub profile, email handles, etc.(MK)
+-  Access commercial API's to enrich data on GitHub usernames or, if included in GitHub profile, email handles, etc. (MK)
 
 ## Potential Research Questions
 
@@ -167,8 +167,8 @@ pytest
 
 ## Want to contribute?
 
-- Open a PR. We are glad to accept pull requests. We use black and pylint, though we
-  are glad to help if you haven't used those tools before.
+- Open a PR. We are glad to accept pull requests. We use black and pylint and
+  pydocstyle, though we are glad to help if you haven't used those tools before.
 - Open an issue. Tell us your problem or a functionality you want.
 - Want to help build a community related to GitGeo and similar open source software
   ecosystem exploration tools? Please send an email to jmeyers@iqt.org.
