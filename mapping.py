@@ -56,11 +56,14 @@ def make_map(repo):
         attr="Mapping via Folium. Data from GitGeo.",
     ).add_to(m)
 
-    # add title to map
+    # add title to map and also number of contributors with no location
+    num_contributors_no_location = df[df.country == "None"].contributor_count.values[0]
     title_html = """
              <h3 align="center" style="font-size:16px"><b>{}</b></h3>
              """.format(
-        "Top Contributors to {}".format(repo)
+        "Top Contributors to {}<br>Number of contributors with no location: {}".format(
+            repo, num_contributors_no_location
+        )
     )
     m.get_root().html.add_child(folium.Element(title_html))
 
