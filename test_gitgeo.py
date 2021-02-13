@@ -18,7 +18,7 @@ from printers import print_by_contributor, print_by_country
 from pypi import get_pypi_data, extract_github_owner_and_repo
 
 
-class TestPypiFunctionality:
+class TestPypiFunctionality:  # pragma: no cover
     """Unit tests related to PyPI functionality."""
 
     def test_get_github_url_owner_and_repo(self):
@@ -81,7 +81,7 @@ class TestPypiFunctionality:
         assert requests_pypi_data["pypi_maintainers"] == ["jspeed-meyers"]
 
 
-class TestGitHubFunctionality:
+class TestGitHubFunctionality:  # pragma: no cover
     """Unit tests related to GitHub functionality"""
 
     def test_get_contributors(self):
@@ -210,7 +210,7 @@ class TestGitHubFunctionality:
         assert owner_and_repo == "psf/requests"
 
 
-class TestCsvFunctionality:
+class TestCsvFunctionality:  # pragma: no cover
     """Unit tests related to CSV functionality"""
 
     def test_create_csv(self):
@@ -219,14 +219,14 @@ class TestCsvFunctionality:
         assert os.path.exists(os.path.join("results", "contributors_1.csv"))
 
     def test_add_committer_to_csv(self):
-        """Unit test fpr add_committer_to_csv."""
+        """Unit test fpr add_co0mmitter_to_csv."""
         add_committer_to_csv(
             "contributors", "test", "1", "googlemoogle", "eschmidt", "innovation-island"
         )
         os.remove(os.path.join("results", "contributors_1.csv"))  # remove file
 
 
-class TestMultiRepoScan:
+class TestMultiRepoScan:  # pragma: no cover
     """Tests related to multi-repo scanning capability."""
 
     # pylint: disable=too-few-public-methods
