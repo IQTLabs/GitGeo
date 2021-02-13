@@ -10,6 +10,10 @@
 # GitGeo
 Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
 
+See, for instance, the geography of the top 100 contributors to the Python package requests.
+
+![map_image](map_image.JPG)
+
 ## Why use GitGeo?
 -  Curiosity
 -  Open source software community management
