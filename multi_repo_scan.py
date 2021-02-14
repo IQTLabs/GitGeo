@@ -8,14 +8,15 @@ from github import get_contributors, get_contributor_location
 from pypi import extract_github_owner_and_repo
 
 
-def scan_multiple_repos(input_file="repos.txt"):
+def scan_multiple_repos(input_file="repos.txt", num=100):
     """Create csv of data for multiple repos.
 
     Scan through repos provided in repos.txt and create a single csv that
     stores all contributor-related data for each contributor in each repo.
 
     Args:
-        None
+        input_file - file containing repo list
+        num - max number of contributors to analyze per repo
 
     Returns:
         None
@@ -33,7 +34,7 @@ def scan_multiple_repos(input_file="repos.txt"):
                 continue
             # strip blank space before extracting owner and repo name
             repo_ending_string = extract_github_owner_and_repo(repo.strip())
-            contributors = get_contributors(repo_ending_string)
+            contributors = get_contributors(repo_ending_string, num)
             for contributor in contributors:
                 location = get_contributor_location(contributor)
                 country = get_country_from_location(location)
