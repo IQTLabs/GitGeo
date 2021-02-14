@@ -141,17 +141,19 @@ class TestGitHubFunctionality:  # pragma: no cover
 
     @pytest.mark.xfail  # known bug, unknown origin
     def test_get_country_from_location_dataset_pull_geographies(self):
+        """tests of get_gountry_from_location() that fail as of 2/14/2021"""
+        # pylint: disable=too-many-statements
         assert get_country_from_location("EU") == "Europe"
         assert get_country_from_location("Canary Islands") == "Canary Islands"
         assert get_country_from_location("waterloo") == "United Kingdom"
         assert get_country_from_location("Earth") == "None"
         assert get_country_from_location("Australia, Victoria") == "Australia"
         assert get_country_from_location("Europe/Berlin") == "Germany"
-        assert get_country_from_location("York") == "United Kingdom" 
+        assert get_country_from_location("York") == "United Kingdom"
         assert get_country_from_location("M√ºnchen") == "Germany"
         assert get_country_from_location("Amsterdam") == "Netherlands"
-        assert get_country_from_location("Sydney") == "Australia" 
-        assert get_country_from_location("Saclay") == "France"        
+        assert get_country_from_location("Sydney") == "Australia"
+        assert get_country_from_location("Saclay") == "France"
         assert get_country_from_location("Montreal, CA") == "Canada"
         assert get_country_from_location("NYC") == "United States"
         assert get_country_from_location("Florian√≥polis") == "Brazil"
@@ -171,7 +173,10 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("Vancouver, BC") == "Canada"
         assert get_country_from_location("Hyderabad") == "India"
         assert get_country_from_location("Sri-City, Andhra Pradesh") == "India"
-        assert get_country_from_location("roudnice nad labem, czech republic") == "Czech Republic"
+        assert (
+            get_country_from_location("roudnice nad labem, czech republic")
+            == "Czech Republic"
+        )
         assert get_country_from_location("Scotland") == "United Kingdom"
         assert get_country_from_location("New York") == "United States"
         assert get_country_from_location("Geneva") == "Switzerland"
@@ -194,7 +199,10 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("Europe") == "None"
         assert get_country_from_location("Lima") == "Peru"
         assert get_country_from_location("Glasgow, Scotland") == "United Kingdom"
-        assert get_country_from_location("28 rue du Dr Roux 75015 Paris, FRANCE") == "France"
+        assert (
+            get_country_from_location("28 rue du Dr Roux 75015 Paris, FRANCE")
+            == "France"
+        )
         assert get_country_from_location("Bay Area") == "United States"
         assert get_country_from_location("Krak√≥w") == "Poland"
         assert get_country_from_location("ƒ∞stanbul") == "Turkey"
@@ -204,7 +212,6 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("Wroc≈Çaw") == "Poland"
         assert get_country_from_location("Gda≈Ñsk") == "Poland"
         assert get_country_from_location("SF") == "United States"
-
 
     def test_extract_github_owner_and_repo(self):
         """Unit test for extract_github_owner_and_repo()."""
@@ -272,7 +279,8 @@ class TestMapping:
         expected_ouput = pd.DataFrame(
             {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
         )
-        assert output.equals(expected_ouput)
+        assert output[0].equals(expected_ouput)
+        assert output[1] >= 4
 
     def test_add_contributor_count_to_json(self):
         """Unit test for add_contributor_count_to_json()."""
@@ -283,8 +291,8 @@ class TestMapping:
         assert isinstance(output, str)
 
     def test_make_map(self):
-        """Unit test for make_map()."""
-        make_map("www.github.com/iqtlabs/gitgeo")
+        """Unit test for make_map() with a number greater than 100 of contributors."""
+        make_map("www.github.com/iqtlabs/gitgeo", 200)
         # identify and delete map file created for test
         files = glob.glob("results/*.html")
         test_file = max(files, key=os.path.getctime)

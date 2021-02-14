@@ -18,7 +18,7 @@ from geolocation import get_country_from_location
 from github import get_contributors, get_contributor_location
 
 
-def make_map(repo):
+def make_map(repo, num=100):
     """Create a world map of contributor locations.
 
     Create a chloropleth world map that displays the number of contributors
@@ -26,18 +26,25 @@ def make_map(repo):
 
     Args:
         repo - a full GitHub URL
+        num - number of contributors to analyze per repo
 
     Returns:
         null
     """
     # pylint: disable=bad-continuation
     # generate pandas dataframe of countries and contributor count
-    df = get_dataframe_from_repo(repo)
+    df, total_num_of_contributors = get_dataframe_from_repo(repo, num)
 
     # add countributor count to world.json
     world_json = add_contributor_count_to_json(df)
 
     m = folium.Map(location=[0, 0], zoom_start=1.5)
+
+    # calculate the highest number of contributors for a country and then
+    # set the variable to be appropriate for the upper end of the map legend
+    max_contributors = df.contributor_count.max()
+    if max_contributors < 100:
+        max_contributors = 100
 
     # this is the heart of the folium chloropleth mapping functionality
     chloropleth = folium.Choropleth(
@@ -52,7 +59,7 @@ def make_map(repo):
         nan_fill_color="white",  # set countries with no data to white background
         legend_name="Contributor Count",
         highlight=True,  # highlight country borders on mouseover
-        bins=[1, 5, 10, 100],  # legend bins
+        bins=[1, 5, 20, max_contributors + 1],  # legend bins
         attr="Mapping via Folium. Data from GitGeo.",
     ).add_to(m)
 
@@ -61,8 +68,8 @@ def make_map(repo):
     title_html = """
              <h3 align="center" style="font-size:16px"><b>{}</b></h3>
              """.format(
-        "Top Contributors to {}<br>Number of contributors with no location: {}".format(
-            repo, num_contributors_no_location
+        "Top {} Contributors to {}<br>Number of contributors with no location: {}".format(
+            total_num_of_contributors, repo, num_contributors_no_location
         )
     )
     m.get_root().html.add_child(folium.Element(title_html))
@@ -121,18 +128,21 @@ def add_contributor_count_to_json(df):
         return json_data
 
 
-def get_dataframe_from_repo(repo):
+def get_dataframe_from_repo(repo, num=100):
     """Create pandas dataframe of contributors by country.
 
     Args:
-        repo - a full GitHub URL
+        repo - a full GitHub repo URL
+        num - number of contributors to analyze per repo
 
     Returns:
         df - a pandas dataframe of contributors by country
+        num_contributors - total number of contributors
     """
     # get contributors
     repo_ending_string = extract_github_owner_and_repo(repo)
-    contributors = get_contributors(repo_ending_string)
+    contributors = get_contributors(repo_ending_string, num)
+    num_contributors = len(contributors)
 
     # get count of countries
     country_list = []
@@ -147,4 +157,4 @@ def get_dataframe_from_repo(repo):
         country_counter.most_common(), columns=["country", "contributor_count"]
     )
 
-    return df
+    return df, num_contributors

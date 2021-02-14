@@ -10,28 +10,45 @@ GITHUB_USERNAME = os.environ.get("GITHUB_USERNAME")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 
 
-def get_contributors(repo):
-    """Generate list of up to top 100 contributors on package.
+def get_contributors(repo, max_num_contributors=100):
+    """Generate list of up to top 500 contributors for a repo.
+
+    Create list of contributors for a repo. The GitHub API will return up
+    to the top 500 contributors for a repo. The list will be organized by
+    the contributors with the most commits in descending order.
 
     Args:
-        repo: a github repo url
+        repo: a GitHub repo url
+        max_num_contributors: the maximum number of contributors to return
+                              if available
 
     Return:
         list: committer handles
     """
-    # TODO: Consider looping thru pages 1-5. The github contributors API will return up
-    # to 500 contributors
-    response = requests.get(
-        "https://api.github.com/repos/" + repo + "/contributors?page=1&per_page=100",
-        # convert username and token to strings per requests's specifications
-        auth=(str(GITHUB_USERNAME), str(GITHUB_TOKEN)),
-    )
-
     committers = []
-    if response.ok:
-        repo_items = json.loads(response.text or response.content)
-        for item in repo_items:
-            committers.append(item["login"])
+    max_num_pages = int(max_num_contributors / 100)
+
+    # the loop handles pagination associated with the GitHub API
+    for page in range(1, max_num_pages + 1):
+        response = requests.get(
+            "https://api.github.com/repos/"
+            + repo
+            + "/contributors?page="
+            + str(page)
+            + "&per_page=100",
+            # convert username and token to strings per requests's specifications
+            auth=(str(GITHUB_USERNAME), str(GITHUB_TOKEN)),
+        )
+
+        if response.ok:
+            repo_items = json.loads(response.text or response.content)
+            for item in repo_items:
+                committers.append(item["login"])
+
+        # determine if pagination has ended or not. If there are more pages
+        # to return, the API JSON will include a 'next' field
+        if "next" not in response.links:
+            break
 
     return committers
 
