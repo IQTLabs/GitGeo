@@ -107,6 +107,8 @@ Add ```--ouput_csv``` to output csv of results to results folder.
 To create a csv of contributors from many repositories, enter repositories
 on separate lines in the repos.txt file. Then use the ```--multirepo``` flag.
 
+Add ```--num``` and specify a multiple of 100 from 100 (default) to 500 to
+specify the number of contributors analyzed per repo.
 
 ### Advanced usage to increase number of GitHub API calls allowed per hour:
 
@@ -128,8 +130,7 @@ pytest
 ## Roadmap
 
 -  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data. (Kinga)
--  Common developer feature: Add capability to count number of repos associated with each contributor given results of multi-repo scan. (JSM)
--  Add capability for accessing top 500 contributors via GitHub API.
+-  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour. (JSM)
 -  Investigate GitHub API for examining merges and who has merge rights.
 -  Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
 -  Investigate capability to determine authenticity of location information
@@ -139,7 +140,6 @@ pytest
 -  Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
   This person is the "auth" person.
 -  Investigate over time commit analysis visualization
--  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
 -  Add dump multirepo results (or similar aggregate scan) to s3 capability
 -  Investigate diff to tweet capability. Reveal major contributor changes in critical projects to an open feed.
 -  Investigate switching ownership data. Would be interesting to alert users to this.
@@ -147,7 +147,7 @@ pytest
 
 ## Rainy Day Options
 
--  Access commercial API's to enrich data on GitHub usernames or, if included in GitHub profile, email handles, etc. (MK)
+-  Access commercial API's to enrich data on GitHub usernames or, if included in GitHub profile, email handles, etc. Perhaps People Data Labs or Explorium. (MK)
 
 ## Potential Research Questions
 
