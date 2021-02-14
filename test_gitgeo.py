@@ -141,6 +141,8 @@ class TestGitHubFunctionality:  # pragma: no cover
 
     @pytest.mark.xfail  # known bug, unknown origin
     def test_get_country_from_location_dataset_pull_geographies(self):
+        """tests of get_gountry_from_location() that fail as of 2/14/2021"""
+        # pylint: disable=too-many-statements
         assert get_country_from_location("EU") == "Europe"
         assert get_country_from_location("Canary Islands") == "Canary Islands"
         assert get_country_from_location("waterloo") == "United Kingdom"
@@ -277,7 +279,8 @@ class TestMapping:
         expected_ouput = pd.DataFrame(
             {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
         )
-        assert output.equals(expected_ouput)
+        assert output[0].equals(expected_ouput)
+        assert output[1] >= 4
 
     def test_add_contributor_count_to_json(self):
         """Unit test for add_contributor_count_to_json()."""
