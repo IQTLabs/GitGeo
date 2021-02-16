@@ -7,6 +7,8 @@ from geographies_list import (
     STATE_ABBREV,
     STATE_NAMES,
     CITY_COUNTRY_STRINGS,
+    METRO_AREA_COUNTRY_DICT,
+    SPECIAL_CITIES
 )
 
 
@@ -54,12 +56,16 @@ def edit_distance_to_world(location):
     # pylint: disable=invalid-name
 
     # special cities and countries
-    special_locations = ["US", "USA", "U.S.A", "U.S.", "San Francisco"]
-    if location in special_locations:
+    special_locations_domestic = ["US", "USA", "U.S.A", "U.S.", "San Francisco", 'NYC', 'Bay Area', 'New York', 'SF']
+    if location in special_locations_domestic:
         return "United States"
-    for locale in special_locations:
+    for locale in special_locations_domestic:
         if locale in location:
             return "United States"
+
+    special_locations_international = ["EU", "Europe", 'Earth']
+    if location in special_locations_international:
+        return "None"
 
     all_countries = set(CITY_COUNTRY_STRINGS.values())
     MIN_DIST = 1000
@@ -89,12 +95,25 @@ def get_country_from_location(location_string):
     if location_string is None:
         return "None"
 
+    # sometimes they give an international state or metro area
+    if location_string in METRO_AREA_COUNTRY_DICT.keys():
+        return METRO_AREA_COUNTRY_DICT[location_string]
+    for metro in METRO_AREA_COUNTRY_DICT.keys():
+        if location_string in metro:
+            return METRO_AREA_COUNTRY_DICT[metro]
+
     # check if city,country is recognized (global and USA) as major city
     stripped_location = location_string.replace(",", "").replace(
         " ", ""
     )  # remove both commas and spaces
     if stripped_location in CITY_COUNTRY_STRINGS.keys():
         return CITY_COUNTRY_STRINGS[stripped_location]
+
+
+
+    # one of the weird cities that has larger North American populatoin than global population
+    if location_string in SPECIAL_CITIES.keys():
+        return SPECIAL_CITIES[location_string]
 
     # if not international, likely to be USA: check if ends in a state
     for state in STATE_NAMES:
