@@ -33,6 +33,7 @@ pip install -r requirements.txt
 (requires internet connection)
 
 ```python main.py --package [package_name]```
+
 ```python main.py --repo [github_repo_url]```
 
 For example:
