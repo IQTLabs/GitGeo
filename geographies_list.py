@@ -9,12 +9,16 @@ with open("world_cities.csv", errors="ignore", newline="") as file:
     reader = csv.reader(file)
     city_country_list = list(reader)
     city_country_dict = {}
+    metro_area_country_dict = {}
     # TODO: If a city is in the list twice, the country should be ambiguous.
     for row in city_country_list:
         # key is city (row[0]), value is country (row[1])
         city_country_dict[row[0]] = row[1]
+        # key is metro location (row[2]), value is country (row[1])
+        metro_area_country_dict[row[2]] = row[1]
 
 CITY_COUNTRY_DICT = city_country_dict
+METRO_AREA_COUNTRY_DICT = metro_area_country_dict
 
 # list of country codes
 with open("country_codes.csv", errors="ignore", newline="") as file:
@@ -399,6 +403,22 @@ STATE_ABBREV = [
     "WI",
     "WY",
 ]
+
+# some major cities have smaller populations than North American cities, but I suspect the people that
+# live in the latter know not to use their city name. See Sydney in Nova Scotia vs Syndey Austratial
+
+SPECIAL_CITIES = {
+    'Sydney':'Australia',
+    'Amsterdam':'Netherlands',
+    'Barcelona':'Spain',
+    'Hyderabad':'India',
+    'Vancouver':'Canada',
+    'Saint Petersburg':'Russia',
+    'England':'United Kingdom',
+    'Athens':'Greece',
+    'Lima':'Peru',
+    'Scotland':'United Kingdom'
+}
 
 # mashes together the common cities and countries/codes in a stable format,
 # so it's easier for us to try this match first
