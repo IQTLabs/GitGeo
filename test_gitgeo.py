@@ -7,18 +7,20 @@ import glob
 import os
 import textwrap
 
+import pandas as pd
 import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
 from geolocation import get_country_from_location
 from github import get_contributors, get_contributor_location
 from main import scan_single_package, scan_single_repo
+from mapping import get_dataframe_from_repo, add_contributor_count_to_json, make_map
 from multi_repo_scan import scan_multiple_repos
 from printers import print_by_contributor, print_by_country
 from pypi import get_pypi_data, extract_github_owner_and_repo
 
 
-class TestPypiFunctionality:
+class TestPypiFunctionality:  # pragma: no cover
     """Unit tests related to PyPI functionality."""
 
     def test_get_github_url_owner_and_repo(self):
@@ -81,7 +83,7 @@ class TestPypiFunctionality:
         assert requests_pypi_data["pypi_maintainers"] == ["jspeed-meyers"]
 
 
-class TestGitHubFunctionality:
+class TestGitHubFunctionality:  # pragma: no cover
     """Unit tests related to GitHub functionality"""
 
     def test_get_contributors(self):
@@ -158,6 +160,10 @@ class TestGitHubFunctionality:
 
     @pytest.mark.xfail  # known bug, unknown origin
     def test_get_country_from_location_dataset_pull_geographies(self):
+        """tests of get_gountry_from_location() that fail as of 2/14/2021"""
+        # pylint: disable=too-many-statements
+        assert get_country_from_location("EU") == "Europe"
+        assert get_country_from_location("Canary Islands") == "Canary Islands"
         assert get_country_from_location("waterloo") == "United Kingdom"
         assert get_country_from_location("Australia, Victoria") == "Australia"
         assert get_country_from_location("Europe/Berlin") == "Germany"
@@ -177,7 +183,10 @@ class TestGitHubFunctionality:
         assert get_country_from_location("N.H.") == "United States"
         assert get_country_from_location("Vancouver, BC") == "Canada"
         assert get_country_from_location("Sri-City, Andhra Pradesh") == "India"
-        assert get_country_from_location("roudnice nad labem, czech republic") == "Czech Republic"
+        assert (
+            get_country_from_location("roudnice nad labem, czech republic")
+            == "Czech Republic"
+        )
         assert get_country_from_location("Scotland") == "United Kingdom"
         assert get_country_from_location("Geneva") == "Switzerland"
         assert get_country_from_location("Berlin/Florence") == "Germany"
@@ -192,7 +201,10 @@ class TestGitHubFunctionality:
         assert get_country_from_location("Kitchener, Ontario") == "Canada"
         assert get_country_from_location("Montr√©al, QC") == "Canada"
         assert get_country_from_location("Glasgow, Scotland") == "United Kingdom"
-        assert get_country_from_location("28 rue du Dr Roux 75015 Paris, FRANCE") == "France"
+        assert (
+            get_country_from_location("28 rue du Dr Roux 75015 Paris, FRANCE")
+            == "France"
+        )
         assert get_country_from_location("Krak√≥w") == "Poland"
         assert get_country_from_location("ƒ∞stanbul") == "Turkey"
         assert get_country_from_location("Russian Federation") == "Russia"
@@ -201,14 +213,13 @@ class TestGitHubFunctionality:
         assert get_country_from_location("Gda≈Ñsk") == "Poland"
         assert get_country_from_location("SF") == "United States"
 
-
     def test_extract_github_owner_and_repo(self):
         """Unit test for extract_github_owner_and_repo()."""
         owner_and_repo = extract_github_owner_and_repo("www.github.com/psf/requests")
         assert owner_and_repo == "psf/requests"
 
 
-class TestCsvFunctionality:
+class TestCsvFunctionality:  # pragma: no cover
     """Unit tests related to CSV functionality"""
 
     def test_create_csv(self):
@@ -217,14 +228,14 @@ class TestCsvFunctionality:
         assert os.path.exists(os.path.join("results", "contributors_1.csv"))
 
     def test_add_committer_to_csv(self):
-        """Unit test fpr add_committer_to_csv."""
+        """Unit test fpr add_co0mmitter_to_csv."""
         add_committer_to_csv(
             "contributors", "test", "1", "googlemoogle", "eschmidt", "innovation-island"
         )
         os.remove(os.path.join("results", "contributors_1.csv"))  # remove file
 
 
-class TestMultiRepoScan:
+class TestMultiRepoScan:  # pragma: no cover
     """Tests related to multi-repo scanning capability."""
 
     # pylint: disable=too-few-public-methods
@@ -254,6 +265,37 @@ class TestMultiRepoScan:
                         "Wellington, New Zealand",
                         "New Zealand",
                     ]
+        os.remove(test_file)
+
+
+class TestMapping:
+    """Tests related to mapping capability."""
+
+    # pylint: disable=invalid-name
+
+    def test_get_dataframe_from_repo(self):
+        """Unit test for get_dataframe_from_repo()."""
+        output = get_dataframe_from_repo("www.github.com/iqtlabs/gitgeo")
+        expected_ouput = pd.DataFrame(
+            {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
+        )
+        assert output[0].equals(expected_ouput)
+        assert output[1] >= 4
+
+    def test_add_contributor_count_to_json(self):
+        """Unit test for add_contributor_count_to_json()."""
+        df = pd.DataFrame(
+            {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
+        )
+        output = add_contributor_count_to_json(df)
+        assert isinstance(output, str)
+
+    def test_make_map(self):
+        """Unit test for make_map() with a number greater than 100 of contributors."""
+        make_map("www.github.com/iqtlabs/gitgeo", 200)
+        # identify and delete map file created for test
+        files = glob.glob("results/*.html")
+        test_file = max(files, key=os.path.getctime)
         os.remove(test_file)
 
 
@@ -311,7 +353,7 @@ def test_print_by_country(capsys):
     repo_ending_string = extract_github_owner_and_repo(repo)
     contributors = get_contributors(repo_ending_string)
     print_by_country(contributors)
-    captured = capsys.readouterr()  # capture outpt printed to date
+    captured = capsys.readouterr()  # capture output printed to date
     # dedent removes spacing, using the spacing width from the first line
     output_text = textwrap.dedent(
         """        COUNTRY | # OF CONTRIBUTORS
