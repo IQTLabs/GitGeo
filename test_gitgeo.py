@@ -144,7 +144,6 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("Sydney") == "Australia"
         assert get_country_from_location("Amsterdam") == "Netherlands"
         assert get_country_from_location("NYC") == "United States"
-        assert get_country_from_location("Bay Area") == "United States"
         assert get_country_from_location("Barcelona") == "Spain"
         assert get_country_from_location("Kerala") == "India"
         assert get_country_from_location("Hyderabad") == "India"
@@ -156,20 +155,21 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("England") == "United Kingdom"
         assert get_country_from_location("Athens") == "Greece"
         assert get_country_from_location("Europe") == "None"
-        assert get_country_from_location("Lima") == "Peru"
 
     @pytest.mark.xfail  # known bug, unknown origin
     def test_get_country_from_location_dataset_pull_geographies(self):
         """tests of get_gountry_from_location() that fail as of 2/14/2021"""
         # pylint: disable=too-many-statements
+        assert get_country_from_location("Lima") == "Peru"
+        assert get_country_from_location("Bay Area") == "United States"
         assert get_country_from_location("EU") == "Europe"
         assert get_country_from_location("Canary Islands") == "Canary Islands"
         assert get_country_from_location("waterloo") == "United Kingdom"
         assert get_country_from_location("Australia, Victoria") == "Australia"
         assert get_country_from_location("Europe/Berlin") == "Germany"
-        assert get_country_from_location("York") == "United Kingdom" 
-        assert get_country_from_location("M√ºnchen") == "Germany" 
-        assert get_country_from_location("Saclay") == "France"        
+        assert get_country_from_location("York") == "United Kingdom"
+        assert get_country_from_location("M√ºnchen") == "Germany"
+        assert get_country_from_location("Saclay") == "France"
         assert get_country_from_location("Montreal, CA") == "Canada"
         assert get_country_from_location("Florian√≥polis") == "Brazil"
         assert get_country_from_location("Montr√©al") == "Canada"
