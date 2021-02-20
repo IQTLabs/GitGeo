@@ -12,7 +12,12 @@ import pytest
 
 from custom_csv import create_csv, add_committer_to_csv
 from geolocation import get_country_from_location
-from github import get_contributors, get_contributor_location
+from github import (
+    get_contributors,
+    get_contributor_location,
+    get_github_tokens,
+    read_in_github_token_list,
+)
 from main import scan_single_package, scan_single_repo
 from mapping import get_dataframe_from_repo, add_contributor_count_to_json, make_map
 from multi_repo_scan import scan_multiple_repos
@@ -217,6 +222,20 @@ class TestGitHubFunctionality:  # pragma: no cover
         """Unit test for extract_github_owner_and_repo()."""
         owner_and_repo = extract_github_owner_and_repo("www.github.com/psf/requests")
         assert owner_and_repo == "psf/requests"
+
+    def test_get_github_tokens(self):
+        """Unit test for get_github_tokens(). Check proper cycling."""
+        tokens = get_github_tokens("test_tokens.txt")
+        token1 = next(tokens)
+        assert token1 == "test_token_1"
+        token2 = next(tokens)
+        assert token2 == "test_token_2"
+
+    def test_read_in_github_token_list(self):
+        """Unit test for read_in_github_token_list()."""
+        tokens = read_in_github_token_list("test_tokens.txt")
+        assert tokens[0] == "test_token_1"
+        assert tokens[1] == "test_token_2"
 
 
 class TestCsvFunctionality:  # pragma: no cover
