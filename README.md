@@ -113,13 +113,16 @@ specify the number of contributors analyzed per repo.
 
 ### Advanced usage to increase number of GitHub API calls allowed per hour:
 
-- First, create a [GitHub personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
+- First, create one or more [GitHub personal access tokens](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
 - Second, run these commands in the command line to set environmental variables:
 ```bash
 export GITHUB_USERNAME='[github_username]'
 export GITHUB_TOKEN='[github_token]'
 ```
+
+- Alternatively, to use multiple tokens, create a file called tokens.txt in the code's directory and enter
+  a GitHub personal access token on each line.
 
 
 ### Run tests:
@@ -131,7 +134,6 @@ pytest
 ## Roadmap
 
 -  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data. (Kinga)
--  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour. (JSM)
 -  Investigate GitHub API for examining merges and who has merge rights.
 -  Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
 -  Investigate capability to determine authenticity of location information
