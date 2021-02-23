@@ -1,5 +1,9 @@
 # GitGeo-specific files
 results/*
+# but keep test files in the results folder
+!results/test_*
+
+
 # WARNING: DO NOT REMOVE tokens.txt UNLESS YOU KNOW WHAT YOU ARE DOING.
 # YOU RISK LEAKING YOUR GITHUB API PERSONAL ACCESS TOKENS VIA GIT
 # IF YOU REMOVE THIS FILE FROM .GITIGNORE. IF YOU DO NOT UNDERSTAND
