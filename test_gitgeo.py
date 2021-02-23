@@ -19,7 +19,12 @@ from github import (
     read_in_github_token_list,
 )
 from main import scan_single_package, scan_single_repo
-from mapping import get_dataframe_from_repo, add_contributor_count_to_json, make_map
+from mapping import (
+    get_dataframe_from_csv,
+    get_dataframe_from_repo,
+    add_contributor_count_to_json,
+    make_map,
+)
 from multi_repo_scan import scan_multiple_repos
 from printers import print_by_contributor, print_by_country
 from pypi import get_pypi_data, extract_github_owner_and_repo
@@ -301,6 +306,15 @@ class TestMapping:
         assert output[0].equals(expected_ouput)
         assert output[1] >= 4
 
+    def test_get_dataframe_from_csv(self):
+        """Unit test for get_dataframe_from_csv()."""
+        output = get_dataframe_from_csv("test_multirepo.csv")
+        expected_ouput = pd.DataFrame(
+            {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
+        )
+        assert output[0].equals(expected_ouput)
+        assert output[1] >= 4
+
     def test_add_contributor_count_to_json(self):
         """Unit test for add_contributor_count_to_json()."""
         df = pd.DataFrame(
@@ -309,10 +323,18 @@ class TestMapping:
         output = add_contributor_count_to_json(df)
         assert isinstance(output, str)
 
-    def test_make_map(self):
-        """Unit test for make_map() with a number greater than 100 of contributors."""
-        make_map("www.github.com/iqtlabs/gitgeo", 200)
+    def test_make_map_from_repo(self):
+        """Unit test for make_map() with a number greater than 100 of contributors
+           and using a repo URL."""
+        make_map(repo="www.github.com/iqtlabs/gitgeo", num=200)
         # identify and delete map file created for test
+        files = glob.glob("results/*.html")
+        test_file = max(files, key=os.path.getctime)
+        os.remove(test_file)
+
+    def test_make_map_from_csv(self):
+        """Unit test for make_map() using a csv created by multirepo_scan."""
+        make_map(csv="test_multirepo.csv")
         files = glob.glob("results/*.html")
         test_file = max(files, key=os.path.getctime)
         os.remove(test_file)
