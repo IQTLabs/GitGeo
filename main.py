@@ -21,6 +21,13 @@ def parse_arguments():  # pragma: no cover
         help="Scan multiple repos from input file.",
     )
     parser.add_argument(
+        "--multirepo_map",
+        dest="multirepo_map",
+        action="store",
+        type=str,
+        help="Convert mutlirepo scan file into map.",
+    )
+    parser.add_argument(
         "--summary",
         dest="summary",
         action="store_true",  # when summary is not called, default is false
@@ -110,8 +117,10 @@ if __name__ == "__main__":  # pragma: no cover
         scan_single_package(args.package, args.summary, args.num)
     elif args.repo:
         if args.map:
-            make_map(args.repo, args.num)
+            make_map(repo=args.repo, num=args.num)
         else:
             scan_single_repo(args.repo, args.summary, args.output_csv, args.num)
     elif args.multirepo:
         scan_multiple_repos(num=args.num)
+    elif args.multirepo_map:
+        make_map(csv=args.multirepo_map)
