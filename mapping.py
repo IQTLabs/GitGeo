@@ -13,12 +13,12 @@ import time
 import folium
 import pandas as pd
 
-from pypi import extract_github_owner_and_repo
 from geolocation import get_country_from_location
 from github import get_contributors, get_contributor_location
+from pypi import extract_github_owner_and_repo
 
 
-def make_map(repo, num=100):
+def make_map(repo=None, csv=None, num=100):
     """Create a world map of contributor locations.
 
     Create a chloropleth world map that displays the number of contributors
@@ -26,6 +26,7 @@ def make_map(repo, num=100):
 
     Args:
         repo - a full GitHub URL
+        csv - a filename of a csv in the results folder
         num - number of contributors to analyze per repo
 
     Returns:
@@ -33,7 +34,14 @@ def make_map(repo, num=100):
     """
     # pylint: disable=bad-continuation
     # generate pandas dataframe of countries and contributor count
-    df, total_num_of_contributors = get_dataframe_from_repo(repo, num)
+    # if input is repo, create dataframe from repo from scatch
+    if repo:
+        df, total_num_of_contributors = get_dataframe_from_repo(repo, num)
+        title = repo
+    # if input is a csv, create dataframe from csv
+    elif csv:
+        df, total_num_of_contributors = get_dataframe_from_csv(csv)
+        title = csv
 
     # add countributor count to world.json
     world_json = add_contributor_count_to_json(df)
@@ -69,7 +77,7 @@ def make_map(repo, num=100):
              <h3 align="center" style="font-size:16px"><b>{}</b></h3>
              """.format(
         "Top {} Contributors to {}<br>Number of contributors with no location: {}".format(
-            total_num_of_contributors, repo, num_contributors_no_location
+            total_num_of_contributors, title, num_contributors_no_location
         )
     )
     m.get_root().html.add_child(folium.Element(title_html))
@@ -158,3 +166,35 @@ def get_dataframe_from_repo(repo, num=100):
     )
 
     return df, num_contributors
+
+
+def get_dataframe_from_csv(filename):
+    """Create pandas dataframe of contributors by country.
+
+    Read in a csv from the results folder and convert to a dataframe
+    that tabluates developer count by country.
+
+    Args:
+        filename - filename to input
+
+    Returns:
+        aggregated_df - a pandas dataframe of contributors by country
+        num_contributors - total number of contributors
+    """
+    # file must be in the results folder
+    df = pd.read_csv(os.path.join("results", filename))
+    num_contributors = len(df)
+
+    # create by-country count dict and then convert to pandas dataframe
+    country_dict = df["country"].value_counts().to_dict()
+    aggregated_df = pd.DataFrame.from_dict(
+        country_dict, orient="index", columns=["contributor_count"]
+    )
+
+    # to ensure compatiblity with the dataframe structure created by
+    # get_dataframe_from_repo, do a few minor changes to dataframe
+    aggregated_df["country"] = aggregated_df.index
+    aggregated_df = aggregated_df.reset_index(drop=True)
+    aggregated_df = aggregated_df[["country", "contributor_count"]]
+
+    return aggregated_df, num_contributors
