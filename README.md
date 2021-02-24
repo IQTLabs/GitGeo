@@ -158,7 +158,7 @@ pytest
 - Where are maintainers associated with the most critical python packages?
 	- Who are the maintainers that are associated with multiple critical python packages?
 	- What about contribution-related weighting?
-- Where are the maintainers associated with the top GitHub packages by stars? Top data science packages? Etc?
+- Where are the maintainers associated with the top GitHub packages by stars? Top data science packages? Quantum computing packages? Blockhcain packages? Etc? (RP)
 	- Then do sub-analysis that asks on what repos or types of repos developers of a given country are most active
 - What predicts the number of top python packages software developers by country?
 	- Total number of coders per country?
