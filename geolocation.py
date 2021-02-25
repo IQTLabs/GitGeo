@@ -8,7 +8,7 @@ from geographies_list import (
     STATE_NAMES,
     CITY_COUNTRY_STRINGS,
     METRO_AREA_COUNTRY_DICT,
-    SPECIAL_CITIES
+    SPECIAL_CITIES,
 )
 
 
@@ -56,14 +56,24 @@ def edit_distance_to_world(location):
     # pylint: disable=invalid-name
 
     # special cities and countries
-    special_locations_domestic = ["US", "USA", "U.S.A", "U.S.", "San Francisco", 'NYC', 'Bay Area', 'New York', 'SF']
+    special_locations_domestic = [
+        "US",
+        "USA",
+        "U.S.A",
+        "U.S.",
+        "San Francisco",
+        "NYC",
+        "Bay Area",
+        "New York",
+        "SF",
+    ]
     if location in special_locations_domestic:
         return "United States"
     for locale in special_locations_domestic:
         if locale in location:
             return "United States"
 
-    special_locations_international = ["EU", "Europe", 'Earth']
+    special_locations_international = ["EU", "Europe", "Earth"]
     if location in special_locations_international:
         return "None"
 
@@ -90,6 +100,7 @@ def get_country_from_location(location_string):
         str: a country
     """
     # pylint: disable=too-many-return-statements,no-else-return,bad-continuation
+    # pylint: disable=consider-iterating-dictionary,too-many-branches
 
     # TODO: make all checks lowercase
     if location_string is None:
@@ -108,8 +119,6 @@ def get_country_from_location(location_string):
     )  # remove both commas and spaces
     if stripped_location in CITY_COUNTRY_STRINGS.keys():
         return CITY_COUNTRY_STRINGS[stripped_location]
-
-
 
     # one of the weird cities that has larger North American populatoin than global population
     if location_string in SPECIAL_CITIES.keys():

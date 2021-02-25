@@ -408,16 +408,16 @@ STATE_ABBREV = [
 # live in the latter know not to use their city name. See Sydney in Nova Scotia vs Syndey Austratial
 
 SPECIAL_CITIES = {
-    'Sydney':'Australia',
-    'Amsterdam':'Netherlands',
-    'Barcelona':'Spain',
-    'Hyderabad':'India',
-    'Vancouver':'Canada',
-    'Saint Petersburg':'Russia',
-    'England':'United Kingdom',
-    'Athens':'Greece',
-    'Lima':'Peru',
-    'Scotland':'United Kingdom'
+    "Sydney": "Australia",
+    "Amsterdam": "Netherlands",
+    "Barcelona": "Spain",
+    "Hyderabad": "India",
+    "Vancouver": "Canada",
+    "Saint Petersburg": "Russia",
+    "England": "United Kingdom",
+    "Athens": "Greece",
+    "Lima": "Peru",
+    "Scotland": "United Kingdom",
 }
 
 # mashes together the common cities and countries/codes in a stable format,
