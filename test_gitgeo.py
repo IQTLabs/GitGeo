@@ -348,7 +348,7 @@ class TestMapping:
 
     def test_make_map_from_repo(self):
         """Unit test for make_map() with a number greater than 100 of contributors
-           and using a repo URL."""
+        and using a repo URL."""
         make_map(repo="www.github.com/iqtlabs/gitgeo", num=200)
         # identify and delete map file created for test
         files = glob.glob("results/*.html")
