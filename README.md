@@ -108,6 +108,8 @@ Add ```--ouput_csv``` to output csv of results to results folder.
 To create a csv of contributors from many repositories, enter repositories
 on separate lines in the repos.txt file. Then use the ```--multirepo``` flag.
 
+Add ```multirepo_map``` and then a filename to create a map of csv ouput. csv output must be located in the results folder.
+
 Add ```--num``` and specify a multiple of 100 from 100 (default) to 500 to
 specify the number of contributors analyzed per repo.
 
