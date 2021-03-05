@@ -322,19 +322,18 @@ class TestMapping:
 
     def test_get_dataframe_from_repo(self):
         """Unit test for get_dataframe_from_repo()."""
-        # todo: use a dormant repo
-        output = get_dataframe_from_repo("www.github.com/iqtlabs/gitgeo")
+        output = get_dataframe_from_repo("www.github.com/iqtlabs/pypi-scan")
         expected_ouput = pd.DataFrame(
-            {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
+            {"country": ["None", "New Zealand"], "contributor_count": [2, 1]}
         )
-        # assert output[0].equals(expected_ouput)
-        assert output[1] >= 4
+        assert output[0].equals(expected_ouput)
+        assert output[1] >= 3
 
     def test_get_dataframe_from_csv(self):
         """Unit test for get_dataframe_from_csv()."""
         output = get_dataframe_from_csv("test_multirepo.csv")
         expected_ouput = pd.DataFrame(
-            {"country": ["None", "Portugal"], "contributor_count": [4, 1]}
+            {"country": ["None", "Portugal"], "contributor_count": [3, 1]}
         )
         assert output[0].equals(expected_ouput)
         assert output[1] >= 4
