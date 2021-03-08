@@ -437,7 +437,6 @@ SPECIAL_CITIES = {
     'Scotland':'United Kingdom',
     'Rome':'Italy',
     'Dublin':'Ireland',
-    'PRC':'China',
     'Edinburgh':'United Kingdom',
     'Bangalore':'India',
     'Geneva':'Switzerland',
