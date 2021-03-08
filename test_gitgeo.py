@@ -168,7 +168,7 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("Lima") == "Peru"
         assert get_country_from_location("Bay Area") == "United States"
         assert get_country_from_location("EU") == "None"
-        assert get_country_from_location("Canary Islands") == "Canary Islands"
+        assert get_country_from_location("Canary Islands") == "Spain"
         assert get_country_from_location("waterloo") == "United Kingdom"
         assert get_country_from_location("Europe/Berlin") == "None"
         assert get_country_from_location("York") == "United Kingdom"
