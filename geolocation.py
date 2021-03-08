@@ -56,16 +56,7 @@ def edit_distance_to_world(location):
     # pylint: disable=invalid-name
 
     # special cities and countries
-    special_locations_domestic = ["US", "USA", "U.S.A", "U.S.", "San Francisco", 'NYC', 'Bay Area', 'New York', 'SF']
-    if location in special_locations_domestic:
-        return "United States"
-    for locale in special_locations_domestic:
-        if locale in location:
-            return "United States"
-
-    special_locations_international = ["EU", "Europe", 'Earth']
-    if location in special_locations_international:
-        return "None"
+    location = location.title()
 
     all_countries = set(CITY_COUNTRY_STRINGS.values())
     MIN_DIST = 1000
@@ -95,6 +86,51 @@ def get_country_from_location(location_string):
     if location_string is None:
         return "None"
 
+    location_string = location_string[0].upper() + location_string[1:]
+
+
+    special_locations_domestic = ["US", "USA", "U.S.A", "U.S.", "San Francisco", 'NYC', 'Bay Area', 'New York', 'SF', 'SF Bay Area']
+    if location_string in special_locations_domestic:
+        return "United States"
+    for locale in special_locations_domestic:
+        if locale in location_string:
+            return "United States"
+
+    special_locations_universe = ["EU", "Europe", 'Earth', 'Universe', 'Mars', 'Milky Way', 'Knowhere', 'Internet', 'Remote', 'space', '127.0.0.1', 'localhost']
+    if location_string in special_locations_universe:
+        return "None"
+    for special in special_locations_universe:
+        if special in location_string:
+            return "None"
+
+    special_locations_international = {'Scotland':'United Kingdom'}
+    for special in special_locations_international.keys():
+        if special in location_string:
+            return special_locations_international[special]
+
+    location_string.encode("utf-8")
+
+    # one of the weird cities that has larger North American populatoin than global population
+    if location_string in SPECIAL_CITIES.keys():
+        return SPECIAL_CITIES[location_string]
+
+    location_string = location_string.replace("/", ' ')
+    location_string = location_string.replace("√©", 'e')
+    location_string = location_string.replace("√º", 'u')
+    location_string = location_string.replace("The ", '')
+    location_string = location_string.replace("the ", '')
+    location_string = location_string.replace("√≠", 'i')
+    location_string = location_string.replace("√®", 'e')
+    location_string = location_string.replace(".", '')
+    location_string = location_string.replace("(", '')
+    location_string = location_string.replace(")", '')
+    location_string = location_string.replace("»ô", 's')
+    location_string = location_string.replace("√£", 'a')
+    location_string = location_string.replace("√≥", 'o')
+    location_string = location_string.replace("Ƒ∞", 'I')
+    location_string = location_string.replace("c≈Ç", 'c')
+    location_string = location_string.replace("≈Ñ", 'n')
+
     # sometimes they give an international state or metro area
     if location_string in METRO_AREA_COUNTRY_DICT.keys():
         return METRO_AREA_COUNTRY_DICT[location_string]
@@ -106,14 +142,9 @@ def get_country_from_location(location_string):
     stripped_location = location_string.replace(",", "").replace(
         " ", ""
     )  # remove both commas and spaces
+
     if stripped_location in CITY_COUNTRY_STRINGS.keys():
         return CITY_COUNTRY_STRINGS[stripped_location]
-
-
-
-    # one of the weird cities that has larger North American populatoin than global population
-    if location_string in SPECIAL_CITIES.keys():
-        return SPECIAL_CITIES[location_string]
 
     # if not international, likely to be USA: check if ends in a state
     for state in STATE_NAMES:
@@ -128,15 +159,22 @@ def get_country_from_location(location_string):
         # Check different positions of the token
         for position in [-1, 0]:
             pieces = location_string.split(separator)
+
             token = pieces[position].strip()
+            if len(token) > 2:
+                token = token.title()
 
             # Use returns as a way of exiting double loop
             # Mali has a city named San, which messes this up
-            if token in CITY_COUNTRY_DICT.keys() and token != "San":
+            if token in CITY_COUNTRY_DICT.keys() and token != "San" and token != "Bay":
                 return CITY_COUNTRY_DICT[token]
             elif token in ALL_COUNTRIES:  # pylint: disable=no-else-return
                 return token
             elif token in CODE_COUNTRY_DICT.keys():
                 return CODE_COUNTRY_DICT[token]
+            elif token in METRO_AREA_COUNTRY_DICT.keys():
+                return METRO_AREA_COUNTRY_DICT[token]
 
     return edit_distance_to_world(location_string)
+
+#print(get_country_from_location("Sri-City, Andhra Pradesh"))

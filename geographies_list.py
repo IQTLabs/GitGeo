@@ -17,6 +17,22 @@ with open("world_cities.csv", errors="ignore", newline="") as file:
         # key is metro location (row[2]), value is country (row[1])
         metro_area_country_dict[row[2]] = row[1]
 
+city_country_dict['British Columbia'] = 'Canada'
+city_country_dict['Ontario'] = 'Canada'
+city_country_dict['Quebec'] = 'Canada'
+city_country_dict['Manitoba'] = 'Canada'
+city_country_dict['Alberta'] = 'Canada'
+city_country_dict['New Brunswick'] = 'Canada'
+city_country_dict['Nova Scotia'] = 'Canada'
+city_country_dict['Nsw'] = 'Australia'
+city_country_dict['Qld'] = 'Australia'
+city_country_dict['New South Wales'] = 'Australia'
+city_country_dict['Queensland'] = 'Australia'
+city_country_dict['South Australia'] = 'Australia'
+city_country_dict['Tasmania'] = 'Australia'
+city_country_dict['Victoria'] = 'Australia'
+city_country_dict['Western Australia'] = 'Australia'
+
 CITY_COUNTRY_DICT = city_country_dict
 METRO_AREA_COUNTRY_DICT = metro_area_country_dict
 
@@ -31,6 +47,7 @@ with open("country_codes.csv", errors="ignore", newline="") as file:
         code_country_dict[row[1]] = row[0]
         # key is country (row[0]), value is country code (row[1])
         country_code_dict[row[0]] = row[1]
+
 
 CODE_COUNTRY_DICT = code_country_dict
 # we create the "inverse" of the other dict to use below to create pre-processed potentials mashups
@@ -417,7 +434,27 @@ SPECIAL_CITIES = {
     'England':'United Kingdom',
     'Athens':'Greece',
     'Lima':'Peru',
-    'Scotland':'United Kingdom'
+    'Scotland':'United Kingdom',
+    'Rome':'Italy',
+    'Dublin':'Ireland',
+    'PRC':'China',
+    'Edinburgh':'United Kingdom',
+    'Bangalore':'India',
+    'Geneva':'Switzerland',
+    'Melbourne':'Australia',
+    'Bruges':'Belgium',
+    'PRC':'China',
+    'York':'United Kingdom',
+    'Valenica':'Spain',
+    'Republic of Korea':'South Korea',
+    'Waterloo':'United Kingdom',
+    'M√ºnchen':'Germany',
+    'Montreal, CA':'Canada',
+    'Florian√≥polis':'Brazil',
+    'Perth':'Australia',
+    'Oxford':'United Kingdom',
+    'Milan':'Italy',
+    'Russian Federation':'Russia'
 }
 
 # mashes together the common cities and countries/codes in a stable format,
