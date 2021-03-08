@@ -55,10 +55,11 @@ def edit_distance_to_world(location):
     """
     # pylint: disable=invalid-name
 
+
+
+    location = location.title() # capitalizes the first letter of every word
+
     # special cities and countries
-
-    location = location.title()
-
     special_locations_domestic = [
         "US",
         "USA",
@@ -111,7 +112,6 @@ def get_country_from_location(location_string):
 
     location_string = location_string[0].upper() + location_string[1:]
 
-
     special_locations_domestic = ["US", "USA", "U.S.A", "U.S.", "San Francisco", 'NYC', 'Bay Area', 'New York', 'SF', 'SF Bay Area']
     if location_string in special_locations_domestic:
         return "United States"
@@ -133,10 +133,11 @@ def get_country_from_location(location_string):
 
     location_string.encode("utf-8")
 
-    # one of the weird cities that has larger North American populatoin than global population
+    # one of the weird cities that has larger North American population than global population
     if location_string in SPECIAL_CITIES.keys():
         return SPECIAL_CITIES[location_string]
 
+    # do some basic cleanup on weird characters in the location
     location_string = location_string.replace("/", ' ')
     location_string = location_string.replace("√©", 'e')
     location_string = location_string.replace("√º", 'u')
@@ -169,7 +170,7 @@ def get_country_from_location(location_string):
     if stripped_location in CITY_COUNTRY_STRINGS.keys():
         return CITY_COUNTRY_STRINGS[stripped_location]
 
-    # one of the weird cities that has larger North American populatoin than global population
+    # one of the weird cities that has larger North American population than global population
     if location_string in SPECIAL_CITIES.keys():
         return SPECIAL_CITIES[location_string]
 
@@ -189,7 +190,8 @@ def get_country_from_location(location_string):
             pieces = location_string.split(separator)
 
             token = pieces[position].strip()
-            if len(token) > 2:
+            # if the token is not a two-character state or country code, capitalize first letters of words
+            if len(token) > 2:  
                 token = token.title()
 
             # Use returns as a way of exiting double loop
@@ -204,5 +206,3 @@ def get_country_from_location(location_string):
                 return METRO_AREA_COUNTRY_DICT[token]
 
     return edit_distance_to_world(location_string)
-
-#print(get_country_from_location("Sri-City, Andhra Pradesh"))
