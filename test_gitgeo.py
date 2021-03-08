@@ -172,7 +172,7 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("waterloo") == "United Kingdom"
         assert get_country_from_location("Europe/Berlin") == "None"
         assert get_country_from_location("York") == "United Kingdom"
-        assert get_country_from_location("M√ºnchen") == "Germany" 
+        assert get_country_from_location("M√ºnchen") == "Germany"
         assert get_country_from_location("Montreal, CA") == "Canada"
         assert get_country_from_location("Florian√≥polis") == "Brazil"
         assert get_country_from_location("Montr√©al") == "Canada"
@@ -229,7 +229,7 @@ class TestGitHubFunctionality:  # pragma: no cover
     @pytest.mark.xfail  # known bug, unknown origin
     def test_get_country_from_location_dataset_pull_geographies(self):
         """tests of get_gountry_from_location() that fail as of 2/14/2021"""
-        assert get_country_from_location("Saclay") == "France"        
+        assert get_country_from_location("Saclay") == "France"
         assert get_country_from_location("Warszawa") == "Poland"
         assert get_country_from_location("brookline, ma") == "United States"
         assert get_country_from_location("Greater Los Angeles Area") == "United States"
