@@ -10,6 +10,10 @@
 # GitGeo
 Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.
 
+See, for instance, the geography of the contributors to the Python package requests.
+
+![map_image](map_image.JPG)
+
 ## Why use GitGeo?
 -  Curiosity
 -  Open source software community management
@@ -29,6 +33,7 @@ pip install -r requirements.txt
 (requires internet connection)
 
 ```python main.py --package [package_name]```
+
 ```python main.py --repo [github_repo_url]```
 
 For example:
@@ -94,26 +99,33 @@ Russia 2
 ...
 ```
 
+Add ```--map``` when using the ```--repo``` option to create an html map
+saved in the results folder. See image above for static example. Real map
+includes zooming and tooltip capability.
+
+Add ```--ouput_csv``` to output csv of results to results folder.
+
+To create a csv of contributors from many repositories, enter repositories
+on separate lines in the repos.txt file. Then use the ```--multirepo``` flag.
+
+Add ```multirepo_map``` and then a filename to create a map of csv ouput. csv output must be located in the results folder.
+
+Add ```--num``` and specify a multiple of 100 from 100 (default) to 500 to
+specify the number of contributors analyzed per repo.
 
 ### Advanced usage to increase number of GitHub API calls allowed per hour:
 
-- First, create a [GitHub personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
+- First, create one or more [GitHub personal access tokens](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
 
-- Second, run these commands in the command line:
+- Second, run these commands in the command line to set environmental variables:
 ```bash
 export GITHUB_USERNAME='[github_username]'
 export GITHUB_TOKEN='[github_token]'
 ```
 
-- Third, run one of these commands.
+- Alternatively, to use multiple tokens, create a file called tokens.txt in the code's directory and enter
+  a GitHub personal access token on each line.
 
-```bash
-python main.py --package [python_package_name]
-```
-
-```bash
-python main.py --repo [github_repo_name]
-```
 
 ### Run tests:
 
@@ -123,8 +135,7 @@ pytest
 
 ## Roadmap
 
--  Add visualization capability
--  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data.
+-  Investigate capability of predicting location via a model given only timestamp from commit and commit-related data. (Kinga)
 -  Investigate GitHub API for examining merges and who has merge rights.
 -  Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
 -  Investigate capability to determine authenticity of location information
@@ -133,25 +144,36 @@ pytest
 -  Investigate possibility of determining whether a project is a "hobby" project (outside of working hours) or a "work" project (within working hours)?
 -  Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
   This person is the "auth" person.
--  Investigate multi-token capability, i.e. storing multiple tokens to increase API usage per hour.
-- Investigate People Data Labs API to enrich data on users, especially ones without location.
+-  Investigate over time commit analysis visualization
+-  Add dump multirepo results (or similar aggregate scan) to s3 capability
+-  Investigate diff to tweet capability. Reveal major contributor changes in critical projects to an open feed.
+-  Investigate switching ownership data. Would be interesting to alert users to this.
+-  Investigate by user capability. Determine all repo's a user has contributed to. Do a quick git blame for a user.
+
+## Rainy Day Options
+
+-  Access commercial API's to enrich data on GitHub usernames or, if included in GitHub profile, email handles, etc. Perhaps People Data Labs or Explorium. (MK)
 
 ## Potential Research Questions
 
 - Are there places in the world with unrecognized pockets of software developers?
 - Where are maintainers associated with the most critical python packages?
 	- Who are the maintainers that are associated with multiple critical python packages?
+	- What about contribution-related weighting?
+- Where are the maintainers associated with the top GitHub packages by stars? Top data science packages? Quantum computing packages? Blockhcain packages? Etc? (RP)
+	- Then do sub-analysis that asks on what repos or types of repos developers of a given country are most active
 - What predicts the number of top python packages software developers by country?
 	- Total number of coders per country?
 	- Total number of python coders per country?
 	- GDP per capita per country?
+- Is it possible to "verify" user information?
 
 ## Known bugs
 
 ## Want to contribute?
 
-- Open a PR. We are glad to accept pull requests. We use black and pylint, though we
-  are glad to help if you haven't used those tools before.
+- Open a PR. We are glad to accept pull requests. We use black and pylint and
+  pydocstyle, though we are glad to help if you haven't used those tools before.
 - Open an issue. Tell us your problem or a functionality you want.
 - Want to help build a community related to GitGeo and similar open source software
   ecosystem exploration tools? Please send an email to jmeyers@iqt.org.
