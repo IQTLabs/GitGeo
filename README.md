@@ -32,6 +32,19 @@ pip install -r requirements.txt
 
 (requires internet connection)
 
+- First, create one or more [GitHub personal access tokens](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
+
+- Second, run these commands in the command line to set environmental variables:
+```bash
+export GITHUB_USERNAME='[github_username]'
+export GITHUB_TOKEN='[github_token]'
+```
+
+- Alternatively, to use multiple tokens, create a file called tokens.txt in the code's directory and enter
+  a GitHub personal access token on each line.
+  
+- Third, run these commands in the command line:
+
 ```python main.py --package [package_name]```
 
 ```python main.py --repo [github_repo_url]```
@@ -112,20 +125,6 @@ Add ```multirepo_map``` and then a filename to create a map of csv ouput. csv ou
 
 Add ```--num``` and specify a multiple of 100 from 100 (default) to 500 to
 specify the number of contributors analyzed per repo.
-
-### Advanced usage to increase number of GitHub API calls allowed per hour:
-
-- First, create one or more [GitHub personal access tokens](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token).
-
-- Second, run these commands in the command line to set environmental variables:
-```bash
-export GITHUB_USERNAME='[github_username]'
-export GITHUB_TOKEN='[github_token]'
-```
-
-- Alternatively, to use multiple tokens, create a file called tokens.txt in the code's directory and enter
-  a GitHub personal access token on each line.
-
 
 ### Run tests:
 
