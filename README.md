@@ -17,7 +17,7 @@ See, for instance, the geography of the contributors to the Python package reque
 ## Why use GitGeo?
 -  Curiosity
 -  Open source software community management
--  Research on open source software ecosystem
+-  Research on open source software ecosystems
 -  IT security compliance
 
 ## Installation
