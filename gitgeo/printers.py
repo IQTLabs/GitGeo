@@ -3,9 +3,9 @@
 from collections import Counter
 import time
 
-from custom_csv import create_csv, add_committer_to_csv
-from github import get_contributor_location
-from geolocation import get_country_from_location
+from gitgeo.custom_csv import create_csv, add_committer_to_csv
+from gitgeo.github import get_contributor_location
+from gitgeo.geolocation import get_country_from_location
 
 
 def print_by_country(contributors):

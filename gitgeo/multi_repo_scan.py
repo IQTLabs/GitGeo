@@ -2,10 +2,10 @@
 
 import time
 
-from custom_csv import create_csv, add_committer_to_csv
-from geolocation import get_country_from_location
-from github import get_contributors, get_contributor_location
-from pypi import extract_github_owner_and_repo
+from gitgeo.custom_csv import create_csv, add_committer_to_csv
+from gitgeo.geolocation import get_country_from_location
+from gitgeo.github import get_contributors, get_contributor_location
+from gitgeo.pypi import extract_github_owner_and_repo
 
 
 def scan_multiple_repos(input_file="repos.txt", num=100):

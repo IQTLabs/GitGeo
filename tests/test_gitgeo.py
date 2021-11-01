@@ -6,28 +6,29 @@ import csv
 import glob
 import os
 import textwrap
+from pathlib import Path
 
 import pandas as pd
 import pytest
 
-from custom_csv import create_csv, add_committer_to_csv
-from geolocation import get_country_from_location
-from github import (
+from gitgeo.custom_csv import create_csv, add_committer_to_csv
+from gitgeo.geolocation import get_country_from_location
+from gitgeo.github import (
     get_contributors,
     get_contributor_location,
     get_github_tokens,
     read_in_github_token_list,
 )
-from main import scan_single_package, scan_single_repo
-from mapping import (
+from gitgeo.main import scan_single_package, scan_single_repo
+from gitgeo.mapping import (
     get_dataframe_from_csv,
     get_dataframe_from_repo,
     add_contributor_count_to_json,
     make_map,
 )
-from multi_repo_scan import scan_multiple_repos
-from printers import print_by_contributor, print_by_country
-from pypi import get_pypi_data, extract_github_owner_and_repo
+from gitgeo.multi_repo_scan import scan_multiple_repos
+from gitgeo.printers import print_by_contributor, print_by_country
+from gitgeo.pypi import get_pypi_data, extract_github_owner_and_repo
 
 
 class TestPypiFunctionality:  # pragma: no cover
@@ -248,7 +249,7 @@ class TestGitHubFunctionality:  # pragma: no cover
 
     def test_get_github_tokens(self):
         """Unit test for get_github_tokens(). Check proper cycling."""
-        tokens = get_github_tokens("test_tokens.txt")
+        tokens = get_github_tokens(Path(__file__).with_name("test_tokens.txt"))
         token1 = next(tokens)
         assert token1 == "test_token_1"
         token2 = next(tokens)
@@ -256,7 +257,7 @@ class TestGitHubFunctionality:  # pragma: no cover
 
     def test_read_in_github_token_list(self):
         """Unit test for read_in_github_token_list()."""
-        tokens = read_in_github_token_list("test_tokens.txt")
+        tokens = read_in_github_token_list(Path(__file__).with_name("test_tokens.txt"))
         assert tokens[0] == "test_token_1"
         assert tokens[1] == "test_token_2"
 
@@ -284,7 +285,7 @@ class TestMultiRepoScan:  # pragma: no cover
 
     def test_multi_repo_scan(self):
         """Unit test for scan_multiple_repos()."""
-        scan_multiple_repos("test_repos.txt")
+        scan_multiple_repos(Path(__file__).with_name("test_repos.txt"))
         # identify file created for test
         files = glob.glob("results/*.csv")
         test_file = max(files, key=os.path.getctime)

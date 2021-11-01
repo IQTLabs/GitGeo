@@ -2,11 +2,11 @@
 
 import argparse
 
-from github import get_contributors
-from mapping import make_map
-from multi_repo_scan import scan_multiple_repos
-from printers import print_by_country, print_by_contributor
-from pypi import get_pypi_data, extract_github_owner_and_repo
+from gitgeo.github import get_contributors
+from gitgeo.mapping import make_map
+from gitgeo.multi_repo_scan import scan_multiple_repos
+from gitgeo.printers import print_by_country, print_by_contributor
+from gitgeo.pypi import get_pypi_data, extract_github_owner_and_repo
 
 
 def parse_arguments():  # pragma: no cover
@@ -109,8 +109,7 @@ def scan_single_repo(repo, summary, output_csv, num=100):
         print_by_contributor(repo_ending_string, contributors, output_csv)
 
 
-if __name__ == "__main__":  # pragma: no cover
-
+def main(): # pragma: no cover
     args = parse_arguments()
 
     if args.package:
