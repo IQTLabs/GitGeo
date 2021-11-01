@@ -1,2 +1,3 @@
 include gitgeo/world_cities.csv
 include gitgeo/geographies_list.csv
+include gitgeo/country_codes.csv
