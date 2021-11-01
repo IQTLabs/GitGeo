@@ -5,7 +5,7 @@ with open("requirements.txt") as fd:
 
 setup(
     name="gitgeo",
-    version="1.0.0",
+    version="1.0.1",
     description="Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.",
     long_description=open("README.rst").read(),
     keywords="open_source github",
