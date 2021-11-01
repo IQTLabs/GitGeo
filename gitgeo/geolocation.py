@@ -1,6 +1,6 @@
 """geolocation functionality."""
 
-from geographies_list import (
+from gitgeo.geographies_list import (
     ALL_COUNTRIES,
     CITY_COUNTRY_DICT,
     CODE_COUNTRY_DICT,

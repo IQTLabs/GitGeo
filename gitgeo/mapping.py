@@ -13,9 +13,9 @@ import time
 import folium
 import pandas as pd
 
-from geolocation import get_country_from_location
-from github import get_contributors, get_contributor_location
-from pypi import extract_github_owner_and_repo
+from gitgeo.geolocation import get_country_from_location
+from gitgeo.github import get_contributors, get_contributor_location
+from gitgeo.pypi import extract_github_owner_and_repo
 
 
 def make_map(repo=None, csv=None, num=100):

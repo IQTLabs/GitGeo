@@ -1,11 +1,12 @@
 """Geography lists used to map user location text to country."""
 
 import csv
+from pathlib import Path
 
 # static list of all cities mapped to countries
 # from https://datahub.io/core/world-cities\
 # ignore errors because of many unicode errors.
-with open("world_cities.csv", errors="ignore", newline="") as file:
+with open(Path(__file__).with_name("world_cities.csv"), errors="ignore", newline="") as file:
     reader = csv.reader(file)
     city_country_list = list(reader)
     city_country_dict = {}
@@ -37,7 +38,7 @@ CITY_COUNTRY_DICT = city_country_dict
 METRO_AREA_COUNTRY_DICT = metro_area_country_dict
 
 # list of country codes
-with open("country_codes.csv", errors="ignore", newline="") as file:
+with open(Path(__file__).with_name("country_codes.csv"), errors="ignore", newline="") as file:
     reader = csv.reader(file)
     code_country_list = list(reader)
     code_country_dict = {}
@@ -460,7 +461,7 @@ SPECIAL_CITIES = {
 # so it's easier for us to try this match first
 CITY_COUNTRY_STRINGS = {}
 # Add ignore errors to deal with strange characters on windows machine
-with open("world_cities.csv", errors="ignore") as file:
+with open(Path(__file__).with_name("world_cities.csv"), errors="ignore") as file:
     # pylint: disable=bad-continuation
     data = file.readlines()
     for line in csv.reader(
