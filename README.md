@@ -25,7 +25,7 @@ See, for instance, the geography of the contributors to the Python package reque
 ```bash
 git clone https://github.com/IQTLabs/GitGeo
 cd GitGeo
-pip install -r requirements.txt
+python setup.py develop
 ```
 
 ## Usage
@@ -45,13 +45,13 @@ export GITHUB_TOKEN='[github_token]'
   
 - Third, run these commands in the command line:
 
-```python main.py --package [package_name]```
+```gitgeo --package [package_name]```
 
-```python main.py --repo [github_repo_url]```
+```gitgeo --repo [github_repo_url]```
 
 For example:
 
-```>>> python main.py --package requests```
+```>>> gitgeo --package requests```
 
 ```
 -----------------
@@ -73,7 +73,7 @@ jgorset | Oslo, Norway
 
 Or:
 
-```>>> python main.py --repo www.github.com/psf/requests```
+```>>> gitgeo --repo www.github.com/psf/requests```
 
 ```
 -----------------
@@ -92,7 +92,7 @@ There are other command line options too:
 
 Add ```--summary``` to get the results summarized by country. e.g.
 
-```>>> python main.py --package requests --summary```
+```>>> gitgeo --package requests --summary```
 
 ```
 -----------------
