@@ -25,6 +25,7 @@ setup(
     ],
     packages=find_packages(),
     install_requires=install_requires,
+    include_package_data=True,
     tests_require=["pytest"],
     entry_points={"console_scripts": ["gitgeo = gitgeo.main:main"]},
 )
