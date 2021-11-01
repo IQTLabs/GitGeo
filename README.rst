@@ -65,9 +65,7 @@ Installation
 
 .. code-block:: bash
 
-   git clone https://github.com/IQTLabs/GitGeo
-   cd GitGeo
-   python setup.py develop
+   pip install gitgeo
 
 Usage
 -----
