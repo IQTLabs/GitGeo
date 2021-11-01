@@ -60,12 +60,26 @@ Why use GitGeo?
 * Research on open source software ecosystems
 * IT security compliance
 
+
+Related Writing
+---------------
+
+* `GitGeo Overview Blog <https://www.iqt.org/gitgeo-discover-the-geography-of-open-source-software/>`_
+* `GitGeo Applied to Open Source Python Data Science Blog <https://www.iqt.org/the-geography-of-open-source-data-science-mapping-anaconda-code-contributors/>`_
+
+
 Installation
 ------------
 
 .. code-block:: bash
 
    pip install gitgeo
+   
+Or:
+
+.. code-block:: bash
+
+   git clone https://github.com/IQTLabs/GitGeo
 
 Usage
 -----
