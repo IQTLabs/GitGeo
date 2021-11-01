@@ -7,7 +7,7 @@ setup(
     name="gitgeo",
     version="1.0.0",
     description="Discover the geography of open-source software. Explore the geographic locations of software developers associated with a GitHub repository or a Python (PyPI) package.",
-    long_description=open("README.md").read(),
+    long_description=open("README.rst").read(),
     keywords="open_source github",
     author="John Speed Meyers",
     author_email="54914994+jspeed-meyers@users.noreply.github.com",
