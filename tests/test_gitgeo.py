@@ -391,8 +391,8 @@ def test_print_by_contributor_package(capsys):
         CStephenson970 | None | None
         renovate-bot | None | None
         lilchurro | None | None
-        jspeed-meyers * | None | None
         rashley-iqt | None | None
+        jspeed-meyers * | None | None
         pyup-bot | None | None
         alshaboti | Wellington, New Zealand | New Zealand
         jseparovic | Mountain View, CA | United States
