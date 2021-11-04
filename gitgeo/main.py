@@ -123,3 +123,6 @@ def main(): # pragma: no cover
         scan_multiple_repos(num=args.num)
     elif args.multirepo_map:
         make_map(csv=args.multirepo_map)
+
+if __name__ == "__main__":
+    main()
