@@ -3,7 +3,7 @@
 # pylint: disable=too-many-arguments, bad-continuation
 
 import csv
-import os
+from pathlib import Path
 
 
 def create_csv(results_type, timestamp):
@@ -17,7 +17,9 @@ def create_csv(results_type, timestamp):
     Returns:
         None
     """
-    filename = os.path.join("results", results_type + "_" + timestamp + ".csv")
+    filename = Path.cwd() / "results"
+    filename.mkdir(exist_ok=True)
+    filename /= results_type + "_" + timestamp + ".csv"
 
     # Create new csv file with column names
     with open(filename, "w", encoding="utf-8", newline="") as file:
@@ -46,7 +48,9 @@ def add_committer_to_csv(
     """
     # replace slashes to avoid incorrect creation of directories
     software_name = software_name.replace("/", "_")
-    filename = os.path.join("results", results_type + "_" + timestamp + ".csv")
+    filename = Path.cwd() / "results"
+    filename.mkdir(exist_ok=True)
+    filename /= results_type + "_" + timestamp + ".csv"
     # newline='' prevents spaces in between entries. Setting encoding to utf-8
     # ensures that most (all?) characters can be read. "a" is for append.
     with open(filename, "a", encoding="utf-8", newline="") as file:
