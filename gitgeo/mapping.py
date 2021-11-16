@@ -97,7 +97,7 @@ def make_map(repo=None, csv=None, num=100):
     map_filename = Path.cwd() / "results"
     map_filename.mkdir(exist_ok=True)
     map_filename /= "map" + "_" + timestamp + ".html"
-    m.save(map_filename)
+    m.save(str(map_filename))
 
 
 def add_contributor_count_to_json(df):
