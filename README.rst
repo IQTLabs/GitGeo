@@ -193,57 +193,6 @@ Run tests:
 
    pytest
 
-Roadmap
--------
-
-
-* Investigate capability of predicting location via a model given only timestamp from commit and commit-related data. (Kinga)
-* Investigate GitHub API for examining merges and who has merge rights.
-* Add capability of reading through commits and, specifically, (1) determine if GitHub commit rights can be inferred.
-* Investigate capability of extracting all users associated with a GitHub group
-* Investigate capability to determine authenticity of location information
-* Investigate possibility of geographic diversity score for a repo or package
-* Investigate possibility of linking emails in commits to email breach lists.
-* Investigate possibility of determining whether a project is a "hobby" project (outside of working hours) or a "work" project (within working hours)?
-* Investigate possibility of using NLP to determine codebase specialties of each contributor. e.g.
-  This person is the "auth" person.
-* Investigate over time commit analysis visualization
-* Add dump multirepo results (or similar aggregate scan) to s3 capability
-* Investigate diff to tweet capability. Reveal major contributor changes in critical projects to an open feed.
-* Investigate switching ownership data. Would be interesting to alert users to this.
-* Investigate by user capability. Determine all repo's a user has contributed to. Do a quick git blame for a user.
-
-Rainy Day Options
------------------
-
-
-* Access commercial API's to enrich data on GitHub usernames or, if included in GitHub profile, email handles, etc. Perhaps People Data Labs or Explorium. (MK)
-
-Potential Research Questions
-----------------------------
-
-
-* Are there places in the world with unrecognized pockets of software developers?
-* Where are maintainers associated with the most critical python packages?
-
-  * Who are the maintainers that are associated with multiple critical python packages?
-  * What about contribution-related weighting?
-
-* Where are the maintainers associated with the top GitHub packages by stars? Top data science packages? Quantum computing packages? Blockhcain packages? Etc? (RP)
-
-  * Then do sub-analysis that asks on what repos or types of repos developers of a given country are most active
-
-* What predicts the number of top python packages software developers by country?
-
-  * Total number of coders per country?
-  * Total number of python coders per country?
-  * GDP per capita per country?
-
-* Is it possible to "verify" user information?
-
-Known bugs
-----------
-
 Want to contribute?
 -------------------
 
