@@ -7,7 +7,7 @@
 
 from collections import Counter
 import json
-import os
+from pathlib import Path
 import time
 
 import folium
@@ -94,8 +94,10 @@ def make_map(repo=None, csv=None, num=100):
 
     # save with cross-platform, timestamped filename
     timestamp = time.strftime("%Y%m%d-%H%M%S")
-    map_filename = os.path.join("results", "map" + "_" + timestamp + ".html")
-    m.save(map_filename)
+    map_filename = Path.cwd() / "results"
+    map_filename.mkdir(exist_ok=True)
+    map_filename /= "map" + "_" + timestamp + ".html"
+    m.save(str(map_filename))
 
 
 def add_contributor_count_to_json(df):
@@ -112,7 +114,7 @@ def add_contributor_count_to_json(df):
     Returns:
         json_data - a json objecet containing a contributor_count field
     """
-    with open("world.json") as original_json_file:
+    with open(Path(__file__).with_name("world.json")) as original_json_file:
         # load json file into an object
         data = json.load(original_json_file)
         for obj in data["features"]:
@@ -182,7 +184,7 @@ def get_dataframe_from_csv(filename):
         num_contributors - total number of contributors
     """
     # file must be in the results folder
-    df = pd.read_csv(os.path.join("results", filename))
+    df = pd.read_csv(Path.cwd() / "results" / filename)
     num_contributors = len(df)
 
     # create by-country count dict and then convert to pandas dataframe
