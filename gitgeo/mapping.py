@@ -112,7 +112,7 @@ def add_contributor_count_to_json(df):
         df - a dataframe
 
     Returns:
-        json_data - a json objecet containing a contributor_count field
+        json_data - a json object containing a contributor_count field
     """
     with open(Path(__file__).with_name("world.json")) as original_json_file:
         # load json file into an object
