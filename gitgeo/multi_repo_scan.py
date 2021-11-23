@@ -35,7 +35,10 @@ def scan_multiple_repos(input_file="repos.txt", num=100):
             # strip blank space before extracting owner and repo name
             repo_ending_string = extract_github_owner_and_repo(repo.strip())
             contributors = get_contributors(repo_ending_string, num)
-            for contributor in contributors:
+
+            for i, contributor in enumerate(contributors):
+                if i >= num:
+                    break
                 location = get_contributor_location(contributor)
                 country = get_country_from_location(location)
                 add_committer_to_csv(

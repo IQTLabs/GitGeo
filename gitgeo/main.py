@@ -47,7 +47,7 @@ def parse_arguments():  # pragma: no cover
     )
     parser.add_argument(
         "--num",
-        choices=range(100, 501, 100),  # 501 so that upper limit is 500
+        choices=range(1, 501),  # 501 so that upper limit is 500
         type=int,
         default=100,
         dest="num",
@@ -109,7 +109,7 @@ def scan_single_repo(repo, summary, output_csv, num=100):
         print_by_contributor(repo_ending_string, contributors, output_csv)
 
 
-def main(): # pragma: no cover
+def main():  # pragma: no cover
     args = parse_arguments()
 
     if args.package:
@@ -123,6 +123,7 @@ def main(): # pragma: no cover
         scan_multiple_repos(num=args.num)
     elif args.multirepo_map:
         make_map(csv=args.multirepo_map)
+
 
 if __name__ == "__main__":
     main()

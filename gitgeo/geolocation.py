@@ -55,9 +55,7 @@ def edit_distance_to_world(location):
     """
     # pylint: disable=invalid-name
 
-
-
-    location = location.title() # capitalizes the first letter of every word
+    location = location.title()  # capitalizes the first letter of every word
 
     # special cities and countries
     special_locations_domestic = [
@@ -112,21 +110,45 @@ def get_country_from_location(location_string):
 
     location_string = location_string[0].upper() + location_string[1:]
 
-    special_locations_domestic = ["US", "USA", "U.S.A", "U.S.", "San Francisco", 'NYC', 'Bay Area', 'New York', 'SF', 'SF Bay Area']
+    special_locations_domestic = [
+        "US",
+        "USA",
+        "U.S.A",
+        "U.S.",
+        "San Francisco",
+        "NYC",
+        "Bay Area",
+        "New York",
+        "SF",
+        "SF Bay Area",
+    ]
     if location_string in special_locations_domestic:
         return "United States"
     for locale in special_locations_domestic:
         if locale in location_string:
             return "United States"
 
-    special_locations_universe = ["EU", "Europe", 'Earth', 'Universe', 'Mars', 'Milky Way', 'Knowhere', 'Internet', 'Remote', 'space', '127.0.0.1', 'localhost']
+    special_locations_universe = [
+        "EU",
+        "Europe",
+        "Earth",
+        "Universe",
+        "Mars",
+        "Milky Way",
+        "Knowhere",
+        "Internet",
+        "Remote",
+        "space",
+        "127.0.0.1",
+        "localhost",
+    ]
     if location_string in special_locations_universe:
         return "None"
     for special in special_locations_universe:
         if special in location_string:
             return "None"
 
-    special_locations_international = {'Scotland':'United Kingdom'}
+    special_locations_international = {"Scotland": "United Kingdom"}
     for special in special_locations_international.keys():
         if special in location_string:
             return special_locations_international[special]
@@ -138,22 +160,22 @@ def get_country_from_location(location_string):
         return SPECIAL_CITIES[location_string]
 
     # do some basic cleanup on weird characters in the location
-    location_string = location_string.replace("/", ' ')
-    location_string = location_string.replace("√©", 'e')
-    location_string = location_string.replace("√º", 'u')
-    location_string = location_string.replace("The ", '')
-    location_string = location_string.replace("the ", '')
-    location_string = location_string.replace("√≠", 'i')
-    location_string = location_string.replace("√®", 'e')
-    location_string = location_string.replace(".", '')
-    location_string = location_string.replace("(", '')
-    location_string = location_string.replace(")", '')
-    location_string = location_string.replace("»ô", 's')
-    location_string = location_string.replace("√£", 'a')
-    location_string = location_string.replace("√≥", 'o')
-    location_string = location_string.replace("Ƒ∞", 'I')
-    location_string = location_string.replace("c≈Ç", 'c')
-    location_string = location_string.replace("≈Ñ", 'n')
+    location_string = location_string.replace("/", " ")
+    location_string = location_string.replace("√©", "e")
+    location_string = location_string.replace("√º", "u")
+    location_string = location_string.replace("The ", "")
+    location_string = location_string.replace("the ", "")
+    location_string = location_string.replace("√≠", "i")
+    location_string = location_string.replace("√®", "e")
+    location_string = location_string.replace(".", "")
+    location_string = location_string.replace("(", "")
+    location_string = location_string.replace(")", "")
+    location_string = location_string.replace("»ô", "s")
+    location_string = location_string.replace("√£", "a")
+    location_string = location_string.replace("√≥", "o")
+    location_string = location_string.replace("Ƒ∞", "I")
+    location_string = location_string.replace("c≈Ç", "c")
+    location_string = location_string.replace("≈Ñ", "n")
 
     # sometimes they give an international state or metro area
     if location_string in METRO_AREA_COUNTRY_DICT.keys():
@@ -174,7 +196,6 @@ def get_country_from_location(location_string):
     if location_string in SPECIAL_CITIES.keys():
         return SPECIAL_CITIES[location_string]
 
-
     # if not international, likely to be USA: check if ends in a state
     for state in STATE_NAMES:
         if location_string.endswith(state):
@@ -191,7 +212,7 @@ def get_country_from_location(location_string):
 
             token = pieces[position].strip()
             # if the token is not a two-character state or country code, capitalize first letters of words
-            if len(token) > 2:  
+            if len(token) > 2:
                 token = token.title()
 
             # Use returns as a way of exiting double loop

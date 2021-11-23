@@ -2,6 +2,7 @@
 
 import itertools
 import json
+import math
 import os
 
 import requests
@@ -88,7 +89,7 @@ def get_contributors(repo, max_num_contributors=100):
         list: committer handles
     """
     committers = []
-    max_num_pages = int(max_num_contributors / 100)
+    max_num_pages = math.ceil(float(max_num_contributors / 100.0))
 
     # the loop handles pagination associated with the GitHub API
     for page in range(1, max_num_pages + 1):

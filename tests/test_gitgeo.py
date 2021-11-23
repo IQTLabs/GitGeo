@@ -236,7 +236,10 @@ class TestGitHubFunctionality:  # pragma: no cover
         assert get_country_from_location("Greater Los Angeles Area") == "United States"
         assert get_country_from_location("Forschungszentrum") == "Germany"
         assert get_country_from_location("Montigny-l√®s-Metz") == "France"
-        assert get_country_from_location("roudnice nad labem, czech republic") == "Czech Republic"
+        assert (
+            get_country_from_location("roudnice nad labem, czech republic")
+            == "Czech Republic"
+        )
         assert get_country_from_location("Berlin/Florence") == "Germany"
         assert get_country_from_location("Greater Seattle Area") == "United States"
         assert get_country_from_location("Flanders, Europe, Earth") == "Belgium"
