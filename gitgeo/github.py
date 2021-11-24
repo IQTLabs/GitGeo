@@ -4,6 +4,7 @@ import itertools
 import json
 import math
 import os
+import time
 
 import requests
 
@@ -91,29 +92,56 @@ def get_contributors(repo, max_num_contributors=100):
     committers = []
     max_num_pages = math.ceil(float(max_num_contributors / 100.0))
 
+    repos_data = None
+    repo_items = None
+    json_file_exists = os.path.isfile("repos.json")
+
+    if json_file_exists:
+        with open("repos.json") as f:
+            repos_data = json.load(f)
+
     # the loop handles pagination associated with the GitHub API
     for page in range(1, max_num_pages + 1):
-        # cycle through GitHub tokens
-        github_token = next(GITHUB_TOKENS)
-        response = requests.get(
-            "https://api.github.com/repos/"
-            + repo
-            + "/contributors?page="
-            + str(page)
-            + "&per_page=100",
-            # convert username and token to strings per requests's specifications
-            auth=(str(GITHUB_USERNAME), str(github_token)),
-        )
 
-        if response.ok:
-            repo_items = json.loads(response.text or response.content)
-            for item in repo_items:
-                committers.append(item["login"])
+        request_url = f"https://api.github.com/repos/{repo}/contributors?page={str(page)}&per_page=100"
 
-        # determine if pagination has ended or not. If there are more pages
-        # to return, the API JSON will include a 'next' field
-        if "next" not in response.links:
-            break
+        if repos_data and request_url in repos_data:
+            # load from cache
+            repo_items = repos_data[request_url]
+
+        else:
+            # cycle through GitHub tokens
+            github_token = next(GITHUB_TOKENS)
+
+            response = requests.get(
+                request_url,
+                # convert username and token to strings per requests's specifications
+                auth=(str(GITHUB_USERNAME), str(github_token)),
+            )
+
+            if response.ok:
+                repo_items = json.loads(response.text or response.content)
+
+                if json_file_exists:
+                    append_json("repos.json", request_url, repo_items)
+                else:
+                    with open("repos.json", "w") as f:
+                        json.dump(
+                            {request_url: repo_items}, f, indent=4, sort_keys=True
+                        )
+
+                # determine if pagination has ended or not. If there are more pages
+                # to return, the API JSON will include a 'next' field
+                if "next" not in response.links:
+                    break
+            elif not response.ok:
+                # Wait a little over an hour
+                time.sleep(3660)
+                return get_contributors(repo, max_num_contributors)
+
+    if repo_items:
+        for item in repo_items:
+            committers.append(item["login"])
 
     return committers
 
@@ -127,17 +155,54 @@ def get_contributor_location(user):
     Return:
         str: a geographic location
     """
-    # cycle through GitHub tokens
-    github_token = next(GITHUB_TOKENS)
-    response = requests.get(
-        "https://api.github.com/users/" + user,
-        # convert username and token to strings per requests's specifications
-        auth=(str(GITHUB_USERNAME), str(github_token)),
-    )
+    contributor_data = None
+    user_info = None
 
-    user_location = ""
-    if response.ok:
-        user_info = json.loads(response.text or response.content)
+    json_file_exists = os.path.isfile("contributors.json")
+
+    if json_file_exists:
+        with open("contributors.json") as f:
+            contributor_data = json.load(f)
+
+    request_url = f"https://api.github.com/users/{user}"
+
+    if contributor_data and request_url in contributor_data:
+
+        # load from cache
+        user_info = contributor_data[request_url]
+
+    else:
+
+        # cycle through GitHub tokens
+        github_token = next(GITHUB_TOKENS)
+        response = requests.get(
+            request_url,
+            # convert username and token to strings per requests's specifications
+            auth=(str(GITHUB_USERNAME), str(github_token)),
+        )
+
+        user_location = ""
+        if response.ok:
+            user_info = json.loads(response.text or response.content)
+            if json_file_exists:
+                append_json("contributors.json", request_url, user_info)
+            else:
+                with open("contributors.json", "w") as f:
+                    json.dump({request_url: user_info}, f, indent=4, sort_keys=True)
+        elif not response.ok:
+            # Wait a little over an hour
+            time.sleep(3660)
+            return get_contributor_location(user)
+
+    if user_info:
         user_location = user_info["location"]
 
     return user_location
+
+
+def append_json(filepath, request_url, user_info):
+    with open(filepath) as f:
+        data = json.load(f)
+        data[request_url] = user_info
+    with open(filepath, "w") as f:
+        json.dump(data, f, indent=4, sort_keys=True)
