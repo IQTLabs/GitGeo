@@ -74,7 +74,7 @@ def read_in_github_token_list(file="tokens.txt"):
 GITHUB_TOKENS = get_github_tokens()
 
 
-def get_contributors(repo, max_num_contributors=100):
+def get_contributors(repo, max_num_contributors=100, cache_file="repos.json"):
     """Generate list of up to top 500 contributors for a repo.
 
     Create list of contributors for a repo. The GitHub API will return up
@@ -85,6 +85,7 @@ def get_contributors(repo, max_num_contributors=100):
         repo: a GitHub repo url
         max_num_contributors: the maximum number of contributors to return
                               if available
+        cache_file: a json document storing cached contributors information
 
     Return:
         list: committer handles
@@ -94,10 +95,10 @@ def get_contributors(repo, max_num_contributors=100):
 
     repos_data = None
     repo_items = None
-    json_file_exists = os.path.isfile("repos.json")
+    json_file_exists = os.path.isfile(cache_file)
 
     if json_file_exists:
-        with open("repos.json") as f:
+        with open(cache_file) as f:
             repos_data = json.load(f)
 
     # the loop handles pagination associated with the GitHub API
@@ -123,9 +124,9 @@ def get_contributors(repo, max_num_contributors=100):
                 repo_items = json.loads(response.text or response.content)
 
                 if json_file_exists:
-                    append_json("repos.json", request_url, repo_items)
+                    append_json(cache_file, request_url, repo_items)
                 else:
-                    with open("repos.json", "w") as f:
+                    with open(cache_file, "w") as f:
                         json.dump(
                             {request_url: repo_items}, f, indent=4, sort_keys=True
                         )
@@ -148,11 +149,12 @@ def get_contributors(repo, max_num_contributors=100):
     return committers
 
 
-def get_contributor_location(user):
+def get_contributor_location(user, cache_file="contributors.json"):
     """Return geographic location, if present on github page, of user.
 
     Args:
         user: the GitHub user name
+        cache_file: a json document storing cached contributors information
 
     Return:
         str: a geographic location
@@ -160,10 +162,10 @@ def get_contributor_location(user):
     contributor_data = None
     user_info = None
 
-    json_file_exists = os.path.isfile("contributors.json")
+    json_file_exists = os.path.isfile(cache_file)
 
     if json_file_exists:
-        with open("contributors.json") as f:
+        with open(cache_file) as f:
             contributor_data = json.load(f)
 
     request_url = f"https://api.github.com/users/{user}"
@@ -188,9 +190,9 @@ def get_contributor_location(user):
         if response.ok:
             user_info = json.loads(response.text or response.content)
             if json_file_exists:
-                append_json("contributors.json", request_url, user_info)
+                append_json(cache_file, request_url, user_info)
             else:
-                with open("contributors.json", "w") as f:
+                with open(cache_file, "w") as f:
                     json.dump({request_url: user_info}, f, indent=4, sort_keys=True)
         elif response.status_code == 403:
             # Response indicates too many requests - Wait a little over an hour and try again
