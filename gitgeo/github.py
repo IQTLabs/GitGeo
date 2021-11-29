@@ -111,8 +111,6 @@ def get_contributors(repo, max_num_contributors=100):
 
         else:
             # cycle through GitHub tokens
-            user = GITHUB_USERNAME
-            git = GITHUB_TOKENS
             github_token = next(GITHUB_TOKENS)
 
             response = requests.get(
@@ -141,7 +139,7 @@ def get_contributors(repo, max_num_contributors=100):
                 time.sleep(3660)
                 return get_contributors(repo, max_num_contributors)
             else:
-                print(response.reason)
+                print(f"Could not get {request_url}: {response.reason}")
 
     if repo_items:
         for item in repo_items:
@@ -179,6 +177,7 @@ def get_contributor_location(user):
 
         # cycle through GitHub tokens
         github_token = next(GITHUB_TOKENS)
+
         response = requests.get(
             request_url,
             # convert username and token to strings per requests's specifications
@@ -198,7 +197,7 @@ def get_contributor_location(user):
             time.sleep(3660)
             return get_contributor_location(user)
         else:
-            print(response.reason)
+            print(f"Could not get {request_url}: {response.reason}")
 
     if user_info:
         user_location = user_info["location"]
