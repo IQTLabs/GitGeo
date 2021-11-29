@@ -111,6 +111,8 @@ def get_contributors(repo, max_num_contributors=100):
 
         else:
             # cycle through GitHub tokens
+            user = GITHUB_USERNAME
+            git = GITHUB_TOKENS
             github_token = next(GITHUB_TOKENS)
 
             response = requests.get(
@@ -134,10 +136,12 @@ def get_contributors(repo, max_num_contributors=100):
                 # to return, the API JSON will include a 'next' field
                 if "next" not in response.links:
                     break
-            elif not response.ok:
-                # Wait a little over an hour
+            elif response.status_code == 403:
+                # Response indicates too many requests - Wait a little over an hour and try again
                 time.sleep(3660)
                 return get_contributors(repo, max_num_contributors)
+            else:
+                print(response.reason)
 
     if repo_items:
         for item in repo_items:
@@ -189,10 +193,12 @@ def get_contributor_location(user):
             else:
                 with open("contributors.json", "w") as f:
                     json.dump({request_url: user_info}, f, indent=4, sort_keys=True)
-        elif not response.ok:
-            # Wait a little over an hour
+        elif response.status_code == 403:
+            # Response indicates too many requests - Wait a little over an hour and try again
             time.sleep(3660)
             return get_contributor_location(user)
+        else:
+            print(response.reason)
 
     if user_info:
         user_location = user_info["location"]
