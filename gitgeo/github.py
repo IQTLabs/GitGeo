@@ -91,7 +91,7 @@ def get_contributors(repo, max_num_contributors=100, cache_file="repos.json"):
         list: committer handles
     """
     committers = []
-    max_num_pages = math.ceil(float(max_num_contributors / 100.0))
+    max_num_pages = math.ceil(max_num_contributors / 100.0)
 
     repos_data = None
     repo_items = None
