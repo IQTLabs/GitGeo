@@ -74,7 +74,7 @@ def read_in_github_token_list(file="tokens.txt"):
 GITHUB_TOKENS = get_github_tokens()
 
 
-def get_contributors(repo, max_num_contributors=100, cache_file="repos.json"):
+def get_contributors(repo, cache_file, max_num_contributors=100):
     """Generate list of up to top 500 contributors for a repo.
 
     Create list of contributors for a repo. The GitHub API will return up
@@ -149,7 +149,7 @@ def get_contributors(repo, max_num_contributors=100, cache_file="repos.json"):
     return committers
 
 
-def get_contributor_location(user, cache_file="contributors.json"):
+def get_contributor_location(user, cache_file):
     """Return geographic location, if present on github page, of user.
 
     Args:

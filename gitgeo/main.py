@@ -21,6 +21,13 @@ def parse_arguments():  # pragma: no cover
         help="Scan multiple repos from input file.",
     )
     parser.add_argument(
+        "--force",
+        dest="force",
+        action="store_true",
+        default=False,
+        help="Force reset of json caching",
+    )
+    parser.add_argument(
         "--multirepo_map",
         dest="multirepo_map",
         action="store",
@@ -120,7 +127,7 @@ def main():  # pragma: no cover
         else:
             scan_single_repo(args.repo, args.summary, args.output_csv, args.num)
     elif args.multirepo:
-        scan_multiple_repos(num=args.num)
+        scan_multiple_repos(num=args.num, force=args.force)
     elif args.multirepo_map:
         make_map(csv=args.multirepo_map)
 
